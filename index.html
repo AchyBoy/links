@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="x-links-version" content="v1.1">
+<meta name="x-links-version" content="v1.2">
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="My Links">
@@ -55,6 +55,10 @@
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   var standalone = navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
   if (!standalone) $('tip').style.display = 'block';
+  // From the Home Screen icon, iPhone opens links in a little in-app browser that blocks Print
+  // (and other things). x-safari-https:// hands the link to real Safari instead (iOS 17+).
+  var safariJump = standalone && /iPhone|iPad|iPod/.test(navigator.userAgent);
+  function openUrl(u){ return safariJump && /^https?:\/\//i.test(u) ? 'x-safari-' + u : u; }
   if (!KEY) { $('list').innerHTML = '<div class="empty">This page needs your private link.</div>'; return; }
   localStorage.setItem('links-key', KEY);
   if (!m) history.replaceState(null, '', location.pathname + '#k=' + KEY);
@@ -85,7 +89,7 @@
           (it.desc ? '<div class="d">' + esc(it.desc) + '</div>' : '') +
           (it.warn ? '<div class="d warn">' + esc(it.warn) + '</div>' : '') +
           (it.url ? '<div class="u">' + esc(it.url.replace(/^https?:\/\//, '')) + '</div>' +
-            '<div class="row"><a class="open" href="' + esc(it.url) + '" target="_blank" rel="noopener">Open</a>' +
+            '<div class="row"><a class="open" href="' + esc(openUrl(it.url)) + '"' + (safariJump ? '' : ' target="_blank" rel="noopener"') + '>Open</a>' +
             '<button data-share="' + i + '">Share</button></div>' : '') + '</div>';
       });
     });
