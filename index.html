@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="x-links-version" content="v1.0">
+<meta name="x-links-version" content="v1.1">
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="My Links">
@@ -68,6 +68,7 @@
   }).catch(function(){ if (!data) $('list').innerHTML = '<div class="empty">No signal. Try again in a moment.</div>'; });
 
   function render(){
+    render.map = {}; render.n = 0;   // set here: the first draw (from the saved copy) runs before any line below
     var q = $('q').value.trim().toLowerCase();
     $('upd').textContent = data.updated ? 'Updated ' + data.updated : '';
     var h = '';
@@ -98,7 +99,6 @@
       });
     });
   }
-  render.map = {};
   $('q').addEventListener('input', function(){ if (data) render(); });
 })();
 </script>
