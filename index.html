@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="x-links-version" content="v1.0">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="My Links">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icon.png">
+<title>My Links</title>
+<style>
+  :root{ --ink:#1b1b1f; --dim:#6b6b76; --line:#e5e5ea; --bg:#f2f2f7; --card:#fff; --brand:#1f4fd1 }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; -webkit-text-size-adjust:100%}
+  .wrap{max-width:640px; margin:0 auto; padding:calc(env(safe-area-inset-top) + 18px) 16px calc(env(safe-area-inset-bottom) + 40px)}
+  h1{font-size:30px; margin:6px 2px 2px}
+  .upd{color:var(--dim); font-size:13px; margin:0 2px 14px}
+  .tip{background:#fff8e1; border:1px solid #f3dc8b; border-radius:12px; padding:10px 12px; font-size:14px; margin-bottom:14px}
+  input.q{width:100%; border:1px solid var(--line); border-radius:12px; padding:11px 13px; font:inherit; font-size:16px; background:#fff; margin-bottom:6px}
+  h2{font-size:13px; letter-spacing:.07em; text-transform:uppercase; color:var(--dim); margin:22px 4px 8px}
+  .card{background:var(--card); border-radius:14px; padding:13px 14px; margin-bottom:9px; box-shadow:0 1px 2px rgba(0,0,0,.06)}
+  .card .t{font-weight:700; font-size:16.5px}
+  .card .d{color:#3a3a42; font-size:14.5px; margin-top:4px; line-height:1.38}
+  .card .u{color:var(--dim); font-size:12px; margin-top:6px; word-break:break-all}
+  .card .row{display:flex; gap:8px; margin-top:10px}
+  .card a.open, .card button{flex:1; text-align:center; text-decoration:none; border-radius:10px; padding:10px; font:inherit; font-size:15px; font-weight:700}
+  .card a.open{background:var(--brand); color:#fff}
+  .card button{background:#fff; border:1px solid var(--line); color:var(--ink)}
+  .card.note{background:#eef2ff}
+  .warn{color:#b45309; font-weight:600}
+  .empty{color:var(--dim); text-align:center; padding:40px 10px; font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>My Links</h1>
+  <div class="upd" id="upd"></div>
+  <div class="tip" id="tip" style="display:none">To keep this on your phone: tap <b>Share</b> in Safari, then <b>Add to Home Screen</b>.</div>
+  <input class="q" id="q" placeholder="Search your links" autocomplete="off">
+  <div id="list"><div class="empty">Loading…</div></div>
+</div>
+<script>
+(function(){
+  'use strict';
+  // The links are NOT in this file (the site is public, and some links are keys,
+  // like the pastor's door-knocking link). They load from the server by a private
+  // key that rides in this page's address: #k=<key>. No key, nothing shown.
+  var API = 'https://api.jobhubgo.com/api/yam/';
+  var m = /[#&]k=([a-z0-9_-]+)/i.exec(location.hash);
+  var KEY = m ? m[1].toLowerCase() : (localStorage.getItem('links-key') || '');
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  var standalone = navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+  if (!standalone) $('tip').style.display = 'block';
+  if (!KEY) { $('list').innerHTML = '<div class="empty">This page needs your private link.</div>'; return; }
+  localStorage.setItem('links-key', KEY);
+  if (!m) history.replaceState(null, '', location.pathname + '#k=' + KEY);
+
+  var data = null;
+  try { data = JSON.parse(localStorage.getItem('links-data-' + KEY)); } catch(e){}
+  if (data) render();
+  fetch(API + 'links-' + KEY).then(function(r){ return r.json(); }).then(function(j){
+    if (j && j.data) { data = j.data; localStorage.setItem('links-data-' + KEY, JSON.stringify(data)); render(); }
+    else if (!data) $('list').innerHTML = '<div class="empty">No links saved for this key.</div>';
+  }).catch(function(){ if (!data) $('list').innerHTML = '<div class="empty">No signal. Try again in a moment.</div>'; });
+
+  function render(){
+    var q = $('q').value.trim().toLowerCase();
+    $('upd').textContent = data.updated ? 'Updated ' + data.updated : '';
+    var h = '';
+    (data.groups || []).forEach(function(g){
+      var items = (g.items || []).filter(function(it){
+        return !q || (it.title + ' ' + (it.desc || '') + ' ' + (it.url || '')).toLowerCase().indexOf(q) >= 0;
+      });
+      if (!items.length) return;
+      h += '<h2>' + esc(g.title) + '</h2>';
+      items.forEach(function(it){
+        var i = it.__i = (render.n = (render.n || 0) + 1);
+        render.map[i] = it;
+        h += '<div class="card' + (it.url ? '' : ' note') + '"><div class="t">' + esc(it.title) + '</div>' +
+          (it.desc ? '<div class="d">' + esc(it.desc) + '</div>' : '') +
+          (it.warn ? '<div class="d warn">' + esc(it.warn) + '</div>' : '') +
+          (it.url ? '<div class="u">' + esc(it.url.replace(/^https?:\/\//, '')) + '</div>' +
+            '<div class="row"><a class="open" href="' + esc(it.url) + '" target="_blank" rel="noopener">Open</a>' +
+            '<button data-share="' + i + '">Share</button></div>' : '') + '</div>';
+      });
+    });
+    $('list').innerHTML = h || '<div class="empty">Nothing matches.</div>';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-share]'), function(b){
+      b.addEventListener('click', function(){
+        var it = render.map[+b.dataset.share];
+        if (navigator.share) navigator.share({ title:it.title, url:it.url }).catch(function(){});
+        else if (navigator.clipboard) navigator.clipboard.writeText(it.url).then(function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Share'; }, 1500); });
+        else prompt('Copy this link', it.url);
+      });
+    });
+  }
+  render.map = {};
+  $('q').addEventListener('input', function(){ if (data) render(); });
+})();
+</script>
+</body>
+</html>
