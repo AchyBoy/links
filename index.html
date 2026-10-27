@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="x-links-version" content="v1.2">
+<meta name="x-links-version" content="v1.3">
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="My Links">
@@ -32,6 +32,7 @@
   .card.note{background:#eef2ff}
   .warn{color:#b45309; font-weight:600}
   .empty{color:var(--dim); text-align:center; padding:40px 10px; font-size:15px}
+.d.share{white-space:pre-wrap;font-style:italic;opacity:.8;margin-top:6px}
 </style>
 </head>
 <body>
@@ -90,16 +91,20 @@
           (it.warn ? '<div class="d warn">' + esc(it.warn) + '</div>' : '') +
           (it.url ? '<div class="u">' + esc(it.url.replace(/^https?:\/\//, '')) + '</div>' +
             '<div class="row"><a class="open" href="' + esc(openUrl(it.url)) + '"' + (safariJump ? '' : ' target="_blank" rel="noopener"') + '>Open</a>' +
-            '<button data-share="' + i + '">Share</button></div>' : '') + '</div>';
+            '<button data-share="' + i + '">' + (it.share ? 'Share + text' : 'Share') + '</button></div>' +
+            (it.share ? '<div class="d share">Sends with: ' + esc(it.share) + '</div>' : '') : '') + '</div>';
       });
     });
     $('list').innerHTML = h || '<div class="empty">Nothing matches.</div>';
     Array.prototype.forEach.call(document.querySelectorAll('[data-share]'), function(b){
       b.addEventListener('click', function(){
-        var it = render.map[+b.dataset.share];
-        if (navigator.share) navigator.share({ title:it.title, url:it.url }).catch(function(){});
-        else if (navigator.clipboard) navigator.clipboard.writeText(it.url).then(function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Share'; }, 1500); });
-        else prompt('Copy this link', it.url);
+        var it = render.map[+b.dataset.share], label = b.textContent;
+        // an item with a share message sends that message (it already holds the link), so nothing gets forgotten
+        var payload = it.share ? { text: it.share.indexOf(it.url) >= 0 ? it.share : it.share + '\n' + it.url } : { title:it.title, url:it.url };
+        var plain = payload.text || it.url;
+        if (navigator.share) navigator.share(payload).catch(function(){});
+        else if (navigator.clipboard) navigator.clipboard.writeText(plain).then(function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = label; }, 1500); });
+        else prompt('Copy this', plain);
       });
     });
   }
