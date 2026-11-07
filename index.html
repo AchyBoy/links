@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="x-links-version" content="v1.5">
+<meta name="x-links-version" content="v1.6">
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="My Links">
@@ -185,7 +185,7 @@
     });
   }
   function mlRun(body, site, wait){
-    mlMsg[site] = {t: macAway() ? wait + ' (the Mac looks away, it will run when it wakes)' : wait}; mlRender();
+    mlMsg[site] = {t: wait}; mlRender();
     mlPost(body).then(function(j){
       var n = 0;
       (function tick(){
@@ -194,6 +194,8 @@
             mlMsg[site] = {t:r.result || r.status, c:r.status === 'done' ? 'ok' : 'bad'}; mlRender(); setTimeout(mlLoad, 8000); return;
           }
           if (r.status === 'expired') { mlMsg[site] = {t:'The Mac never picked it up. Is it on?', c:'bad'}; mlRender(); return; }
+          if (++n === 10 && r.status === 'waiting') { mlMsg[site] = {t:'Waiting on the Mac. It may be asleep; it runs when it wakes.'}; mlRender(); }
+          if (r.status === 'working' && n === 15) { mlMsg[site] = {t:'The Mac is working on it. If it hangs, check the Mac screen for a question.'}; mlRender(); }
           if (++n < 90) setTimeout(tick, 2000); else { mlMsg[site] = {t:'Still waiting on the Mac.', c:'bad'}; mlRender(); }
         }).catch(function(){ setTimeout(tick, 4000); });
       })();
