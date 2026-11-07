@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="x-links-version" content="v1.4">
+<meta name="x-links-version" content="v1.5">
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="My Links">
@@ -33,6 +33,10 @@
   .warn{color:#b45309; font-weight:600}
   .empty{color:var(--dim); text-align:center; padding:40px 10px; font-size:15px}
 .d.share{white-space:pre-wrap;font-style:italic;opacity:.8;margin-top:6px}
+  .card a.open.small, .card button.small{flex:0 0 auto; font-weight:600; font-size:14px; padding:10px 12px}
+  .ml-msg{font-size:14px; margin-top:8px; color:var(--dim)} .ml-msg.ok{color:#15803d} .ml-msg.bad{color:#b91c1c}
+  .ml-form label{display:block; font-size:13px; color:var(--dim); margin:10px 0 4px}
+  .ml-form input{width:100%; border:1px solid var(--line); border-radius:10px; padding:10px 12px; font:inherit; font-size:16px}
 </style>
 </head>
 <body>
@@ -41,6 +45,7 @@
   <div class="upd" id="upd"></div>
   <div class="tip" id="tip" style="display:none">To keep this on your phone: tap <b>Share</b> in Safari, then <b>Add to Home Screen</b>.</div>
   <input class="q" id="q" placeholder="Search your links" autocomplete="off">
+  <div id="macl"></div>
   <div id="list"><div class="empty">Loading…</div></div>
 </div>
 <script>
@@ -115,6 +120,86 @@
     });
   }
   $('q').addEventListener('input', function(){ if (data) render(); });
+
+  // ---------- Mac logins ----------
+  // "Log in" asks the jhlogin helper on the Mac to log that site in on the
+  // Mac's Chrome, so tabs can be closed freely. A new password is encrypted
+  // HERE to the Mac's public key; the server only passes it along and the Mac
+  // keeps it in its Keychain. See jobhub-backend/src/routes/macLogin.ts.
+  var ML = 'https://api.jobhubgo.com/api/mac-login', ms = null, mlMsg = {}, mlForm = null;
+  function mlGet(path){ return fetch(ML + path + (path.indexOf('?') < 0 ? '?' : '&') + 'k=' + KEY).then(function(r){ return r.json(); }); }
+  function mlPost(body){
+    return fetch(ML + '/jobs?k=' + KEY, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)})
+      .then(function(r){ return r.json().then(function(j){ if (!r.ok) throw new Error(j.error || 'Failed'); return j; }); });
+  }
+  function mlLoad(){ mlGet('/state').then(function(j){ ms = j; mlRender(); }).catch(function(){}); }
+  function macAway(){ return !ms || !ms.lastSeen || Date.now() - new Date(ms.lastSeen).getTime() > 90000; }
+  function mlRender(){
+    if (!ms || !ms.paired) { $('macl').innerHTML = ''; return; }
+    var h = '<h2>Mac logins</h2>';
+    if (macAway()) h += '<div class="card note"><div class="d warn">The Mac hasn\u2019t checked in for a while. It may be asleep or off, so a login will wait for it.</div></div>';
+    (ms.sites || []).forEach(function(s){
+      var m = mlMsg[s.id];
+      h += '<div class="card"><div class="t">' + esc(s.id) + '</div><div class="u">' + esc(s.host) + '</div>' +
+        '<div class="row"><button data-ml="' + esc(s.id) + '" style="background:var(--brand);color:#fff;border:0">Log in on the Mac</button>' +
+        '<button class="small" data-mlset="' + esc(s.id) + '" data-host="' + esc(s.host) + '">Password</button></div>' +
+        (m ? '<div class="ml-msg ' + (m.c || '') + '">' + esc(m.t) + '</div>' : '') + '</div>';
+    });
+    if (mlForm) {
+      h += '<form class="card ml-form" id="mlf" autocomplete="on"><div class="t">' + (mlForm.site ? 'New password for ' + esc(mlForm.site) : 'Add a site') + '</div>' +
+        (mlForm.site ? '' : '<label>Short name (like mgo)</label><input name="site" autocapitalize="off" required>') +
+        '<label>Login page address</label><input name="url" type="url" inputmode="url" autocapitalize="off" required value="' + esc(mlForm.url || '') + '" placeholder="https://...">' +
+        '<label>Username or email</label><input name="u" autocomplete="username" autocapitalize="off">' +
+        '<label>Password (tap the key above the keyboard for Apple Passwords)</label><input name="p" type="password" autocomplete="current-password" required>' +
+        '<div class="row"><button type="submit" style="background:var(--brand);color:#fff;border:0">Save on the Mac</button><button type="button" class="small" id="mlx">Cancel</button></div>' +
+        (mlForm.site ? '<div class="row"><button type="button" class="small" id="mlforget">Forget this site</button></div>' : '') +
+        '<div class="d" style="font-size:13px">Scrambled on this phone with a key only your Mac can open, then kept in the Mac\u2019s Keychain.</div></form>';
+    } else h += '<div class="row" style="display:flex"><button class="small" id="mladd" style="flex:1;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff;font:inherit;font-weight:600">Add a site</button></div>';
+    $('macl').innerHTML = h;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ml]'), function(b){
+      b.addEventListener('click', function(){ mlRun({kind:'login', site:b.dataset.ml}, b.dataset.ml, 'Asking the Mac\u2026'); });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-mlset]'), function(b){
+      b.addEventListener('click', function(){ mlForm = {site:b.dataset.mlset, url:'https://' + b.dataset.host + '/'}; mlRender(); });
+    });
+    if ($('mladd')) $('mladd').addEventListener('click', function(){ mlForm = {}; mlRender(); });
+    if ($('mlx')) $('mlx').addEventListener('click', function(){ mlForm = null; mlRender(); });
+    if ($('mlforget')) $('mlforget').addEventListener('click', function(){
+      if (!confirm('Forget the ' + mlForm.site + ' password on the Mac?')) return;
+      var site = mlForm.site; mlForm = null; mlRun({kind:'forget', site:site}, site, 'Forgetting\u2026');
+    });
+    if ($('mlf')) $('mlf').addEventListener('submit', function(e){
+      e.preventDefault();
+      var f = e.target, site = mlForm.site || f.site.value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
+      var url = f.url.value.trim();
+      if (!site || !/^https:\/\//.test(url)) { alert('Give it a short name and an https:// login address.'); return; }
+      var der = Uint8Array.from(atob(ms.pubkey), function(c){ return c.charCodeAt(0); });
+      crypto.subtle.importKey('spki', der, {name:'RSA-OAEP', hash:'SHA-256'}, false, ['encrypt']).then(function(k){
+        return crypto.subtle.encrypt({name:'RSA-OAEP'}, k, new TextEncoder().encode(JSON.stringify({u:f.u.value.trim(), p:f.p.value})));
+      }).then(function(buf){
+        var b = new Uint8Array(buf), s = ''; for (var i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+        mlForm = null;
+        if (!(ms.sites || []).some(function(x){ return x.id === site; })) ms.sites = (ms.sites || []).concat({id:site, host:url.split('/')[2]});
+        mlRun({kind:'set', site:site, url:url, cipher:btoa(s)}, site, 'Sending to the Mac\u2026');
+      }).catch(function(err){ alert('Couldn\u2019t scramble it: ' + err.message); });
+    });
+  }
+  function mlRun(body, site, wait){
+    mlMsg[site] = {t: macAway() ? wait + ' (the Mac looks away, it will run when it wakes)' : wait}; mlRender();
+    mlPost(body).then(function(j){
+      var n = 0;
+      (function tick(){
+        mlGet('/jobs/' + j.id).then(function(r){
+          if (r.status === 'done' || r.status === 'failed') {
+            mlMsg[site] = {t:r.result || r.status, c:r.status === 'done' ? 'ok' : 'bad'}; mlRender(); setTimeout(mlLoad, 8000); return;
+          }
+          if (r.status === 'expired') { mlMsg[site] = {t:'The Mac never picked it up. Is it on?', c:'bad'}; mlRender(); return; }
+          if (++n < 90) setTimeout(tick, 2000); else { mlMsg[site] = {t:'Still waiting on the Mac.', c:'bad'}; mlRender(); }
+        }).catch(function(){ setTimeout(tick, 4000); });
+      })();
+    }).catch(function(err){ mlMsg[site] = {t:err.message, c:'bad'}; mlRender(); });
+  }
+  mlLoad();
 })();
 </script>
 </body>
