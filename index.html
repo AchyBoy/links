@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="x-links-version" content="v1.6">
+<meta name="x-links-version" content="v1.7">
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="My Links">
@@ -72,10 +72,16 @@
   var data = null;
   try { data = JSON.parse(localStorage.getItem('links-data-' + KEY)); } catch(e){}
   if (data) render();
-  fetch(API + 'links-' + KEY).then(function(r){ return r.json(); }).then(function(j){
-    if (j && j.data) { data = j.data; localStorage.setItem('links-data-' + KEY, JSON.stringify(data)); render(); }
-    else if (!data) $('list').innerHTML = '<div class="empty">No links saved for this key.</div>';
-  }).catch(function(){ if (!data) $('list').innerHTML = '<div class="empty">No signal. Try again in a moment.</div>'; });
+  function load(){
+    fetch(API + 'links-' + KEY, {cache: 'no-store'}).then(function(r){ return r.json(); }).then(function(j){
+      if (j && j.data) { data = j.data; localStorage.setItem('links-data-' + KEY, JSON.stringify(data)); render(); }
+      else if (!data) $('list').innerHTML = '<div class="empty">No links saved for this key.</div>';
+    }).catch(function(){ if (!data) $('list').innerHTML = '<div class="empty">No signal. Try again in a moment.</div>'; });
+  }
+  load();
+  // coming back from Safari / app switcher: re-check, so a new ?v= stamp shows up without a reload
+  document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible') load(); });
+  window.addEventListener('pageshow', function(e){ if (e.persisted) load(); });
 
   function render(){
     render.map = {}; render.n = 0;   // set here: the first draw (from the saved copy) runs before any line below
