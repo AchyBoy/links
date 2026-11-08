@@ -11,7 +11,7 @@ model-viewer{width:100%;height:100%;--poster-color:#dfe7ee}
 .bar button.on{background:#111;color:#fff}
 .tip{position:fixed;bottom:calc(env(safe-area-inset-bottom,0) + 12px);left:0;right:0;text-align:center;font-size:13px;color:#333}
 </style></head><body>
-<model-viewer id="mv" src="plan-003-outside.glb?v=419c912c" camera-controls touch-action="none"
+<model-viewer id="mv" src="plan-003-outside.glb?v=680635ee" camera-controls touch-action="none"
   shadow-intensity="1" exposure="1.0" environment-image="neutral" camera-orbit="-30deg 70deg auto"
   min-camera-orbit="auto 0deg auto" max-camera-orbit="auto 90deg auto" alt="Plan 003 3D model"></model-viewer>
 <div class="bar">
@@ -21,7 +21,7 @@ model-viewer{width:100%;height:100%;--poster-color:#dfe7ee}
 <div class="tip">One finger: spin &middot; Pinch: zoom &middot; Two fingers: move</div>
 <script>
 const mv=document.getElementById('mv'),o=document.getElementById('out'),i=document.getElementById('in');
-o.onclick=()=>{mv.src='plan-003-outside.glb?v=419c912c';mv.cameraOrbit='-30deg 70deg auto';o.className='on';i.className=''};
-i.onclick=()=>{mv.src='plan-003-inside.glb?v=9a48f0cc';mv.cameraOrbit='0deg 35deg auto';i.className='on';o.className=''};
+o.onclick=()=>{mv.src='plan-003-outside.glb?v=680635ee';mv.cameraOrbit='-30deg 70deg auto';o.className='on';i.className=''};
+i.onclick=()=>{mv.src='plan-003-inside.glb?v=d20d7ca8';mv.cameraOrbit='0deg 35deg auto';i.className='on';o.className=''};
 </script>
 </body></html>
