@@ -9,7 +9,7 @@
 <title>Fall Fest MC Sheet</title>
 <script>
 /* Always fresh on reload, no popup: compare BUILD to version.json and hop once to ?v=<new>. */
-var BUILD='20261114-105551';
+var BUILD='20261114-130659';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -100,6 +100,17 @@ h3{font:800 13px Nunito;letter-spacing:1.4px;text-transform:uppercase;color:var(
 .added{background:var(--chip);border-radius:10px;padding:8px 10px;margin-top:6px;font-weight:700;display:flex;gap:8px;align-items:flex-start}
 .added button{margin-left:auto;background:none;border:0;color:var(--cut);font:800 13px Nunito;cursor:pointer;padding:0}
 .empty{color:var(--mute);font-style:italic;padding:10px 0}
+.roster{background:var(--card);border:2px solid var(--leaf);border-radius:14px;padding:12px 14px;margin-top:12px}
+.roster b{color:var(--leaf)}
+.fld{display:block;margin:10px 0 0;font:800 14px Nunito;color:var(--mute)}
+.fld input,.qa input,.qa textarea,.team input{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font:700 16px Nunito;background:var(--bg);color:var(--ink);margin-top:4px}
+.team{display:grid;grid-template-columns:auto 1fr;gap:6px 8px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.team .tn{font:800 13px Nunito;color:var(--mute);grid-row:span 9;align-self:start;padding-top:12px;min-width:54px}
+.team input{margin-top:0}
+.addteam{margin-top:10px;border:0;background:var(--leaf);color:#fff;border-radius:10px;padding:8px 14px;font:800 14px Nunito;cursor:pointer}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0}
+.qa .q{font-weight:800;margin:0}
+.qa .hint{color:var(--mute);font-size:14px;font-style:italic;margin:2px 0 0}
 .leaves{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 header,main,.bar{position:relative;z-index:1}
 .lf{position:absolute;top:-30px;font-size:20px;opacity:.5;animation:fall linear infinite}
@@ -134,6 +145,7 @@ header,main,.bar{position:relative;z-index:1}
 /* [id, heat 0 safe / 1 spicy / 2 dangerous, line, delivery note, mine?]
    IDs are fixed so a review survives later rewrites. Never reuse an id. */
 var S=[
+ {k:'meet',name:'Meeting',emoji:'📋',groups:[]},
  {k:'open',name:'Opener',emoji:'🎤',groups:[
   ['Your opener (keep as is)',[
    ['o1',0,'Before we get started, I want everybody to remember that this is a church event. We’re here to have fun, show good sportsmanship, and demonstrate Christian love.','',1],
@@ -353,6 +365,19 @@ var S=[
  ]}
 ];
 
+/* Team sizes come from the official rules; how MANY teams is the meeting question. */
+var TEAM={g1:{size:2,label:'Couple',ph:['Name','Name']},g2:{size:2,label:'Team',ph:['Man 1','Man 2']},g3:{size:5,label:'Team',ph:['Player 1','Player 2','Player 3','Player 4','Player 5']}};
+var QS=[
+ ['m1','How many couples for Love You to the Last Kernel?','Rules say husband + wife per team. Need a chair, a blindfold and an ear of corn per couple.','g1'],
+ ['m2','How many teams for Hay Bale Roll?','Rules say 2 men per team. One hay bale per team.','g2'],
+ ['m3','How many teams for Sack Race Relay?','Rules say 5 players per team. One sack per team.','g3'],
+ ['m4','Is there first aid? Who has the kit?','Decides which first aid joke you use.'],
+ ['m5','What are the prizes, and for which games?',''],
+ ['m6','What order do the games go in, and what time?',''],
+ ['m7','Who judges the finish line and breaks ties?',''],
+ ['m8','Supplies: who brings blindfolds, corn, chairs, hay bales, sacks?',''],
+ ['m9','Do I get a microphone / sound system?','']
+];
 var HEAT=['😇','😏','😈'];
 var KEY=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||'';
 var API='https://api.jobhubgo.com/api/yam/'+(KEY?'mcfest-'+KEY:'');
@@ -371,6 +396,12 @@ function merge(a,b){
   for(id in rb) if(!out.reviews[id]||(rb[id].at||0)>(out.reviews[id].at||0)) out.reviews[id]=rb[id];
   var m={}; (a.adds||[]).concat(b.adds||[]).forEach(function(x){ if(!m[x.id]||(x.at||0)>(m[x.id].at||0)) m[x.id]=x; });
   out.adds=Object.keys(m).map(function(k){return m[k]}).sort(function(x,y){return (x.made||0)-(y.made||0)});
+  ['roster','answers'].forEach(function(f){
+    var A=a[f]||{}, B=b[f]||{}, o={};
+    for(id in A) o[id]=A[id];
+    for(id in B) if(!o[id]||(B[id].at||0)>(o[id].at||0)) o[id]=B[id];
+    out[f]=o;
+  });
   return out;
 }
 function cache(){ try{ localStorage.setItem('mc-cache-'+KEY,JSON.stringify(R)); }catch(e){} }
@@ -417,11 +448,41 @@ function cardHtml(l){
    +(s==='tweak'||r.c?'':'<button class="cbtn">💬 Add a comment</button>')
    +'</div>';
 }
+function ros(k){ R.roster=R.roster||{}; return R.roster[k]||{count:'',teams:[]}; }
+function rosterHtml(k){
+  var t=TEAM[k], r=ros(k), n=Math.max(parseInt(r.count,10)||0, r.teams.length, 1), h='';
+  h+='<div class="roster" data-ros="'+k+'"><b>👥 Teams</b> <span class="hint">('+t.size+' per '+t.label.toLowerCase()+')</span>'
+   +'<label class="fld">How many '+(k==='g1'?'couples':'teams')+'?<input inputmode="numeric" data-rf="count" value="'+esc(r.count||'')+'" placeholder="Ask at the meeting"></label>';
+  for(var i=0;i<n;i++){
+    var tm=r.teams[i]||[];
+    h+='<div class="team"><span class="tn">'+t.label+' '+(i+1)+'</span>';
+    for(var j=0;j<t.size;j++) h+='<input aria-label="'+t.label+' '+(i+1)+' '+t.ph[j]+'" data-ti="'+i+'" data-tj="'+j+'" value="'+esc(tm[j]||'')+'" placeholder="'+t.ph[j]+'">';
+    h+='</div>';
+  }
+  return h+'<button class="addteam" data-addteam="'+k+'">+ Add '+t.label.toLowerCase()+'</button></div>';
+}
+function meetHtml(){
+  R.answers=R.answers||{};
+  var h='<h2>📋 Questions for the meeting</h2><p class="sub">Fill in the blanks as you get answers. Saves by itself. Team counts also show on each game’s tab.</p>';
+  QS.forEach(function(q){
+    var v=q[3]?(ros(q[3]).count||''):((R.answers[q[0]]||{}).a||'');
+    h+='<div class="qa"><p class="q">'+esc(q[1])+'</p>'+(q[2]?'<p class="hint">'+esc(q[2])+'</p>':'')
+      +(q[3]?'<input inputmode="numeric" aria-label="'+esc(q[1])+'" data-cnt="'+q[3]+'" value="'+esc(v)+'" placeholder="Number">'
+            :'<textarea rows="2" aria-label="'+esc(q[1])+'" data-ans="'+q[0]+'" placeholder="Answer">'+esc(v)+'</textarea>')+'</div>';
+  });
+  R.adds.filter(function(a){return a.sec==='meet'&&!a.gone}).forEach(function(a){
+    h+='<div class="qa"><p class="q">'+esc(a.t)+' <button class="cbtn" data-del="'+a.id+'">Remove</button></p><textarea rows="2" aria-label="'+esc(a.t)+'" data-ans="'+a.id+'" placeholder="Answer">'+esc((R.answers[a.id]||{}).a||'')+'</textarea></div>';
+  });
+  return h+'<div class="adder"><label for="add">Add another question</label><textarea id="add" placeholder="e.g. Can kids play the sack race?"></textarea><button id="addbtn">Add</button></div>';
+}
 function render(){
   var sec=S.filter(function(x){return x.k===tab})[0]||S[0];
   $('#tabs').innerHTML=S.map(function(x){return '<button class="tab" data-k="'+x.k+'" aria-pressed="'+(x.k===sec.k)+'">'+x.emoji+' '+x.name+'</button>'}).join('');
+  $('#filters').style.display=sec.k==='meet'?'none':'';
+  if(sec.k==='meet'){ $('#main').innerHTML=meetHtml(); return; }
   var h='<h2>'+sec.emoji+' '+esc(sec.rules?sec.rules.title:sec.name)+'</h2>';
   if(sec.rules) h+='<div class="rules"><b>Official rules</b><ol>'+sec.rules.steps.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol><div class="go">'+esc(sec.rules.go)+'</div></div>';
+  if(TEAM[sec.k]) h+=rosterHtml(sec.k);
   sec.groups.forEach(function(g){
     var ls=g[1].filter(function(l){return showIt(l[0])});
     if(!ls.length) return;
@@ -438,6 +499,7 @@ document.addEventListener('click',function(e){
   var t=e.target.closest('button'); if(!t) return;
   if(t.dataset.k){ tab=t.dataset.k; try{localStorage.setItem('mc-tab',tab)}catch(x){} render(); scrollTo({top:0}); return; }
   if(t.dataset.f){ filt=t.dataset.f; document.querySelectorAll('.f').forEach(function(b){b.setAttribute('aria-pressed',b===t)}); render(); return; }
+  if(t.dataset.addteam){ var k=t.dataset.addteam, r=ros(k), n=Math.max(parseInt(r.count,10)||0, r.teams.length, 1); while(r.teams.length<n+1) r.teams.push([]); r.at=Date.now(); R.roster[k]=r; render(); push(); return; }
   if(t.dataset.del){ R.adds.forEach(function(a){ if(a.id===t.dataset.del){ a.gone=true; a.at=Date.now(); } }); render(); push(); return; }
   if(t.id==='addbtn'){ var v=$('#add').value.trim(); if(!v) return; var now=Date.now(); R.adds.push({id:'a'+now.toString(36),sec:tab,t:v,at:now,made:now}); render(); push(); return; }
   var card=t.closest('.card'); if(!card) return;
@@ -458,13 +520,23 @@ document.addEventListener('click',function(e){
 });
 function findLine(id){ var f; S.forEach(function(s){s.groups.forEach(function(g){g[1].forEach(function(l){ if(l[0]===id) f=l; })})}); return f; }
 var typing={};
+document.addEventListener('change',function(e){ if(e.target.dataset.rf==='count') render(); });
+function later(key){ cache(); clearTimeout(typing[key]); typing[key]=setTimeout(push,900); status('Typing…'); }
 document.addEventListener('input',function(e){
-  var card=e.target.closest('.card'); if(!card) return;
+  var el=e.target, d=el.dataset, box=el.closest('[data-ros]');
+  if(box||d.cnt){
+    var k=box?box.dataset.ros:d.cnt, r=ros(k);
+    if(d.rf==='count'||d.cnt) r.count=el.value.replace(/[^0-9]/g,'');
+    else { var i=+d.ti, j=+d.tj; while(r.teams.length<=i) r.teams.push([]); r.teams[i][j]=el.value; }
+    r.at=Date.now(); R.roster[k]=r; later('ros-'+k); return;
+  }
+  if(d.ans){ R.answers=R.answers||{}; R.answers[d.ans]={a:el.value,at:Date.now()}; later('ans-'+d.ans); return; }
+  var card=el.closest('.card'); if(!card) return;
   var id=card.dataset.id, r=R.reviews[id]||{};
   r.c=e.target.value; r.at=Date.now(); R.reviews[id]=r; cache();
   clearTimeout(typing[id]); typing[id]=setTimeout(push,900); status('Typing…');
 });
-document.addEventListener('visibilitychange',function(){ if(!document.hidden && !saving && !document.activeElement.matches('textarea')) pull(); });
+document.addEventListener('visibilitychange',function(){ if(!document.hidden && !saving && !document.activeElement.matches('textarea,input')) pull(); });
 
 /* falling leaves, decoration only */
 (function(){ var L=['🍂','🍁','🍃'],box=$('#leaves'); for(var i=0;i<10;i++){ var s=document.createElement('span'); s.className='lf'; s.textContent=L[i%3];
