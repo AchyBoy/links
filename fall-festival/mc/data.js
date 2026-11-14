@@ -111,8 +111,7 @@ var S=[
    ['g1r1b',0,'Husbands, your hands stay in your lap the whole time. You can talk all you want, but you cannot help. I know that’s gonna be hard for some of y’all.','',0,1],
    ['g1r2b',1,'Ladies, you’ll be standing behind him, blindfolded. You can’t see a thing, so you have to trust his voice. …Bless your heart.','Pause before “Bless your heart.”',0,1],
    ['g1r3b',0,'Gentlemen, clear directions only. “Left” and “right” are directions. “Over there” is not a direction. “You know what I mean” is definitely not a direction.','',0,1],
-   ['g1r5b',0,'You get one minute. Sixty seconds. Ladies, that’s less time than it takes him to pick a restaurant.','Pick one of these two.',0,1],
-   ['g1r5c',1,'One minute on the clock. Which, in husband time, means “I’ll be right there.”','',0,1],
+   ['g1r5d',0,'You get one minute. Sixty seconds. Ladies, that’s less time than it takes him to fall asleep.','',1,1],
    ['g1r4b',0,'So: she shucks it, she feeds it, he eats it. First clean cob wins. And I WILL be checking cobs. Everybody ready? Ready… set… SHUCK!','Hold up a cob like an inspector.',0,1],
   ]],
   ['During the game',[
