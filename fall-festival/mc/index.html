@@ -9,7 +9,7 @@
 <title>Fall Fest MC Sheet</title>
 <script>
 /* Always fresh on reload, no popup: compare BUILD to version.json and hop once to ?v=<new>. */
-var BUILD='20261114-130659';
+var BUILD='20261114-130752';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -105,7 +105,7 @@ h3{font:800 13px Nunito;letter-spacing:1.4px;text-transform:uppercase;color:var(
 .fld{display:block;margin:10px 0 0;font:800 14px Nunito;color:var(--mute)}
 .fld input,.qa input,.qa textarea,.team input{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font:700 16px Nunito;background:var(--bg);color:var(--ink);margin-top:4px}
 .team{display:grid;grid-template-columns:auto 1fr;gap:6px 8px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
-.team .tn{font:800 13px Nunito;color:var(--mute);grid-row:span 9;align-self:start;padding-top:12px;min-width:54px}
+.team .tn{font:800 13px Nunito;color:var(--mute);align-self:start;padding-top:12px;min-width:54px}
 .team input{margin-top:0}
 .addteam{margin-top:10px;border:0;background:var(--leaf);color:#fff;border-radius:10px;padding:8px 14px;font:800 14px Nunito;cursor:pointer}
 .qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0}
@@ -455,7 +455,7 @@ function rosterHtml(k){
    +'<label class="fld">How many '+(k==='g1'?'couples':'teams')+'?<input inputmode="numeric" data-rf="count" value="'+esc(r.count||'')+'" placeholder="Ask at the meeting"></label>';
   for(var i=0;i<n;i++){
     var tm=r.teams[i]||[];
-    h+='<div class="team"><span class="tn">'+t.label+' '+(i+1)+'</span>';
+    h+='<div class="team"><span class="tn" style="grid-row:span '+t.size+'">'+t.label+' '+(i+1)+'</span>';
     for(var j=0;j<t.size;j++) h+='<input aria-label="'+t.label+' '+(i+1)+' '+t.ph[j]+'" data-ti="'+i+'" data-tj="'+j+'" value="'+esc(tm[j]||'')+'" placeholder="'+t.ph[j]+'">';
     h+='</div>';
   }
