@@ -17,7 +17,87 @@ var S=[
    ['o13',1,'If anybody gets hurt tonight, don’t worry. We’ve got a bag of frozen peas and about forty prayer warriors who have been WAITING for this moment.','Spicier version of the same idea. Pick one.',0,1]
   ]]
  ]},
- {k:'g1',name:'Last Kernel',emoji:'🌽',rules:{title:'Love You to the Last Kernel',steps:['Teams are a husband and wife.','Husband sits in a chair. Wife stands BEHIND him, blindfolded.','Using only touch and his directions, she shucks the ear of corn.','Then she feeds it to him.','First husband to finish his corn wins.','No helping hands from the husband.'],go:'READY, SET, SHUCK!'},groups:[
+ {k:'g3',name:'Sack Race',emoji:'🏁',rules:{title:'Sack Race Relay',steps:['FIRST GAME. Six high school volunteers, two teams of 3.','Start near the corn (meeting said that’s a good distance).','On GO, the first player hops to the stage and back.','Pass the sack to the next teammate, who does the same.','First team with all 3 back wins.','If you fall, hold on to your sack.'],go:'Ready, Set, Go!'},groups:[
+  ['Intro',[
+   ['g3i1',0,'This next game requires speed, balance, coordination, and six people willing to embarrass themselves in front of the entire church!','',1],
+   ['g3i7',0,'We need six high school volunteers! Parents, this is the fastest you will ever see them move without a phone in their hand.','',0,1],
+   ['g3i8',1,'Teenagers, if you fall, just lay there a second. Your mama is already filming it.','',0,1],
+   ['g3i2',0,'If you’ve got bad knees, bad ankles, or just bad judgment, this may not be your ministry.','',1],
+   ['g3i3b',1,'If you’re over forty, I strongly recommend stretching. If you’re over sixty, go ahead and schedule your chiropractor appointment now.','⚠️ Sack race is TEENAGERS now, so this one doesn’t fit. Try the next line instead.',1,1],
+   ['g3i9',1,'Now, if you’re over forty, have a seat. This one’s for the teenagers. Don’t worry, we’ll call you for the hay bales.','Replaces the over forty/sixty line now that it’s teens.',0,1],
+   ['g3i5d',0,'Three people, one sack. It’s just like the body of Christ: many members, one body. And tonight, that body is gonna be hopping.','',0,1],
+   ['g3i6c',0,'Real quick before we start: we may need a doctor, a nurse, or at least a professional Band-Aid installer. Anybody? …Good. You’re on standby.','Point at whoever raises a hand.',0,1],
+  ]],
+  ['Rules, said funny',[
+   ['g3r2x',0,'If you fall, hold on to your sack! Hold your sack and your dignity. In that order.','From the meeting: “hold your sack if you fall.”',0,1],
+   ['g3r1b',1,'Feet stay IN the sack. If a foot comes out, that’s the back row for a month… AND you’re printing your own offering envelopes.','Beat before “AND.”',0,1],
+   ['g3r2',1,'Hand the sack to the next person. Do NOT throw it at them. I know some of y’all have unresolved issues.',''],
+   ['g3r3',0,'Hop to the stage and back. That’s hopping, not shuffling. We are a hopping church tonight.','']
+  ]],
+  ['During the game',[
+   ['g3d19',0,'Pass the sack! It’s not a family heirloom, let it go!','',0,1],
+   ['g3d20',0,'Sir, that’s not hopping. That’s tiptoeing in a bag.','',0,1],
+   ['g3d21',0,'Down… and back up! Like Lazarus!','',0,1],
+   ['g3d22',0,'Up! Hop! Hop! …OK, that was more of a wiggle.','',0,1],
+   ['g3d1',0,'He’s hopping like he just stepped on a Lego!','',1],
+   ['g3d4',0,'The spirit is willing, but the knees are weak!','',1],
+   ['g3d5',0,'That’s not a fall. That’s an unscheduled prayer meeting!','',1],
+   ['g3d10',0,'Somebody shout HALLELUJAH! We just witnessed a miracle! He made it back!','',1],
+   ['g3d11',0,'That’s not hopping. That’s falling forward on purpose, over and over.',''],
+   ['g3d12',0,'Get UP, sister! The Lord didn’t bring you this far to leave you in a feed sack!',''],
+   ['g3d13',1,'Sir, that’s a shuffle. I’m watching you. That is an illegal shuffle.',''],
+   ['g3d16',2,'He went down like he got slain in the Spirit. …He’s fine. He’s just resting in the Lord.','Only if he’s OK. Check first.'],
+  ]],
+  ['Play-by-play',[
+   ['g3p1',1,'HE’S COMING DOWN THE HOME STRETCH! THE CROWD IS ON ITS FEET! HIS KNEES ARE REQUESTING IMMEDIATE RETIREMENT!','',1],
+   ['g3p2',0,'HE’S AIRBORNE! HE’S AIRBORNE! …HE IS NO LONGER AIRBORNE! HE’S ON THE GROUND, FOLKS, AND THE GROUND IS WINNING!',''],
+   ['g3p3',0,'THE HANDOFF! FUMBLE! FUMBLE IN THE SACK! ONE LEG IN… TWO LEGS… SHE’S HOPPING! SHE’S DOING IT! SOMEBODY GET HER A WATER AND A WITNESS!',''],
+   ['g3p4',0,'LAST RUNNER! LAST RUNNER! THIS IS FOR ALL THE MARBLES! AND BY MARBLES I MEAN A PRIZE FROM DOLLAR GENERAL!','']
+  ]],
+  ['Winners',[
+   ['g3w1',0,'Let’s hear it for our winners! Six people, two sacks, and not a single insurance claim. That’s what I call a successful church event!','',1],
+   ['g3w2',0,'Your relay champions! Tonight you get the prize. Tomorrow you get the ibuprofen.',''],
+   ['g3w3',1,'Enjoy this moment, champs. Monday morning your hamstrings are filing a formal complaint.','']
+  ]]
+ ]},
+ {k:'g2',name:'Hay Bale',emoji:'🍂',rules:{title:'Hay Bale Roll',steps:['SECOND GAME. 2 teams of 2 men (4 volunteers).','Both teams start in the middle. One team goes one way, the other goes the other way, all the way around the edge.','A pumpkin sits in the middle: first bale to bump the pumpkin wins.','You cannot lift or carry your hay bale.'],go:'Ready, Set, Roll!'},groups:[
+  ['Intro',[
+   ['g2i1',0,'Alright, gentlemen! Time to see who’s been working hard and who’s just been supervising!','',1],
+   ['g2i2',1,'Some of y’all have been telling your wives how hard you work all week. Tonight we’re checking references!','',1],
+   ['g2i3b',1,'We’re looking for two strong men per team. If you have to ask your wife whether you’re strong enough… maybe just sit this one out.','',1,1],
+   ['g2i4c',0,'Remember, you have to ROLL it. No lifting, no carrying, no tossing. If that bale leaves the ground, you’re disqualified.','',0,1],
+   ['g2i5c',0,'Ecclesiastes 4:9 says two are better than one. Ecclesiastes 4:10 says if one falls down, his friend can help him up. Fellas, you’re gonna need BOTH of those verses tonight.','Pick this one or the next.',0,1],
+   ['g2i8',0,'I need four strong men! Somebody needs to show their boys how strong they are!','From the meeting.',0,1],
+   ['g2i9',0,'Anthony rolled one of these by himself last night. So I don’t want to hear any excuses.','Point at Anthony.',0,1],
+   ['g2i6',1,'If you’ve got a bad back, now is the time to remember it. Not after you lose.',''],
+   ['g2i7b',0,'I want to see the same hustle y’all had at last week’s tug of war!','Pick this one or the next.',1,1],
+   ['g2i7c',1,'Some of y’all are still sore from last week’s tug of war. Good news: hay bales don’t pull back.','',0,1],
+  ]],
+  ['Rules, said funny',[
+   ['g2r1c',0,'If I see daylight under that bale, you’re disqualified. AND you get to load up every single hay bale after the festival. By yourself. …Just kidding. Mostly.','Beat before “Just kidding.” Another beat before “Mostly.”',0,1],
+   ['g2r2b',1,'No kicking the bale. You kick it, I kick you… out of the game. In Christian love.','Pause before “out of the game.” Smile on “Christian love.”',0,1],
+   ['g2r3f',1,'Both teams start in the middle. One goes this way, one goes that way, all the way around the edge. First bale to bump the pumpkin wins. Now, we all know men never need to ask for directions… so don’t let us down! And if you DO get lost, just tell everybody you’re taking a shortcut.','Course changed at the meeting.',0,1],
+   ['g2r3d',1,'Both teams start in the middle. One goes this way, one goes that way, all the way around the edge. First bale to bump the pumpkin wins. And if you get lost, don’t worry. You’re men. You’ll just tell everybody you were taking a shortcut.','Course changed at the meeting.',0,1],
+  ]],
+  ['During the game',[
+   ['g2d21',0,'They’re taking the scenic route!','',0,1],
+   ['g2d25',0,'Somebody’s wife is louder than the MC. I respect it.','Point the mic at her.',0,1],
+   ['g2d6b',0,'I could find the book of Habakkuk before they cross the finish line!','',1,1],
+   ['g2d17',0,'Ecclesiastes 4:10: if one falls down, his friend can help him up! …Or just keep rolling. That works too.','When one of them slips.'],
+  ]],
+  ['Play-by-play',[
+   ['g2p1',0,'AND HERE WE GO, LADIES AND GENTLEMEN! THE BALE IS MOVING! WE HAVE FORWARD PROGRESS! NOT MUCH, BUT IT’S PROGRESS!','',1],
+   ['g2p2',0,'IT’S TIPPING! IT’S TIPPING! IT’S… IT’S FLAT AGAIN. NEVER MIND, FOLKS. STAY IN YOUR SEATS.',''],
+   ['g2p3',1,'HE’S GOT HAY IN HIS SHIRT, HAY IN HIS HAIR, HAY IN PLACES THE LORD NEVER INTENDED, AND HE IS STILL PUSHING!',''],
+   ['g2p4',0,'NECK AND NECK! BALE AND BALE! OVERALLS AND CARGO SHORTS! WHO WANTS IT MORE!','']
+  ]],
+  ['Winners',[
+   ['g2w1',0,'Let’s give these men a big hand! They’ve officially proven they’re the best at pushing around dead grass. Put that on your résumé!','',1],
+   ['g2w2',1,'Your hay bale champions! Gentlemen, your wives just watched you do yard work willingly, in public. You can never say “my back” again.',''],
+   ['g2w3',2,'Congratulations, fellas. Saturday, 8 a.m., my house. I’ve got some round bales.','Hand them the prize like it’s a work order.']
+  ]]
+ ]},
+ {k:'g1',name:'Last Kernel',emoji:'🌽',rules:{title:'Love You to the Last Kernel',steps:['FINALE, on the stage. 4 couples.','Husband sits in a chair (no table) holding the basket. Wife stands BEHIND him, blindfolded.','She reaches around, shucks the corn and pulls the silk, using only touch and his directions.','Then she feeds it to him, on the cob.','Cleanest cob when time is called wins (time limit still TBD).','No helping hands from the husband.'],go:'READY, SET, SHUCK!'},groups:[
   ['Intro',[
    ['g1i1',0,'Marriage is all about trust, patience, and communication. We’re about to find out which couples have none of the above.','',1],
    ['g1i2b',1,'Ladies, your husband is about to give you instructions. Which is probably unfamiliar territory for both of you.','',1,1],
@@ -64,80 +144,6 @@ var S=[
    ['g1c2',0,'To the couples who didn’t win: Proverbs says better a dry crust with peace than a feast with strife. Tonight y’all got neither. But it’s in there.','']
   ]]
  ]},
- {k:'g2',name:'Hay Bale',emoji:'🍂',rules:{title:'Hay Bale Roll',steps:['Each team is 2 men.','When we say GO, roll your hay bale together from the starting line to the front of the stage.','First team across the finish line wins.','You cannot lift or carry your hay bale.','Your note: maybe roll it AROUND the seating area and back up the middle, first back to the stage wins. Confirm at the meeting.'],go:'Ready, Set, Roll!'},groups:[
-  ['Intro',[
-   ['g2i1',0,'Alright, gentlemen! Time to see who’s been working hard and who’s just been supervising!','',1],
-   ['g2i2',1,'Some of y’all have been telling your wives how hard you work all week. Tonight we’re checking references!','',1],
-   ['g2i3b',1,'We’re looking for two strong men per team. If you have to ask your wife whether you’re strong enough… maybe just sit this one out.','',1,1],
-   ['g2i4c',0,'Remember, you have to ROLL it. No lifting, no carrying, no tossing. If that bale leaves the ground, you’re disqualified.','',0,1],
-   ['g2i5c',0,'Ecclesiastes 4:9 says two are better than one. Ecclesiastes 4:10 says if one falls down, his friend can help him up. Fellas, you’re gonna need BOTH of those verses tonight.','Pick this one or the next.',0,1],
-   ['g2i6',1,'If you’ve got a bad back, now is the time to remember it. Not after you lose.',''],
-   ['g2i7b',0,'I want to see the same hustle y’all had at last week’s tug of war!','Pick this one or the next.',1,1],
-   ['g2i7c',1,'Some of y’all are still sore from last week’s tug of war. Good news: hay bales don’t pull back.','',0,1],
-  ]],
-  ['Rules, said funny',[
-   ['g2r1c',0,'If I see daylight under that bale, you’re disqualified. AND you get to load up every single hay bale after the festival. By yourself. …Just kidding. Mostly.','Beat before “Just kidding.” Another beat before “Mostly.”',0,1],
-   ['g2r2b',1,'No kicking the bale. You kick it, I kick you… out of the game. In Christian love.','Pause before “out of the game.” Smile on “Christian love.”',0,1],
-   ['g2r3f',1,'Roll it all the way around the seating area and back up the middle. First team back to the stage wins. Now, we all know men never need to ask for directions… so don’t let us down! And if you DO get lost, just tell everybody you’re taking a shortcut.','',0,1],
-   ['g2r3d',1,'Roll it all the way around the seating area and back up the middle. First team back to the stage wins. And if you get lost, don’t worry. You’re men. You’ll just tell everybody you were taking a shortcut.','',0,1],
-  ]],
-  ['During the game',[
-   ['g2d21',0,'They’re taking the scenic route!','',0,1],
-   ['g2d25',0,'Somebody’s wife is louder than the MC. I respect it.','Point the mic at her.',0,1],
-   ['g2d6b',0,'I could find the book of Habakkuk before they cross the finish line!','',1,1],
-   ['g2d17',0,'Ecclesiastes 4:10: if one falls down, his friend can help him up! …Or just keep rolling. That works too.','When one of them slips.'],
-  ]],
-  ['Play-by-play',[
-   ['g2p1',0,'AND HERE WE GO, LADIES AND GENTLEMEN! THE BALE IS MOVING! WE HAVE FORWARD PROGRESS! NOT MUCH, BUT IT’S PROGRESS!','',1],
-   ['g2p2',0,'IT’S TIPPING! IT’S TIPPING! IT’S… IT’S FLAT AGAIN. NEVER MIND, FOLKS. STAY IN YOUR SEATS.',''],
-   ['g2p3',1,'HE’S GOT HAY IN HIS SHIRT, HAY IN HIS HAIR, HAY IN PLACES THE LORD NEVER INTENDED, AND HE IS STILL PUSHING!',''],
-   ['g2p4',0,'NECK AND NECK! BALE AND BALE! OVERALLS AND CARGO SHORTS! WHO WANTS IT MORE!','']
-  ]],
-  ['Winners',[
-   ['g2w1',0,'Let’s give these men a big hand! They’ve officially proven they’re the best at pushing around dead grass. Put that on your résumé!','',1],
-   ['g2w2',1,'Your hay bale champions! Gentlemen, your wives just watched you do yard work willingly, in public. You can never say “my back” again.',''],
-   ['g2w3',2,'Congratulations, fellas. Saturday, 8 a.m., my house. I’ve got some round bales.','Hand them the prize like it’s a work order.']
-  ]]
- ]},
- {k:'g3',name:'Sack Race',emoji:'🏁',rules:{title:'Sack Race Relay',steps:['Each team has 5 players lined up behind the starting line.','On GO, the first player hops in the sack to the stage and back.','Pass the sack to the next teammate, who does the same.','Keep going until all 5 have finished.'],go:'Ready, Set, Go!'},groups:[
-  ['Intro',[
-   ['g3i1',0,'This next game requires speed, balance, coordination, and five people willing to embarrass themselves in front of the entire church!','',1],
-   ['g3i2',0,'If you’ve got bad knees, bad ankles, or just bad judgment, this may not be your ministry.','',1],
-   ['g3i3b',1,'If you’re over forty, I strongly recommend stretching. If you’re over sixty, go ahead and schedule your chiropractor appointment now.','',1,1],
-   ['g3i5d',0,'Five people, one sack. It’s just like the body of Christ: many members, one body. And tonight, that body is gonna be hopping.','',0,1],
-   ['g3i6c',0,'Real quick before we start: we may need a doctor, a nurse, or at least a professional Band-Aid installer. Anybody? …Good. You’re on standby.','Point at whoever raises a hand.',0,1],
-  ]],
-  ['Rules, said funny',[
-   ['g3r1b',1,'Feet stay IN the sack. If a foot comes out, that’s the back row for a month… AND you’re printing your own offering envelopes.','Beat before “AND.”',0,1],
-   ['g3r2',1,'Hand the sack to the next person. Do NOT throw it at them. I know some of y’all have unresolved issues.',''],
-   ['g3r3',0,'Hop to the stage and back. That’s hopping, not shuffling. We are a hopping church tonight.','']
-  ]],
-  ['During the game',[
-   ['g3d19',0,'Pass the sack! It’s not a family heirloom, let it go!','',0,1],
-   ['g3d20',0,'Sir, that’s not hopping. That’s tiptoeing in a bag.','',0,1],
-   ['g3d21',0,'Down… and back up! Like Lazarus!','',0,1],
-   ['g3d22',0,'Up! Hop! Hop! …OK, that was more of a wiggle.','',0,1],
-   ['g3d1',0,'He’s hopping like he just stepped on a Lego!','',1],
-   ['g3d4',0,'The spirit is willing, but the knees are weak!','',1],
-   ['g3d5',0,'That’s not a fall. That’s an unscheduled prayer meeting!','',1],
-   ['g3d10',0,'Somebody shout HALLELUJAH! We just witnessed a miracle! He made it back!','',1],
-   ['g3d11',0,'That’s not hopping. That’s falling forward on purpose, over and over.',''],
-   ['g3d12',0,'Get UP, sister! The Lord didn’t bring you this far to leave you in a feed sack!',''],
-   ['g3d13',1,'Sir, that’s a shuffle. I’m watching you. That is an illegal shuffle.',''],
-   ['g3d16',2,'He went down like he got slain in the Spirit. …He’s fine. He’s just resting in the Lord.','Only if he’s OK. Check first.'],
-  ]],
-  ['Play-by-play',[
-   ['g3p1',1,'HE’S COMING DOWN THE HOME STRETCH! THE CROWD IS ON ITS FEET! HIS KNEES ARE REQUESTING IMMEDIATE RETIREMENT!','',1],
-   ['g3p2',0,'HE’S AIRBORNE! HE’S AIRBORNE! …HE IS NO LONGER AIRBORNE! HE’S ON THE GROUND, FOLKS, AND THE GROUND IS WINNING!',''],
-   ['g3p3',0,'THE HANDOFF! FUMBLE! FUMBLE IN THE SACK! ONE LEG IN… TWO LEGS… SHE’S HOPPING! SHE’S DOING IT! SOMEBODY GET HER A WATER AND A WITNESS!',''],
-   ['g3p4',0,'LAST RUNNER! LAST RUNNER! THIS IS FOR ALL THE MARBLES! AND BY MARBLES I MEAN A PRIZE FROM DOLLAR GENERAL!','']
-  ]],
-  ['Winners',[
-   ['g3w1',0,'Let’s hear it for our winners! Five people, one sack, and not a single insurance claim. That’s what I call a successful church event!','',1],
-   ['g3w2',0,'Your relay champions! Tonight you get the prize. Tomorrow you get the ibuprofen.',''],
-   ['g3w3',1,'Enjoy this moment, champs. Monday morning your hamstrings are filing a formal complaint.','']
-  ]]
- ]},
  {k:'crowd',name:'Crowd work',emoji:'🚨',groups:[
   ['Nobody volunteers',[
    ['c1',0,'The harvest is plentiful, but the laborers are few!','',1],
@@ -179,6 +185,8 @@ var S=[
   ]],
   ['Odd moments',[
    ['c25',0,'It’s a TIE! We’ll settle it the biblical way: casting lots. …Rock, paper, scissors. Same thing.',''],
+   ['c38',0,'We have a TIE! Tiebreaker: I’m thinking of a number. Closest guess wins.','Meeting idea: or ask how many pumpkins are out here.',0,1],
+   ['c39',0,'Winners get a five dollar coffee gift card! Don’t spend it all in one place. …You can’t. It’s five dollars.','',0,1],
    ['c26',0,'Is he OK? He’s OK! That’s a thumbs up! …I think that’s a thumbs up. Somebody check.','Only after you know he’s fine.'],
    ['c27',0,'We’ve got a substitute running onto the field! Somebody check his birth certificate.','Little kid runs out.'],
    ['c28',0,'Even the sound system has backslidden.','Mic cuts out.'],
@@ -200,11 +208,11 @@ var S=[
 ];
 
 /* Team sizes come from the official rules; how MANY teams is the meeting question. */
-var TEAM={g1:{size:2,label:'Couple',ph:['Name','Name']},g2:{size:2,label:'Team',ph:['Man 1','Man 2']},g3:{size:5,label:'Team',ph:['Player 1','Player 2','Player 3','Player 4','Player 5']}};
+var TEAM={g1:{size:2,label:'Couple',ph:['Name','Name']},g2:{size:2,label:'Team',ph:['Man 1','Man 2']},g3:{size:3,label:'Team',ph:['Player 1','Player 2','Player 3']}};
 var QS=[
  ['m1','How many couples for Love You to the Last Kernel?','Rules say husband + wife per team. Need a chair, a blindfold and an ear of corn per couple.','g1'],
  ['m2','How many teams for Hay Bale Roll?','Rules say 2 men per team. One hay bale per team.','g2'],
- ['m3','How many teams for Sack Race Relay?','Rules say 5 players per team. One sack per team.','g3'],
+ ['m3','How many teams for Sack Race Relay?','Meeting: 2 teams of 3 high schoolers. One sack per team.','g3'],
  ['m4','Is there first aid? Who has the kit?','Decides which first aid joke you use.'],
  ['m5','What’s the prize for each game? Just 1st place, or 2nd too?','Write it per game: Kernel / Hay bale / Sack race.'],
  ['m12','Who is getting the prizes, and who brings them that night?',''],
