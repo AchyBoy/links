@@ -9,7 +9,7 @@
 <title>Fall Fest MC Sheet</title>
 <script>
 /* Always fresh on reload, no popup: compare BUILD to version.json and hop once to ?v=<new>. */
-var BUILD='20261114-162312';
+var BUILD='20261114-162505';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -142,10 +142,13 @@ header,main,.bar{position:relative;z-index:1}
 </div>
 <main id="main"></main>
 
-<script src="data.js?v=20261114-162312"></script>
+<script src="data.js?v=20261114-162505"></script>
 <script>
 var HEAT=['😇','😏','😈'];
 var KEY=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||'';
+/* Remember the private key on this phone, so a refresh or a lost #k= never blanks the page. */
+try{ if(KEY) localStorage.setItem('mc-key',KEY); else KEY=localStorage.getItem('mc-key')||''; }catch(e){}
+if(KEY&&!/k=/.test(location.hash)) try{ history.replaceState(null,'',location.pathname+location.search+'#k='+KEY); }catch(e){}
 var API='https://api.jobhubgo.com/api/yam/'+(KEY?'mcfest-'+KEY:'');
 var R={reviews:{},adds:[]};          /* reviews[id]={s,c,at}; adds=[{id,sec,t,at,gone?}] */
 var tab='open', filt='all';

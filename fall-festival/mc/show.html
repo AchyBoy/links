@@ -9,7 +9,7 @@
 <title>Fall Fest MC Script</title>
 <script>
 /* Always fresh on reload, no popup. */
-var BUILD='20261114-162312';
+var BUILD='20261114-162505';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -94,9 +94,12 @@ details ol{margin:8px 0 4px;padding-left:22px}
 </header>
 <nav aria-label="Jump to"><div class="in" id="nav"></div></nav>
 <main id="main"><p class="empty">Loading…</p></main>
-<script src="data.js?v=20261114-162312"></script>
+<script src="data.js?v=20261114-162505"></script>
 <script>
 var KEY=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||'';
+/* Remember the private key on this phone, so a refresh or a lost #k= never blanks the page. */
+try{ if(KEY) localStorage.setItem('mc-key',KEY); else KEY=localStorage.getItem('mc-key')||''; }catch(e){}
+if(KEY&&!/k=/.test(location.hash)) try{ history.replaceState(null,'',location.pathname+location.search+'#k='+KEY); }catch(e){}
 var API='https://api.jobhubgo.com/api/yam/mcfest-'+KEY;
 var HEAT=['😇','😏','😈'];
 var R=null, when=0;
@@ -153,6 +156,8 @@ function load(){
     render();
   }).catch(render);
 }
+/* jump buttons scroll in place and never touch the link (the #k= key lives there) */
+document.addEventListener('click',function(e){ var a=e.target.closest('nav a'); if(!a) return; e.preventDefault(); var t=document.querySelector(a.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth'}); });
 document.addEventListener('visibilitychange',function(){ if(!document.hidden){ load(); if(lock===null&&want) wake(); } });
 
 /* keep the screen on while MC'ing */
