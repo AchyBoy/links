@@ -97,9 +97,7 @@ var S=[
  {k:'g1',name:'Last Kernel',emoji:'🌽',rules:{title:'Love You to the Last Kernel',steps:['FINALE, on the stage. 4 couples.','Husband sits in a chair (no table) holding the basket. Wife stands BEHIND him, blindfolded.','She reaches around, shucks the corn and pulls the silk, using only touch and his directions.','Then she feeds it to him, on the cob.','You get ONE MINUTE. Cleanest cob when time is called wins.','No helping hands from the husband.'],go:'READY, SET, SHUCK!'},groups:[
   ['Intro',[
    ['g1i1',0,'Marriage is all about trust, patience, and communication. We’re about to find out which couples have none of the above.','',1],
-   ['g1i2b',1,'Ladies, your husband is about to give you instructions. Which is probably unfamiliar territory for both of you.','',1,1],
-   ['g1i3b',0,'Gentlemen, for the next three minutes, you’re the one giving directions. Soak it in. This may never happen again.','Pick this one or the next.',0,1],
-   ['g1i3c',0,'Gentlemen, for the next three minutes, you’re in charge. Enjoy it. When that blindfold comes off, we go right back to “yes, dear.”','',0,1],
+   ['g1i2c',1,'Ladies, your husband is about to give you instructions. Which is probably unfamiliar territory for both of you. Gentlemen, for the next minute, you’re in charge. Soak it in. Because when that blindfold comes off, we go right back to “yes, dear.”','Pause after “both of you.” Turn to the men.',1,1],
    ['g1i4',2,'Ladies, if your husband starts getting bossy, remember: you can’t see him, but you CAN still reach him.','',1],
    ['g1i5',0,'Ephesians says the two shall become one flesh. Tonight, the two shall become one big mess.',''],
    ['g1i6b',0,'They say behind every good man is a good woman. Tonight we’re testing that. Literally. She’s standing right behind him, blindfolded, holding an ear of corn.','Point at the chairs on “literally.”',0,1],
