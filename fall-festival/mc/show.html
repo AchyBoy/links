@@ -9,7 +9,7 @@
 <title>Fall Fest MC Script</title>
 <script>
 /* Always fresh on reload, no popup. */
-var BUILD='20261114-161653';
+var BUILD='20261114-161758';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -94,7 +94,7 @@ details ol{margin:8px 0 4px;padding-left:22px}
 </header>
 <nav aria-label="Jump to"><div class="in" id="nav"></div></nav>
 <main id="main"><p class="empty">Loading…</p></main>
-<script src="data.js?v=20261114-161653"></script>
+<script src="data.js?v=20261114-161758"></script>
 <script>
 var KEY=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||'';
 var API='https://api.jobhubgo.com/api/yam/mcfest-'+KEY;
@@ -107,7 +107,7 @@ try{ var c=JSON.parse(localStorage.getItem('mcs-'+KEY)||'null'); if(c){ R=c.data
 
 function ans(id){ return ((R.answers||{})[id]||{}).a||''; }
 function lineHtml(l,pbp){
-  return '<div class="line'+(pbp?' pbp':'')+'"><p class="t"><span class="h" aria-hidden="true">'+HEAT[l[1]]+'</span>'+esc(l[2])+'</p>'+(l[3]&&!/^Pick this one|^Your two merged/.test(l[3])?'<p class="n">'+esc(l[3])+'</p>':'')+'</div>';
+  return '<div class="line'+(pbp?' pbp':'')+'"><p class="t"><span class="h" aria-hidden="true">'+HEAT[l[1]]+'</span>'+esc(l[2])+'</p>'+(l[3]&&!/Pick |pick one|Replaces|Course changed|From the meeting|Optional|merged|Careful|⚠️|Only for|Meeting idea|Works whether|Spicier version/i.test(l[3])?'<p class="n">'+esc(l[3])+'</p>':'')+'</div>';
 }
 function render(){
   if(!R){ $('#main').innerHTML='<p class="empty">'+(KEY?'Can’t reach the server and nothing saved on this phone yet. Open once with signal.':'Open your private link (the one with #k=).')+'</p>'; return; }
