@@ -97,7 +97,7 @@ var S=[
    ['g2w3',2,'Congratulations, fellas. Saturday, 8 a.m., my house. I’ve got some round bales.','Hand them the prize like it’s a work order.']
   ]]
  ]},
- {k:'g1',name:'Last Kernel',emoji:'🌽',rules:{title:'Love You to the Last Kernel',steps:['FINALE, on the stage. 4 couples.','Husband sits in a chair (no table) holding the basket. Wife stands BEHIND him, blindfolded.','She reaches around, shucks the corn and pulls the silk, using only touch and his directions.','Then she feeds it to him, on the cob.','Cleanest cob when time is called wins (time limit still TBD).','No helping hands from the husband.'],go:'READY, SET, SHUCK!'},groups:[
+ {k:'g1',name:'Last Kernel',emoji:'🌽',rules:{title:'Love You to the Last Kernel',steps:['FINALE, on the stage. 4 couples.','Husband sits in a chair (no table) holding the basket. Wife stands BEHIND him, blindfolded.','She reaches around, shucks the corn and pulls the silk, using only touch and his directions.','Then she feeds it to him, on the cob.','You get ONE MINUTE. Cleanest cob when time is called wins.','No helping hands from the husband.'],go:'READY, SET, SHUCK!'},groups:[
   ['Intro',[
    ['g1i1',0,'Marriage is all about trust, patience, and communication. We’re about to find out which couples have none of the above.','',1],
    ['g1i2b',1,'Ladies, your husband is about to give you instructions. Which is probably unfamiliar territory for both of you.','',1,1],
@@ -114,6 +114,7 @@ var S=[
    ['g1r1b',0,'Husbands, your hands stay in your lap the whole time. You can talk all you want, but you cannot help. I know that’s gonna be hard for some of y’all.','',0,1],
    ['g1r2b',1,'Ladies, you’ll be standing behind him, blindfolded. You can’t see a thing, so you have to trust his voice. …Bless your heart.','Pause before “Bless your heart.”',0,1],
    ['g1r3b',0,'Gentlemen, clear directions only. “Left” and “right” are directions. “Over there” is not a direction. “You know what I mean” is definitely not a direction.','',0,1],
+   ['g1r5',1,'You get ONE minute. Sixty seconds. Gentlemen, that’s about as long as y’all can go without saying “no, the OTHER way.”','Optional, new.',0,1],
    ['g1r4b',0,'So: she shucks it, she feeds it, he eats it. First clean cob wins. And I WILL be checking cobs. Everybody ready? Ready… set… SHUCK!','Hold up a cob like an inspector.',0,1],
   ]],
   ['During the game',[
