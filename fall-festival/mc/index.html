@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#2a160c">
+<title>Fall Fest MC Sheet</title>
+<script>
+/* Always fresh on reload, no popup: compare BUILD to version.json and hop once to ?v=<new>. */
+var BUILD='20261114-103857';
+(function(){
+  if(location.protocol==='file:') return;
+  function check(){
+    fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+      if(!j||!j.build||j.build===BUILD) return;
+      var k='mc-fresh-'+j.build; try{ if(sessionStorage.getItem(k)) return; sessionStorage.setItem(k,'1'); }catch(e){}
+      var u=new URL(location.href); u.searchParams.set('v',j.build); location.replace(u.toString());
+    }).catch(function(){});
+  }
+  check();
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) check(); });
+  addEventListener('pageshow',function(e){ if(e.persisted) check(); });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf4ea; --card:#ffffff; --ink:#2a1a10; --mute:#7a6253; --line:#ead9c6;
+  --rust:#b5401c; --gold:#d99a1e; --leaf:#5c7a2e;
+  --keep:#2f7d32; --keepbg:#e5f3e3; --tweak:#b07a00; --tweakbg:#fff3d4; --cut:#b3261e; --cutbg:#fbe3e1;
+  --chip:#f3e6d5;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1c120b; --card:#2a1c12; --ink:#f6eadb; --mute:#bba48f; --line:#3e2b1d;
+    --rust:#ef7a4f; --gold:#f2b84b; --leaf:#a3c46b;
+    --keep:#7fd283; --keepbg:#1f3a20; --tweak:#f2c14b; --tweakbg:#3d2f0e; --cut:#ff8a80; --cutbg:#45201c;
+    --chip:#3a281a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1c120b; --card:#2a1c12; --ink:#f6eadb; --mute:#bba48f; --line:#3e2b1d;
+  --rust:#ef7a4f; --gold:#f2b84b; --leaf:#a3c46b;
+  --keep:#7fd283; --keepbg:#1f3a20; --tweak:#f2c14b; --tweakbg:#3d2f0e; --cut:#ff8a80; --cutbg:#45201c;
+  --chip:#3a281a;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden;overflow-x:clip}
+img,svg,video{max-width:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 17px/1.45 Nunito,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+header{padding:20px 16px 8px;max-width:760px;margin:0 auto}
+h1{font:400 30px/1.05 'Alfa Slab One',serif;color:var(--rust);margin:0 0 6px;letter-spacing:.3px}
+.sub{color:var(--mute);margin:0;font-size:15px}
+.how{margin:12px 0 0;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:14px;font-size:15px}
+.how b{color:var(--rust)}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 0 8px}
+.bar-in{max-width:760px;margin:0 auto;padding:0 16px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:0;border-radius:999px;padding:8px 13px;font:800 14px Nunito;background:var(--chip);color:var(--ink);cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--rust);color:#fff}
+.filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.f{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 10px;font:700 13px Nunito;cursor:pointer}
+.f[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.prog{margin-left:auto;font:800 13px Nunito;color:var(--mute)}
+.save{font:700 12px Nunito;color:var(--mute);min-height:16px;margin-top:4px}
+main{max-width:760px;margin:0 auto;padding:6px 16px 120px}
+h2{font:400 22px 'Alfa Slab One',serif;color:var(--rust);margin:22px 0 4px}
+h3{font:800 13px Nunito;letter-spacing:1.4px;text-transform:uppercase;color:var(--leaf);margin:18px 0 8px}
+.rules{background:var(--card);border:2px dashed var(--gold);border-radius:14px;padding:12px 14px;font-size:15px}
+.rules ol{margin:6px 0 4px;padding-left:22px}
+.rules .go{font-weight:800}
+.card{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--line);border-radius:14px;padding:12px 12px 10px;margin:10px 0;transition:opacity .2s}
+.card.s-keep{border-left-color:var(--keep)}
+.card.s-tweak{border-left-color:var(--tweak)}
+.card.s-cut{border-left-color:var(--cut);opacity:.6}
+.meta{display:flex;gap:6px;align-items:center;margin-bottom:4px;font:800 12px Nunito;color:var(--mute)}
+.heat{font-size:15px}
+.mine{background:var(--chip);border-radius:999px;padding:1px 8px}
+.txt{font-size:18px;font-weight:700;margin:0}
+.txt.pbp{font-family:'Alfa Slab One',serif;font-weight:400;font-size:17px;letter-spacing:.2px}
+.note{margin:6px 0 0;color:var(--mute);font-style:italic;font-size:15px}
+.acts{display:flex;gap:6px;margin-top:10px}
+.a{flex:1;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:9px 4px;font:800 14px Nunito;cursor:pointer;min-height:42px}
+.a.keep[aria-pressed="true"]{background:var(--keepbg);border-color:var(--keep);color:var(--keep)}
+.a.tweak[aria-pressed="true"]{background:var(--tweakbg);border-color:var(--tweak);color:var(--tweak)}
+.a.cut[aria-pressed="true"]{background:var(--cutbg);border-color:var(--cut);color:var(--cut)}
+.cmt{margin-top:8px;display:none}
+.cmt.open{display:block}
+.cmt textarea{width:100%;min-height:64px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:600 16px Nunito;background:var(--bg);color:var(--ink);resize:vertical}
+.cbtn{background:none;border:0;color:var(--mute);font:700 13px Nunito;padding:6px 0 0;cursor:pointer;text-decoration:underline}
+.adder{margin:10px 0 4px;background:transparent;border:2px dashed var(--line);border-radius:14px;padding:10px 12px}
+.adder label{font:800 13px Nunito;color:var(--mute);display:block;margin-bottom:6px}
+.adder textarea{width:100%;min-height:54px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:600 16px Nunito;background:var(--card);color:var(--ink)}
+.adder button{margin-top:6px;border:0;background:var(--leaf);color:#fff;border-radius:10px;padding:8px 14px;font:800 14px Nunito;cursor:pointer}
+.added{background:var(--chip);border-radius:10px;padding:8px 10px;margin-top:6px;font-weight:700;display:flex;gap:8px;align-items:flex-start}
+.added button{margin-left:auto;background:none;border:0;color:var(--cut);font:800 13px Nunito;cursor:pointer;padding:0}
+.empty{color:var(--mute);font-style:italic;padding:10px 0}
+.leaves{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+header,main,.bar{position:relative;z-index:1}
+.lf{position:absolute;top:-30px;font-size:20px;opacity:.5;animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.lf{animation-duration:60s!important}}
+</style>
+</head>
+<body>
+<div class="leaves" aria-hidden="true" id="leaves"></div>
+<header>
+  <h1>🌽 Fall Fest MC Sheet</h1>
+  <p class="sub">Your opener, all three games, crowd work. 😇 safe · 😏 spicy · 😈 dangerous · ★ = your line</p>
+  <div class="how">Tap <b>✅ Keep</b>, <b>✏️ Tweak</b> or <b>❌ Cut</b> on each line. On Tweak, say what to change. It saves by itself, and I read it and send you a new round. Got your own line? Add it at the bottom of a section.</div>
+</header>
+<div class="bar">
+  <div class="bar-in">
+    <div class="tabs" id="tabs" role="toolbar" aria-label="Sections"></div>
+    <div class="filters" id="filters" role="toolbar" aria-label="Filters">
+      <button class="f" data-f="all" aria-pressed="true">All</button>
+      <button class="f" data-f="todo" aria-pressed="false">Not picked</button>
+      <button class="f" data-f="keep" aria-pressed="false">✅</button>
+      <button class="f" data-f="tweak" aria-pressed="false">✏️</button>
+      <button class="f" data-f="cut" aria-pressed="false">❌</button>
+      <span class="prog" id="prog"></span>
+    </div>
+    <div class="save" id="save" aria-live="polite"></div>
+  </div>
+</div>
+<main id="main"></main>
+
+<script>
+/* [id, heat 0 safe / 1 spicy / 2 dangerous, line, delivery note, mine?]
+   IDs are fixed so a review survives later rewrites. Never reuse an id. */
+var S=[
+ {k:'open',name:'Opener',emoji:'🎤',groups:[
+  ['Your opener (keep as is)',[
+   ['o1',0,'Before we get started, I want everybody to remember that this is a church event. We’re here to have fun, show good sportsmanship, and demonstrate Christian love.','',1],
+   ['o2',1,'Unfortunately, I’ve seen some of y’all play games before, so I’m not expecting much.','',1],
+   ['o3',1,'Now, I’m not gonna call any names… but we ALL know who I’m talking about.','Pause. Look around slowly, like you’re checking for a pickpocket.',1],
+   ['o4',2,'And if you think I’m talking about you… I probably am.','Straight face. Don’t smile till they laugh.',1]
+  ]],
+  ['Add-ons after the opener',[
+   ['o5',0,'Now, we do have prizes for the winners. For everybody else, we have Romans 8:28. All things work together for good. Just not tonight.',''],
+   ['o6',1,'If you lose, remember: the last shall be first. Not today. But eventually.','Shrug, like it’s out of your hands.'],
+   ['o7',0,'All judges’ decisions are final. The judge is me. I can be bribed, but only with dessert, and only before the game starts.',''],
+   ['o8',1,'We do have a first aid station tonight. It’s [NAME] with a bag of frozen peas and a strong prayer life.','Point at a real person who’ll laugh. Ask them first.'],
+   ['o9',2,'Some of y’all have been praying for a victory. Some of y’all have been praying AGAINST somebody. The Lord knows which one you are.','Beat. Then:'],
+   ['o10',2,'…So do I.','Tap your eye. Walk away.'],
+   ['o11',1,'The church is not responsible for any injuries tonight. We are, however, very sorry in advance.','']
+  ]]
+ ]},
+ {k:'g1',name:'Last Kernel',emoji:'🌽',rules:{title:'Love You to the Last Kernel',steps:['Teams are a husband and wife.','Husband sits in a chair. Wife stands BEHIND him, blindfolded.','Using only touch and his directions, she shucks the ear of corn.','Then she feeds it to him.','First husband to finish his corn wins.','No helping hands from the husband.'],go:'READY, SET, SHUCK!'},groups:[
+  ['Intro',[
+   ['g1i1',0,'Marriage is all about trust, patience, and communication. We’re about to find out which couples have none of the above.','',1],
+   ['g1i2',1,'Ladies, your husband is about to give you instructions. I realize this is unfamiliar territory for both of you.','',1],
+   ['g1i3',1,'Gentlemen, for the next three minutes, you’re in charge. Don’t get used to it. Your authority expires when that blindfold comes off.','',1],
+   ['g1i4',2,'Ladies, if your husband starts getting bossy, remember: you can’t see him, but you CAN still reach him.','',1],
+   ['g1i5',0,'Ephesians says the two shall become one flesh. Tonight, the two shall become one big mess.',''],
+   ['g1i6',1,'Here’s how it works. The husband sits down and gives orders while the wife does all the work. …So really, just a normal Saturday.','Deadpan. Let it sit.'],
+   ['g1i7',2,'Ladies, you’ll be blindfolded. Which, let’s be honest, is how a lot of y’all said yes in the first place.','Pick the crowd. Big laugh or big silence.'],
+   ['g1i8',0,'Newlyweds, you have an unfair advantage. You still like each other.',''],
+   ['g1i9',1,'Couples married thirty years, you’ve got the edge. You don’t even need words anymore. You just sigh in different keys.','Do a little sigh into the mic.']
+  ]],
+  ['Rules, said funny',[
+   ['g1r1',0,'Husbands, no hands. Keep your hands in your lap. Same place they are when the dishes need doing.',''],
+   ['g1r2',1,'Ladies, you’ll be standing behind him. You can’t see his face. For some of y’all, that’s an upgrade.','Wince like you shouldn’t have said it.'],
+   ['g1r3',0,'Gentlemen, “a little more” is not a direction. Neither is “no, the OTHER way.”',''],
+   ['g1r4',2,'And when I say “Ready, set, SHUCK,” I need everybody to listen very carefully to the word I said. Church event.','Say SHUCK extra crisp. Point at the crowd.']
+  ]],
+  ['During the game',[
+   ['g1d1',1,'Look at him! He’s been waiting his whole marriage for this moment!','',1],
+   ['g1d2',1,'Sir, remember, that blindfold comes OFF eventually.','',1],
+   ['g1d3',0,'Brother, she’s blindfolded, not deaf!','',1],
+   ['g1d4',0,'That’s it, sister! Somewhere in that general area is his mouth!','',1],
+   ['g1d5',1,'I’ve seen some bad communication in marriages, but this right here…','Shake your head. Don’t finish the sentence.',1],
+   ['g1d6',0,'Somebody get these folks some marriage counseling!','',1],
+   ['g1d7',1,'Pastor, don’t schedule marriage counseling next week. Just watch the replay!','',1],
+   ['g1d8',1,'Some of these couples came here happily married. I’m just hoping they leave that way!','',1],
+   ['g1d9',2,'Well, we’ve established who’s been holding that in for twenty years!','',1],
+   ['g1d10',0,'Look at her shucking that corn by feel. She’s been finding the remote in the couch cushions in the dark for years. She’s trained for this.',''],
+   ['g1d11',0,'Corn silk EVERYWHERE. He’s gonna be flossing till Christmas.',''],
+   ['g1d12',1,'Ma’am, that is his ear. Close. Same general neighborhood. Neither one works great.',''],
+   ['g1d13',1,'He’s saying “up, up, up, UP” like she’s backing a boat trailer down the ramp.',''],
+   ['g1d14',2,'Look at her smile. She knows exactly where his mouth is. That miss was on purpose.','Nod slowly. Straight face.'],
+   ['g1d15',1,'He’s got butter on his eyebrow and he’s still giving orders. Now THAT’S leadership.',''],
+   ['g1d16',0,'He just said “trust me.” Ma’am, last time he said that, y’all ended up at a timeshare presentation.',''],
+   ['g1d17',2,'First time in twenty years he’s been told to open his mouth instead of shut it.','Say it fast, move on.'],
+   ['g1d18',0,'Brother, keep those hands down! I see you twitching. You look like a man watching somebody else back up his truck.',''],
+   ['g1d19',1,'Gentlemen, every word you say right now is being remembered. Not by me. By HER. Thanksgiving is in two weeks.','']
+  ]],
+  ['Play-by-play',[
+   ['g1p1',0,'SHE’S LINED UP… SHE’S GOING FOR IT… AND THAT’S THE NOSE! THAT IS THE NOSE, FOLKS! WE’LL COUNT IT AS A FIELD GOAL!',''],
+   ['g1p2',0,'THE HUSK IS OFF! THE HUSK IS OFF! WE HAVE CORN! WE HAVE CORN, LADIES AND GENTLEMEN!',''],
+   ['g1p3',0,'HE’S CHEWING LIKE A TYPEWRITER! LEFT TO RIGHT… DING! NEXT ROW!','Mime the typewriter return.'],
+   ['g1p4',1,'WE HAVE A HAND VIOLATION! BROTHER’S HANDS LEFT THE LAP! THE HANDS HAVE LEFT THE LAP! THROW THE FLAG!','']
+  ]],
+  ['Winners + closing',[
+   ['g1w1',0,'Let’s hear it for our winners! They’ve demonstrated exceptional teamwork, communication, and the ability to eat corn under extreme pressure. Everything a successful marriage needs!','',1],
+   ['g1w2',1,'Ladies, you fed a grown man blindfolded while he sat and gave orders. That’s not a game. That’s Tuesday.',''],
+   ['g1w3',2,'Congratulations. You are officially the most functional couple in this church. …Low bar. But you cleared it.','Hold the pause before “Low bar.”'],
+   ['g1c1',1,'Gentlemen, remember, whatever happened up here stays up here. You’ve still got to ride home together!','',1],
+   ['g1c2',0,'To the couples who didn’t win: Proverbs says better a dry crust with peace than a feast with strife. Tonight y’all got neither. But it’s in there.','']
+  ]]
+ ]},
+ {k:'g2',name:'Hay Bale',emoji:'🍂',rules:{title:'Hay Bale Roll',steps:['Each team is 2 men.','When we say GO, roll your hay bale together from the starting line to the front of the stage.','First team across the finish line wins.','You cannot lift or carry your hay bale.'],go:'Ready, Set, Roll!'},groups:[
+  ['Intro',[
+   ['g2i1',0,'Alright, gentlemen! Time to see who’s been working hard and who’s just been supervising!','',1],
+   ['g2i2',1,'Some of y’all have been telling your wives how hard you work all week. Tonight we’re checking references!','',1],
+   ['g2i3',1,'We’re looking for two strong men per team. If you have to ask your wife whether you’re strong enough, we’ve already got our answer.','',1],
+   ['g2i4',0,'Remember, you have to ROLL the hay bale. No picking it up, no carrying it, and no calling your wife to finish the job!','',1],
+   ['g2i5',0,'Two men, one bale. Just like every church project: one does the work, and one tells the story about it for the next ten years.',''],
+   ['g2i6',1,'If you’ve got a bad back, now is the time to remember it. Not after you lose.',''],
+   ['g2i7',2,'I want to see the same hustle y’all show when they open the food line.','Point at the food table.']
+  ]],
+  ['Rules, said funny',[
+   ['g2r1',0,'If I see daylight under that bale, you’re disqualified and you’re on chair-stacking duty after.',''],
+   ['g2r2',1,'No kicking the bale. This is a hay bale, not a business meeting.',''],
+   ['g2r3',0,'Roll it to the front of the stage. The stage. Not the parking lot. Not the Promised Land. The stage.','Point. Slowly.']
+  ]],
+  ['During the game',[
+   ['g2d1',0,'I see we’ve got a supervisor and an employee!','',1],
+   ['g2d2',1,'Brother, you gonna help him or just put that on his performance review?','',1],
+   ['g2d3',1,'One man pushing, one man watching. Looks like a government job!','',1],
+   ['g2d4',0,'That bale’s moving so slow, Moses could’ve crossed the Red Sea and come back!','',1],
+   ['g2d5',0,'Somebody tell them the finish line isn’t in the Promised Land!','',1],
+   ['g2d6',0,'I’ve seen faster movement when the pastor says, “Turn to the book of Habakkuk.”','',1],
+   ['g2d7',0,'That’s the most realistic demonstration of a church workday I’ve ever seen!','',1],
+   ['g2d8',0,'If we could get this kind of participation on church workday, we’d have the whole building remodeled by Saturday!','',1],
+   ['g2d9',1,'They’re going in a circle. That’s not a race. That’s a committee meeting.',''],
+   ['g2d10',2,'One man doing all the work while the other one yells encouragement. That’s not a team. That’s a marriage.','Look at the wives. Shrug.'],
+   ['g2d11',0,'He’s pushing like he’s trying to jump-start a truck on a cold morning.',''],
+   ['g2d12',1,'Somebody’s wife just yelled “lift with your legs!” Ma’am, he hasn’t lifted with his legs since 1998.',''],
+   ['g2d13',0,'He’s sweating like somebody just asked him to pray out loud with no warning.',''],
+   ['g2d14',0,'Their bale went off course. It’s wandering in the wilderness. Give it forty years.',''],
+   ['g2d15',1,'He’s pushing with his HEAD. Jacob wrestled with an angel. This man is head-butting a salad.',''],
+   ['g2d16',2,'That bale has more direction than he did in his twenties.','']
+  ]],
+  ['Play-by-play',[
+   ['g2p1',0,'AND HERE WE GO, LADIES AND GENTLEMEN! THE BALE IS MOVING! WE HAVE FORWARD PROGRESS! NOT MUCH, BUT IT’S PROGRESS!','',1],
+   ['g2p2',0,'IT’S TIPPING! IT’S TIPPING! IT’S… IT’S FLAT AGAIN. NEVER MIND, FOLKS. STAY IN YOUR SEATS.',''],
+   ['g2p3',1,'HE’S GOT HAY IN HIS SHIRT, HAY IN HIS HAIR, HAY IN PLACES THE LORD NEVER INTENDED, AND HE IS STILL PUSHING!',''],
+   ['g2p4',0,'NECK AND NECK! BALE AND BALE! OVERALLS AND CARGO SHORTS! WHO WANTS IT MORE!','']
+  ]],
+  ['Winners',[
+   ['g2w1',0,'Let’s give these men a big hand! They’ve officially proven they’re the best at pushing around dead grass. Put that on your résumé!','',1],
+   ['g2w2',1,'Your hay bale champions! Gentlemen, your wives just watched you do yard work willingly, in public. You can never say “my back” again.',''],
+   ['g2w3',2,'Congratulations, fellas. Saturday, 8 a.m., my house. I’ve got some round bales.','Hand them the prize like it’s a work order.']
+  ]]
+ ]},
+ {k:'g3',name:'Sack Race',emoji:'🏁',rules:{title:'Sack Race Relay',steps:['Each team has 5 players lined up behind the starting line.','On GO, the first player hops in the sack to the stage and back.','Pass the sack to the next teammate, who does the same.','Keep going until all 5 have finished.'],go:'Ready, Set, Go!'},groups:[
+  ['Intro',[
+   ['g3i1',0,'This next game requires speed, balance, coordination, and five people willing to embarrass themselves in front of the entire church!','',1],
+   ['g3i2',0,'If you’ve got bad knees, bad ankles, or just bad judgment, this may not be your ministry.','',1],
+   ['g3i3',1,'If you’re over forty, I strongly recommend stretching. If you’re over sixty, I recommend a prayer partner.','',1],
+   ['g3i4',0,'Before we start, does anybody have a good chiropractor? Just trying to be proactive.','',1],
+   ['g3i5',0,'Five people, one sack, everybody takes a turn. It’s basically a family sharing one bathroom.',''],
+   ['g3i6',1,'Is there a doctor in the house? No? A nurse? Anybody who’s at least watched a lot of Grey’s Anatomy?','Scan the crowd hopefully.']
+  ]],
+  ['Rules, said funny',[
+   ['g3r1',0,'Feet stay IN the sack. If I see a foot come out, I’m gonna assume you’ve backslidden.',''],
+   ['g3r2',1,'Hand the sack to the next person. Do NOT throw it at them. I know some of y’all have unresolved issues.',''],
+   ['g3r3',0,'Hop to the stage and back. That’s hopping, not shuffling. We are a hopping church tonight.','']
+  ]],
+  ['During the game',[
+   ['g3d1',0,'He’s hopping like he just stepped on a Lego!','',1],
+   ['g3d2',0,'Somebody check that sack for a motor!','',1],
+   ['g3d3',0,'He must’ve heard they were serving gumbo!','',1],
+   ['g3d4',0,'The spirit is willing, but the knees are weak!','',1],
+   ['g3d5',0,'That’s not a fall. That’s an unscheduled prayer meeting!','',1],
+   ['g3d6',1,'I’ve seen more graceful movement from a washing machine with an unbalanced load!','',1],
+   ['g3d7',1,'He’s been delivered from many things, but apparently not that sack!','',1],
+   ['g3d8',0,'The Israelites got out of Egypt faster than he’s getting out of that sack!','',1],
+   ['g3d9',1,'I’ve seen him move faster when the pastor said, “In closing!”','',1],
+   ['g3d10',0,'Somebody shout HALLELUJAH! We just witnessed a miracle! He made it back!','',1],
+   ['g3d11',0,'That’s not hopping. That’s falling forward on purpose, over and over.',''],
+   ['g3d12',0,'Get UP, sister! The Lord didn’t bring you this far to leave you in a feed sack!',''],
+   ['g3d13',1,'Sir, that’s a shuffle. I’m watching you. That is an illegal shuffle.',''],
+   ['g3d14',1,'They’re passing that sack like it’s a hot casserole dish and nobody’s got a mitt.',''],
+   ['g3d15',1,'Her husband’s on the sideline coaching her like she’s his fantasy football team.',''],
+   ['g3d16',2,'He went down like he got slain in the Spirit. …He’s fine. He’s just resting in the Lord.','Only if he’s OK. Check first.'],
+   ['g3d17',0,'That sack came from the feed store. It has never been through this much in its life.','']
+  ]],
+  ['Play-by-play',[
+   ['g3p1',1,'HE’S COMING DOWN THE HOME STRETCH! THE CROWD IS ON ITS FEET! HIS KNEES ARE REQUESTING IMMEDIATE RETIREMENT!','',1],
+   ['g3p2',0,'HE’S AIRBORNE! HE’S AIRBORNE! …HE IS NO LONGER AIRBORNE! HE’S ON THE GROUND, FOLKS, AND THE GROUND IS WINNING!',''],
+   ['g3p3',0,'THE HANDOFF! FUMBLE! FUMBLE IN THE SACK! ONE LEG IN… TWO LEGS… SHE’S HOPPING! SHE’S DOING IT! SOMEBODY GET HER A WATER AND A WITNESS!',''],
+   ['g3p4',0,'LAST RUNNER! LAST RUNNER! THIS IS FOR ALL THE MARBLES! AND BY MARBLES I MEAN A PRIZE FROM DOLLAR GENERAL!','']
+  ]],
+  ['Winners',[
+   ['g3w1',0,'Let’s hear it for our winners! Five people, one sack, and not a single insurance claim. That’s what I call a successful church event!','',1],
+   ['g3w2',0,'Your relay champions! Tonight you get the prize. Tomorrow you get the ibuprofen.',''],
+   ['g3w3',1,'Enjoy this moment, champs. Monday morning your hamstrings are filing a formal complaint.','']
+  ]]
+ ]},
+ {k:'crowd',name:'Crowd work',emoji:'🚨',groups:[
+  ['Nobody volunteers',[
+   ['c1',0,'The harvest is plentiful, but the laborers are few!','',1],
+   ['c2',0,'Come on, somebody! Y’all volunteer quicker than this when we’re asking who wants to eat!','',1],
+   ['c3',0,'Many are called, few are chosen… and right now NONE are volunteering.',''],
+   ['c4',1,'I’m gonna count to three, and then I’m picking whoever is looking at their phone.','Start counting slowly. Watch phones disappear.'],
+   ['c5',1,'Look at all these hands… folded… praying I don’t call on them.','']
+  ]],
+  ['Wife volunteers him',[
+   ['c6',1,'Look at that! He didn’t even raise his hand! That’s what we call a submitted husband!','',1],
+   ['c7',2,'She volunteered him. That’s not a sign-up, that’s a sacrifice. Somebody tell Abraham to put down the knife.','']
+  ]],
+  ['Someone cheats',[
+   ['c8',0,'The Lord saw that. And unfortunately, so did I.','',1],
+   ['c9',1,'We’re going to need the ushers to come down here and collect a special offering of repentance!','',1],
+   ['c10',2,'Ananias and Sapphira tried to fudge the numbers too. Look how that worked out.','Look up at the sky. Step back.']
+  ]],
+  ['Arguing the rules',[
+   ['c11',0,'Brother, this is a church game, not the Supreme Court!','',1],
+   ['c12',0,'You can appeal the decision, but you’ll have to take it up with Moses.','',1],
+   ['c13',1,'You’re arguing with the only man holding a microphone. That’s a losing battle, my friend.','Hold the mic up.']
+  ]],
+  ['Too competitive',[
+   ['c14',1,'Now remember, the fruit of the Spirit includes self-control. Some of y’all left yours in the parking lot!','',1],
+   ['c15',0,'Brother, there’s no scholarship riding on this!','',1],
+   ['c16',0,'Somebody remind these folks the prize is not a new truck!','',1],
+   ['c17',2,'I can see a vein in his neck I didn’t know he had.',''],
+   ['c18',2,'Sir. It’s a sack race. Unclench.','Very calm. Very quiet.']
+  ]],
+  ['Crowd too quiet',[
+   ['c19',1,'Y’all are awfully quiet for people who aren’t the ones embarrassing themselves!','',1],
+   ['c20',1,'If you’re not participating, you better be cheering. Spectating is not a spiritual gift!','',1],
+   ['c21',2,'I’ve heard louder crowds at a funeral. And they had a reason to be quiet.','']
+  ]],
+  ['Complaints',[
+   ['c22',0,'We’ll be accepting complaints immediately after the rapture.','',1],
+   ['c23',0,'All complaints can be directed to whoever volunteered me.','',1],
+   ['c24',0,'Philippians 2:14: do all things without grumbling. Look it up. I’ll wait.','Actually wait. Tap your foot.']
+  ]],
+  ['Odd moments',[
+   ['c25',0,'It’s a TIE! We’ll settle it the biblical way: casting lots. …Rock, paper, scissors. Same thing.',''],
+   ['c26',0,'Is he OK? He’s OK! That’s a thumbs up! …I think that’s a thumbs up. Somebody check.','Only after you know he’s fine.'],
+   ['c27',0,'We’ve got a substitute running onto the field! Somebody check his birth certificate.','Little kid runs out.'],
+   ['c28',0,'Even the sound system has backslidden.','Mic cuts out.'],
+   ['c29',0,'While they set up: Jesus fed five thousand with five loaves. We fed this crowd with three crockpots and a prayer.',''],
+   ['c30',2,'Pastor’s watching, so everybody act like it’s Sunday morning. …So, half asleep.','']
+  ]],
+  ['Your other favorites',[
+   ['c31',0,'Remember, we’re here for Christian fellowship. But somebody’s still gotta lose.','',1],
+   ['c32',0,'We’re keeping score today, because apparently “everybody’s a winner” isn’t in the King James Version.','',1],
+   ['c33',0,'I’ve seen more teamwork from the disciples arguing over who was the greatest!','',1],
+   ['c34',0,'We may need to test that brother for performance-enhancing sweet tea.','',1],
+   ['c35',1,'Some of y’all are taking this awfully seriously for a prize that probably came from Dollar General!','',1]
+  ]],
+  ['Wrap-up',[
+   ['c36',0,'That’s it, folks! Thank you for playing, thank you for cheering, and thank you to everybody who didn’t need medical attention.',''],
+   ['c37',1,'If you lost tonight, don’t worry. There’s always next year. And an altar call.','']
+  ]]
+ ]}
+];
+
+var HEAT=['😇','😏','😈'];
+var KEY=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||'';
+var API='https://api.jobhubgo.com/api/yam/'+(KEY?'mcfest-'+KEY:'');
+var R={reviews:{},adds:[]};          /* reviews[id]={s,c,at}; adds=[{id,sec,t,at,gone?}] */
+var tab='open', filt='all';
+try{ tab=localStorage.getItem('mc-tab')||'open'; var c=localStorage.getItem('mc-cache-'+KEY); if(c) R=JSON.parse(c); }catch(e){}
+function $(s,el){return (el||document).querySelector(s)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+/* ---- server: last write per line wins, so two phones reviewing never wipe each other ---- */
+function merge(a,b){
+  var out={reviews:{},adds:[]},id;
+  a=a||{}; b=b||{};
+  var ra=a.reviews||{}, rb=b.reviews||{};
+  for(id in ra) out.reviews[id]=ra[id];
+  for(id in rb) if(!out.reviews[id]||(rb[id].at||0)>(out.reviews[id].at||0)) out.reviews[id]=rb[id];
+  var m={}; (a.adds||[]).concat(b.adds||[]).forEach(function(x){ if(!m[x.id]||(x.at||0)>(m[x.id].at||0)) m[x.id]=x; });
+  out.adds=Object.keys(m).map(function(k){return m[k]}).sort(function(x,y){return (x.made||0)-(y.made||0)});
+  return out;
+}
+function cache(){ try{ localStorage.setItem('mc-cache-'+KEY,JSON.stringify(R)); }catch(e){} }
+var saving=null, again=false;
+function status(t){ $('#save').textContent=t; }
+function push(){
+  cache();
+  if(!KEY){ status('⚠️ Open your private link to save'); return; }
+  if(saving){ again=true; return; }
+  status('Saving…');
+  saving=fetch(API,{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+    R=merge(j&&j.data,R);
+    return fetch(API,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({data:R,updatedAt:Date.now()})});
+  }).then(function(r){ if(!r.ok) throw 0; status('✓ Saved'); cache(); })
+    .catch(function(){ status('⚠️ Not saved yet. It will retry.'); setTimeout(push,4000); })
+    .then(function(){ saving=null; if(again){ again=false; push(); } });
+}
+function pull(){
+  if(!KEY) return;
+  fetch(API,{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+    R=merge(R,j&&j.data); cache(); render();
+  }).catch(function(){});
+}
+
+/* ---- view ---- */
+function stateOf(id){ var r=R.reviews[id]; return r&&r.s||''; }
+function showIt(id){ var s=stateOf(id); return filt==='all'||(filt==='todo'?!s:s===filt); }
+function counts(){
+  var n=0,d=0; S.forEach(function(sec){ sec.groups.forEach(function(g){ g[1].forEach(function(l){ n++; if(stateOf(l[0])) d++; }); }); });
+  return d+' of '+n+' picked';
+}
+function cardHtml(l){
+  var id=l[0], r=R.reviews[id]||{}, s=r.s||'', pbp=/^[^a-z]*$/.test(l[2].replace(/[’…“”]/g,''));
+  return '<div class="card'+(s?' s-'+s:'')+'" data-id="'+id+'">'
+   +'<div class="meta"><span class="heat" title="heat">'+HEAT[l[1]]+'</span>'+(l[4]?'<span class="mine">★ yours</span>':'')+'</div>'
+   +'<p class="txt'+(pbp?' pbp':'')+'">'+esc(l[2])+'</p>'
+   +(l[3]?'<p class="note">'+esc(l[3])+'</p>':'')
+   +'<div class="acts">'
+   +'<button class="a keep" data-s="keep" aria-pressed="'+(s==='keep')+'">✅ Keep</button>'
+   +'<button class="a tweak" data-s="tweak" aria-pressed="'+(s==='tweak')+'">✏️ Tweak</button>'
+   +'<button class="a cut" data-s="cut" aria-pressed="'+(s==='cut')+'">❌ Cut</button>'
+   +'</div>'
+   +'<div class="cmt'+(s==='tweak'||r.c?' open':'')+'"><textarea aria-label="Comment on this line" placeholder="What should change?">'+esc(r.c||'')+'</textarea></div>'
+   +(s==='tweak'||r.c?'':'<button class="cbtn">💬 Add a comment</button>')
+   +'</div>';
+}
+function render(){
+  var sec=S.filter(function(x){return x.k===tab})[0]||S[0];
+  $('#tabs').innerHTML=S.map(function(x){return '<button class="tab" data-k="'+x.k+'" aria-pressed="'+(x.k===sec.k)+'">'+x.emoji+' '+x.name+'</button>'}).join('');
+  var h='<h2>'+sec.emoji+' '+esc(sec.rules?sec.rules.title:sec.name)+'</h2>';
+  if(sec.rules) h+='<div class="rules"><b>Official rules</b><ol>'+sec.rules.steps.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol><div class="go">'+esc(sec.rules.go)+'</div></div>';
+  sec.groups.forEach(function(g){
+    var ls=g[1].filter(function(l){return showIt(l[0])});
+    if(!ls.length) return;
+    h+='<h3>'+esc(g[0])+'</h3>'+ls.map(cardHtml).join('');
+  });
+  if(!/<div class="card/.test(h)) h+='<p class="empty">Nothing here with this filter.</p>';
+  var mine=R.adds.filter(function(a){return a.sec===sec.k&&!a.gone});
+  h+='<h3>Your own lines</h3>'+mine.map(function(a){return '<div class="added"><span>'+esc(a.t)+'</span><button data-del="'+a.id+'" aria-label="Remove this line">Remove</button></div>'}).join('')
+   +'<div class="adder"><label for="add">Add a line, or tell me what kind of joke you want here</label><textarea id="add" placeholder="e.g. something about the pastor’s truck"></textarea><button id="addbtn">Add</button></div>';
+  $('#main').innerHTML=h;
+  $('#prog').textContent=counts();
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest('button'); if(!t) return;
+  if(t.dataset.k){ tab=t.dataset.k; try{localStorage.setItem('mc-tab',tab)}catch(x){} render(); scrollTo({top:0}); return; }
+  if(t.dataset.f){ filt=t.dataset.f; document.querySelectorAll('.f').forEach(function(b){b.setAttribute('aria-pressed',b===t)}); render(); return; }
+  if(t.dataset.del){ R.adds.forEach(function(a){ if(a.id===t.dataset.del){ a.gone=true; a.at=Date.now(); } }); render(); push(); return; }
+  if(t.id==='addbtn'){ var v=$('#add').value.trim(); if(!v) return; var now=Date.now(); R.adds.push({id:'a'+now.toString(36),sec:tab,t:v,at:now,made:now}); render(); push(); return; }
+  var card=t.closest('.card'); if(!card) return;
+  var id=card.dataset.id, r=R.reviews[id]||{};
+  if(t.classList.contains('cbtn')){ card.querySelector('.cmt').classList.add('open'); t.remove(); card.querySelector('textarea').focus(); return; }
+  if(t.dataset.s){
+    r.s=(r.s===t.dataset.s)?'':t.dataset.s; r.at=Date.now(); R.reviews[id]=r;
+    var keepY=card.getBoundingClientRect().top;
+    if(filt==='all'){
+      card.outerHTML=cardHtml([id].concat(findLine(id).slice(1)));
+      var nc=document.querySelector('.card[data-id="'+id+'"]');
+      if(r.s==='tweak') nc.querySelector('textarea').focus({preventScroll:true});
+      scrollBy(0,nc.getBoundingClientRect().top-keepY);
+      $('#prog').textContent=counts();
+    } else render();
+    push();
+  }
+});
+function findLine(id){ var f; S.forEach(function(s){s.groups.forEach(function(g){g[1].forEach(function(l){ if(l[0]===id) f=l; })})}); return f; }
+var typing={};
+document.addEventListener('input',function(e){
+  var card=e.target.closest('.card'); if(!card) return;
+  var id=card.dataset.id, r=R.reviews[id]||{};
+  r.c=e.target.value; r.at=Date.now(); R.reviews[id]=r; cache();
+  clearTimeout(typing[id]); typing[id]=setTimeout(push,900); status('Typing…');
+});
+document.addEventListener('visibilitychange',function(){ if(!document.hidden && !saving && !document.activeElement.matches('textarea')) pull(); });
+
+/* falling leaves, decoration only */
+(function(){ var L=['🍂','🍁','🍃'],box=$('#leaves'); for(var i=0;i<10;i++){ var s=document.createElement('span'); s.className='lf'; s.textContent=L[i%3];
+  s.style.left=(Math.random()*96)+'%'; s.style.animationDuration=(14+Math.random()*16)+'s'; s.style.animationDelay=(-Math.random()*30)+'s'; box.appendChild(s);} })();
+
+render(); pull();
+if(!KEY) status('⚠️ Open your private link to save');
+</script>
+</body>
+</html>
