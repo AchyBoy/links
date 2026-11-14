@@ -9,7 +9,7 @@
 <title>Fall Fest MC Script</title>
 <script>
 /* Always fresh on reload, no popup. */
-var BUILD='20261114-160651';
+var BUILD='20261114-161653';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -94,7 +94,7 @@ details ol{margin:8px 0 4px;padding-left:22px}
 </header>
 <nav aria-label="Jump to"><div class="in" id="nav"></div></nav>
 <main id="main"><p class="empty">Loading…</p></main>
-<script src="data.js?v=20261114-160651"></script>
+<script src="data.js?v=20261114-161653"></script>
 <script>
 var KEY=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||'';
 var API='https://api.jobhubgo.com/api/yam/mcfest-'+KEY;
@@ -122,7 +122,8 @@ function render(){
     var ro=(R.roster||{})[sec.k];
     if(ro){
       var teams=(ro.teams||[]).filter(function(t){return t&&t.some(function(x){return x&&x.trim()})});
-      if(teams.length||ro.count){
+      if(TEAM[sec.k]&&TEAM[sec.k].vol){ if(ro.count) h+='<h3>👥 '+esc(ro.count)+' teams of '+TEAM[sec.k].size+'</h3><p class="n">Volunteers, called up on the spot.</p>'; }
+      else if(teams.length||ro.count){
         h+='<h3>👥 '+(sec.k==='g1'?'Couples':'Teams')+(ro.count?' ('+esc(ro.count)+')':'')+'</h3><div class="teams">'
           +teams.map(function(t,i){return '<div class="team"><small>'+(sec.k==='g1'?'Couple':'Team')+' '+(i+1)+'</small>'+esc(t.filter(Boolean).join(' & '))+'</div>'}).join('')+'</div>';
       }

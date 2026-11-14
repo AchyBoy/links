@@ -11,9 +11,8 @@ var S=[
    ['o4',2,'And if you think I’m talking about you… I probably am.','Straight face. Don’t smile till they laugh.',1]
   ]],
   ['Add-ons after the opener',[
-   ['o5',0,'Now, we do have prizes for the winners. For everybody else, we have Romans 8:28. All things work together for good. Just not tonight.',''],
-   ['o6b',1,'If you lose, remember: the last shall be first. Just not today! But eventually.','Shrug, like it’s out of your hands.',0,1],
-   ['o7',0,'All judges’ decisions are final. The judge is me. I can be bribed, but only with dessert, and only before the game starts.',''],
+   ['o6c',1,'If you lose, remember: the last shall be first. Just not today!','Shrug, like it’s out of your hands.',1,1],
+   ['o7b',0,'All judges’ decisions are final. The judge is me. I can be bribed, but only with dessert or coffee, and only before the game starts.','',1,1],
    ['o13',1,'If anybody gets hurt tonight, don’t worry. We’ve got a bag of frozen peas and about forty prayer warriors who have been WAITING for this moment.','Spicier version of the same idea. Pick one.',0,1]
   ]]
  ]},
@@ -23,13 +22,12 @@ var S=[
    ['g3i7',0,'We need six high school volunteers! Parents, this is the fastest you will ever see them move without a phone in their hand.','',0,1],
    ['g3i8',1,'Teenagers, if you fall, just lay there a second. Your mama is already filming it.','',0,1],
    ['g3i2',0,'If you’ve got bad knees, bad ankles, or just bad judgment, this may not be your ministry.','',1],
-   ['g3i3b',1,'If you’re over forty, I strongly recommend stretching. If you’re over sixty, go ahead and schedule your chiropractor appointment now.','⚠️ Sack race is TEENAGERS now, so this one doesn’t fit. Try the next line instead.',1,1],
    ['g3i9',1,'Now, if you’re over forty, have a seat. This one’s for the teenagers. Don’t worry, we’ll call you for the hay bales.','Replaces the over forty/sixty line now that it’s teens.',0,1],
    ['g3i5d',0,'Three people, one sack. It’s just like the body of Christ: many members, one body. And tonight, that body is gonna be hopping.','',0,1],
-   ['g3i6c',0,'Real quick before we start: we may need a doctor, a nurse, or at least a professional Band-Aid installer. Anybody? …Good. You’re on standby.','Point at whoever raises a hand.',0,1],
+   ['g3i6d',0,'Real quick before we start: we may need a doctor, a nurse, or a professional Band-Aid installer. If you qualify, consider yourself on standby.','',1,1],
   ]],
   ['Rules, said funny',[
-   ['g3r2x',0,'If you fall, hold on to your sack! Hold your sack and your dignity. In that order.','From the meeting: “hold your sack if you fall.”',0,1],
+   ['g3r2y',0,'If you fall, hold on to your sack and your dignity.','',1,1],
    ['g3r1b',1,'Feet stay IN the sack. If a foot comes out, that’s the back row for a month… AND you’re printing your own offering envelopes.','Beat before “AND.”',0,1],
    ['g3r2',1,'Hand the sack to the next person. Do NOT throw it at them. I know some of y’all have unresolved issues.',''],
    ['g3r3',0,'Hop to the stage and back. That’s hopping, not shuffling. We are a hopping church tonight.','']
@@ -76,7 +74,6 @@ var S=[
   ['Rules, said funny',[
    ['g2r1c',0,'If I see daylight under that bale, you’re disqualified. AND you get to load up every single hay bale after the festival. By yourself. …Just kidding. Mostly.','Beat before “Just kidding.” Another beat before “Mostly.”',0,1],
    ['g2r2b',1,'No kicking the bale. You kick it, I kick you… out of the game. In Christian love.','Pause before “out of the game.” Smile on “Christian love.”',0,1],
-   ['g2r3f',1,'Both teams start in the middle. One goes this way, one goes that way, all the way around the edge. First bale to bump the pumpkin wins. Now, we all know men never need to ask for directions… so don’t let us down! And if you DO get lost, just tell everybody you’re taking a shortcut.','Course changed at the meeting.',0,1],
    ['g2r3d',1,'Both teams start in the middle. One goes this way, one goes that way, all the way around the edge. First bale to bump the pumpkin wins. And if you get lost, don’t worry. You’re men. You’ll just tell everybody you were taking a shortcut.','Course changed at the meeting.',0,1],
   ]],
   ['During the game',[
@@ -114,7 +111,8 @@ var S=[
    ['g1r1b',0,'Husbands, your hands stay in your lap the whole time. You can talk all you want, but you cannot help. I know that’s gonna be hard for some of y’all.','',0,1],
    ['g1r2b',1,'Ladies, you’ll be standing behind him, blindfolded. You can’t see a thing, so you have to trust his voice. …Bless your heart.','Pause before “Bless your heart.”',0,1],
    ['g1r3b',0,'Gentlemen, clear directions only. “Left” and “right” are directions. “Over there” is not a direction. “You know what I mean” is definitely not a direction.','',0,1],
-   ['g1r5',1,'You get ONE minute. Sixty seconds. Gentlemen, that’s about as long as y’all can go without saying “no, the OTHER way.”','Optional, new.',0,1],
+   ['g1r5b',0,'You get one minute. Sixty seconds. Ladies, that’s less time than it takes him to pick a restaurant.','Pick one of these two.',0,1],
+   ['g1r5c',1,'One minute on the clock. Which, in husband time, means “I’ll be right there.”','',0,1],
    ['g1r4b',0,'So: she shucks it, she feeds it, he eats it. First clean cob wins. And I WILL be checking cobs. Everybody ready? Ready… set… SHUCK!','Hold up a cob like an inspector.',0,1],
   ]],
   ['During the game',[
@@ -209,7 +207,7 @@ var S=[
 ];
 
 /* Team sizes come from the official rules; how MANY teams is the meeting question. */
-var TEAM={g1:{size:2,label:'Couple',ph:['Name','Name']},g2:{size:2,label:'Team',ph:['Man 1','Man 2']},g3:{size:3,label:'Team',ph:['Player 1','Player 2','Player 3']}};
+var TEAM={g1:{size:2,label:'Couple',ph:['Name','Name']},g2:{size:2,label:'Team',ph:['Man 1','Man 2'],vol:1},g3:{size:3,label:'Team',ph:['Player 1','Player 2','Player 3'],vol:1}};
 var QS=[
  ['m1','How many couples for Love You to the Last Kernel?','Rules say husband + wife per team. Need a chair, a blindfold and an ear of corn per couple.','g1'],
  ['m2','How many teams for Hay Bale Roll?','Rules say 2 men per team. One hay bale per team.','g2'],

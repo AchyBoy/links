@@ -9,7 +9,7 @@
 <title>Fall Fest MC Sheet</title>
 <script>
 /* Always fresh on reload, no popup: compare BUILD to version.json and hop once to ?v=<new>. */
-var BUILD='20261114-160651';
+var BUILD='20261114-161653';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -142,7 +142,7 @@ header,main,.bar{position:relative;z-index:1}
 </div>
 <main id="main"></main>
 
-<script src="data.js?v=20261114-160651"></script>
+<script src="data.js?v=20261114-161653"></script>
 <script>
 var HEAT=['😇','😏','😈'];
 var KEY=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||'';
@@ -219,6 +219,7 @@ function rosterHtml(k){
   var t=TEAM[k], r=ros(k), n=Math.max(parseInt(r.count,10)||0, r.teams.length, 1), h='';
   h+='<div class="roster" data-ros="'+k+'"><b>👥 Teams</b> <span class="hint">('+t.size+' per '+t.label.toLowerCase()+')</span>'
    +'<label class="fld">How many '+(k==='g1'?'couples':'teams')+'?<input inputmode="numeric" data-rf="count" value="'+esc(r.count||'')+'" placeholder="Ask at the meeting"></label>';
+  if(t.vol) return h+'<p class="hint">Volunteers, called up on the spot. No names needed.</p></div>';
   for(var i=0;i<n;i++){
     var tm=r.teams[i]||[];
     h+='<div class="team"><span class="tn" style="grid-row:span '+t.size+'">'+t.label+' '+(i+1)+'</span>';
