@@ -9,7 +9,7 @@
 <title>Fall Fest MC Sheet</title>
 <script>
 /* Always fresh on reload, no popup: compare BUILD to version.json and hop once to ?v=<new>. */
-var BUILD='20261114-131831';
+var BUILD='20261114-132858';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -169,7 +169,7 @@ var S=[
    ['g1i4',2,'Ladies, if your husband starts getting bossy, remember: you can’t see him, but you CAN still reach him.','',1],
    ['g1i5',0,'Ephesians says the two shall become one flesh. Tonight, the two shall become one big mess.',''],
    ['g1i6b',0,'They say behind every good man is a good woman. Tonight we’re testing that. Literally. She’s standing right behind him, blindfolded, holding an ear of corn.','Point at the chairs on “literally.”',0,1],
-   ['g1i7b',1,'Ladies, you’ll be blindfolded, so you’re going completely off his directions. I’m sorry. We’ve all been praying for you.','Hand on heart.',0,1],
+   ['g1i7c',1,'Ladies, you’ll be blindfolded, so you’re going completely off his directions. I’m sorry. We will all be praying for you.','Hand on heart.',0,1],
    ['g1i8b',0,'Newlyweds, y’all are about to find out if “for better or for worse” covers corn.','',0,1],
    ['g1i9b',0,'Now, couples who’ve been married a long time, y’all have the edge. She doesn’t need his directions. She’s been reading his mind for thirty years.','',0,1],
   ]],
@@ -214,20 +214,21 @@ var S=[
    ['g1c2',0,'To the couples who didn’t win: Proverbs says better a dry crust with peace than a feast with strife. Tonight y’all got neither. But it’s in there.','']
   ]]
  ]},
- {k:'g2',name:'Hay Bale',emoji:'🍂',rules:{title:'Hay Bale Roll',steps:['Each team is 2 men.','When we say GO, roll your hay bale together from the starting line to the front of the stage.','First team across the finish line wins.','You cannot lift or carry your hay bale.'],go:'Ready, Set, Roll!'},groups:[
+ {k:'g2',name:'Hay Bale',emoji:'🍂',rules:{title:'Hay Bale Roll',steps:['Each team is 2 men.','When we say GO, roll your hay bale together from the starting line to the front of the stage.','First team across the finish line wins.','You cannot lift or carry your hay bale.','Your note: maybe roll it AROUND the seating area and back up the middle, first back to the stage wins. Confirm at the meeting.'],go:'Ready, Set, Roll!'},groups:[
   ['Intro',[
    ['g2i1',0,'Alright, gentlemen! Time to see who’s been working hard and who’s just been supervising!','',1],
    ['g2i2',1,'Some of y’all have been telling your wives how hard you work all week. Tonight we’re checking references!','',1],
-   ['g2i3',1,'We’re looking for two strong men per team. If you have to ask your wife whether you’re strong enough, we’ve already got our answer.','',1],
-   ['g2i4',0,'Remember, you have to ROLL the hay bale. No picking it up, no carrying it, and no calling your wife to finish the job!','',1],
-   ['g2i5',0,'Two men, one bale. Just like every church project: one does the work, and one tells the story about it for the next ten years.',''],
+   ['g2i3b',1,'We’re looking for two strong men per team. If you have to ask your wife whether you’re strong enough… maybe just sit this one out.','',1,1],
+   ['g2i4b',0,'Remember, you have to ROLL it. No lifting, no carrying, no tossing. If that bale leaves the ground, you’re leaving the game.','',0,1],
+   ['g2i5b',0,'Two men, one bale. Ecclesiastes says two are better than one, because they get a good return for their labor. Tonight we find out if that works with hay.','',0,1],
    ['g2i6',1,'If you’ve got a bad back, now is the time to remember it. Not after you lose.',''],
-   ['g2i7',2,'I want to see the same hustle y’all show when they open the food line.','Point at the food table.']
+   ['g2i7b',0,'I want to see the same hustle y’all had at last week’s tug of war!','Pick this one or the next.',1,1],
+   ['g2i7c',1,'Some of y’all are still sore from last week’s tug of war. Good news: hay bales don’t pull back.','',0,1],
   ]],
   ['Rules, said funny',[
-   ['g2r1',0,'If I see daylight under that bale, you’re disqualified and you’re on chair-stacking duty after.',''],
-   ['g2r2',1,'No kicking the bale. This is a hay bale, not a business meeting.',''],
-   ['g2r3',0,'Roll it to the front of the stage. The stage. Not the parking lot. Not the Promised Land. The stage.','Point. Slowly.']
+   ['g2r1b',0,'If I see daylight under that bale, you’re disqualified. And win or lose, every one of y’all is loading these hay bales up after the festival. So pace yourselves.','',0,1],
+   ['g2r2b',1,'No kicking the bale. You kick it, I kick you… out of the game. In Christian love.','Pause before “out of the game.” Smile on “Christian love.”',0,1],
+   ['g2r3b',0,'Roll it all the way around the seating area and back up the middle. First team back to the stage wins. If you get lost, just follow the smell of the food.','',0,1],
   ]],
   ['During the game',[
    ['g2d1',0,'I see we’ve got a supervisor and an employee!','',1],
@@ -236,8 +237,8 @@ var S=[
    ['g2d4',0,'That bale’s moving so slow, Moses could’ve crossed the Red Sea and come back!','',1],
    ['g2d5',0,'Somebody tell them the finish line isn’t in the Promised Land!','',1],
    ['g2d6',0,'I’ve seen faster movement when the pastor says, “Turn to the book of Habakkuk.”','',1],
-   ['g2d7',0,'That’s the most realistic demonstration of a church workday I’ve ever seen!','',1],
-   ['g2d8',0,'If we could get this kind of participation on church workday, we’d have the whole building remodeled by Saturday!','',1],
+   ['g2d7',0,'That’s the most realistic demonstration of a church workday I’ve ever seen!','Careful: you said some folks are touchy about past work projects.',1],
+   ['g2d8',0,'If we could get this kind of participation on church workday, we’d have the whole building remodeled by Saturday!','Careful: you said some folks are touchy about past work projects.',1],
    ['g2d9',1,'They’re going in a circle. That’s not a race. That’s a committee meeting.',''],
    ['g2d10',2,'One man doing all the work while the other one yells encouragement. That’s not a team. That’s a marriage.','Look at the wives. Shrug.'],
    ['g2d11',0,'He’s pushing like he’s trying to jump-start a truck on a cold morning.',''],
@@ -245,6 +246,7 @@ var S=[
    ['g2d13',0,'He’s sweating like somebody just asked him to pray out loud with no warning.',''],
    ['g2d14',0,'Their bale went off course. It’s wandering in the wilderness. Give it forty years.',''],
    ['g2d15',1,'He’s pushing with his HEAD. Jacob wrestled with an angel. This man is head-butting a salad.',''],
+   ['g2d17',0,'Ecclesiastes 4:10: if one falls down, his friend can help him up! …Or just keep rolling. That works too.','When one of them slips.'],
    ['g2d16',2,'That bale has more direction than he did in his twenties.','']
   ]],
   ['Play-by-play',[
@@ -376,7 +378,9 @@ var QS=[
  ['m6','What order do the games go in, and what time?',''],
  ['m7','Who judges the finish line and breaks ties?',''],
  ['m8','Supplies: who brings blindfolds, corn, chairs, hay bales, sacks?',''],
- ['m9','Do I get a microphone / sound system?','']
+ ['m9','Do I get a microphone / sound system?',''],
+ ['m10','Hay bale course: straight to the stage, or around the seating area and back up the middle?','Which one you say changes a rules line.'],
+ ['m11','Who loads the hay bales up after?','You’re telling the hay bale teams it’s them.']
 ];
 var HEAT=['😇','😏','😈'];
 var KEY=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||'';
