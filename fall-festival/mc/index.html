@@ -9,7 +9,7 @@
 <title>Fall Fest MC Sheet</title>
 <script>
 /* Always fresh on reload, no popup: compare BUILD to version.json and hop once to ?v=<new>. */
-var BUILD='20261114-103857';
+var BUILD='20261114-105551';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -137,18 +137,16 @@ var S=[
  {k:'open',name:'Opener',emoji:'🎤',groups:[
   ['Your opener (keep as is)',[
    ['o1',0,'Before we get started, I want everybody to remember that this is a church event. We’re here to have fun, show good sportsmanship, and demonstrate Christian love.','',1],
-   ['o2',1,'Unfortunately, I’ve seen some of y’all play games before, so I’m not expecting much.','',1],
+   ['o2b',1,'Unfortunately, I’ve seen some of y’all play games before, so I’m not expecting too much.','',1,1],
    ['o3',1,'Now, I’m not gonna call any names… but we ALL know who I’m talking about.','Pause. Look around slowly, like you’re checking for a pickpocket.',1],
    ['o4',2,'And if you think I’m talking about you… I probably am.','Straight face. Don’t smile till they laugh.',1]
   ]],
   ['Add-ons after the opener',[
    ['o5',0,'Now, we do have prizes for the winners. For everybody else, we have Romans 8:28. All things work together for good. Just not tonight.',''],
-   ['o6',1,'If you lose, remember: the last shall be first. Not today. But eventually.','Shrug, like it’s out of your hands.'],
+   ['o6b',1,'If you lose, remember: the last shall be first. Just not today! But eventually.','Shrug, like it’s out of your hands.',0,1],
    ['o7',0,'All judges’ decisions are final. The judge is me. I can be bribed, but only with dessert, and only before the game starts.',''],
-   ['o8',1,'We do have a first aid station tonight. It’s [NAME] with a bag of frozen peas and a strong prayer life.','Point at a real person who’ll laugh. Ask them first.'],
-   ['o9',2,'Some of y’all have been praying for a victory. Some of y’all have been praying AGAINST somebody. The Lord knows which one you are.','Beat. Then:'],
-   ['o10',2,'…So do I.','Tap your eye. Walk away.'],
-   ['o11',1,'The church is not responsible for any injuries tonight. We are, however, very sorry in advance.','']
+   ['o12',0,'Now, we don’t have an official first aid station tonight. What we DO have is a bag of frozen peas and a church full of people who love to pray.','Works whether or not there’s real first aid. No names needed.',0,1],
+   ['o13',1,'If anybody gets hurt tonight, don’t worry. We’ve got a bag of frozen peas and about forty prayer warriors who have been WAITING for this moment.','Spicier version of the same idea. Pick one.',0,1]
   ]]
  ]},
  {k:'g1',name:'Last Kernel',emoji:'🌽',rules:{title:'Love You to the Last Kernel',steps:['Teams are a husband and wife.','Husband sits in a chair. Wife stands BEHIND him, blindfolded.','Using only touch and his directions, she shucks the ear of corn.','Then she feeds it to him.','First husband to finish his corn wins.','No helping hands from the husband.'],go:'READY, SET, SHUCK!'},groups:[
@@ -407,7 +405,7 @@ function counts(){
 function cardHtml(l){
   var id=l[0], r=R.reviews[id]||{}, s=r.s||'', pbp=/^[^a-z]*$/.test(l[2].replace(/[’…“”]/g,''));
   return '<div class="card'+(s?' s-'+s:'')+'" data-id="'+id+'">'
-   +'<div class="meta"><span class="heat" title="heat">'+HEAT[l[1]]+'</span>'+(l[4]?'<span class="mine">★ yours</span>':'')+'</div>'
+   +'<div class="meta"><span class="heat" title="heat">'+HEAT[l[1]]+'</span>'+(l[4]?'<span class="mine">★ yours</span>':'')+(l[5]?'<span class="mine">✏️ updated, check it</span>':'')+'</div>'
    +'<p class="txt'+(pbp?' pbp':'')+'">'+esc(l[2])+'</p>'
    +(l[3]?'<p class="note">'+esc(l[3])+'</p>':'')
    +'<div class="acts">'
