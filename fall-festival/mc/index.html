@@ -9,7 +9,7 @@
 <title>Fall Fest MC Sheet</title>
 <script>
 /* Always fresh on reload, no popup: compare BUILD to version.json and hop once to ?v=<new>. */
-var BUILD='20261115-082504';
+var BUILD='20261115-082614';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -142,7 +142,7 @@ header,main,.bar{position:relative;z-index:1}
 </div>
 <main id="main"></main>
 
-<script src="data.js?v=20261115-082504"></script>
+<script src="data.js?v=20261115-082614"></script>
 <script>
 var HEAT=['😇','😏','😈'];
 var KEY=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||'';
@@ -252,7 +252,8 @@ function notesHtml(){
   var h='<h2>📝 Notes</h2><p class="sub">Ideas for next time, what worked, what didn’t. Edit any note right here. Saves by itself.</p>';
   ids.forEach(function(id){
     var n=R.notes[id];
-    h+='<div class="qa"><textarea rows="5" aria-label="Note" data-note="'+id+'">'+esc(n.t||'')+'</textarea><p class="hint">'+new Date(n.made||n.at).toLocaleDateString()+' <button class="cbtn" data-delnote="'+id+'">Remove</button></p></div>';
+    var rows=(n.t||'').split('\n').reduce(function(k,ln){return k+Math.max(1,Math.ceil(ln.length/34))},1);
+    h+='<div class="qa"><textarea rows="'+Math.max(3,rows)+'" aria-label="Note" data-note="'+id+'">'+esc(n.t||'')+'</textarea><p class="hint">'+new Date(n.made||n.at).toLocaleDateString()+' <button class="cbtn" data-delnote="'+id+'">Remove</button></p></div>';
   });
   if(!ids.length) h+='<p class="empty">No notes yet.</p>';
   return h+'<div class="adder"><label for="addnote">Add a note</label><textarea id="addnote" placeholder="e.g. Need more chairs by the stage"></textarea><button id="addnotebtn">Add</button></div>';
