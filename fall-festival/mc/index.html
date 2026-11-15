@@ -9,7 +9,7 @@
 <title>Fall Fest MC Sheet</title>
 <script>
 /* Always fresh on reload, no popup: compare BUILD to version.json and hop once to ?v=<new>. */
-var BUILD='20261114-162505';
+var BUILD='20261115-082504';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -142,7 +142,7 @@ header,main,.bar{position:relative;z-index:1}
 </div>
 <main id="main"></main>
 
-<script src="data.js?v=20261114-162505"></script>
+<script src="data.js?v=20261115-082504"></script>
 <script>
 var HEAT=['😇','😏','😈'];
 var KEY=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||'';
@@ -165,7 +165,7 @@ function merge(a,b){
   for(id in rb) if(!out.reviews[id]||(rb[id].at||0)>(out.reviews[id].at||0)) out.reviews[id]=rb[id];
   var m={}; (a.adds||[]).concat(b.adds||[]).forEach(function(x){ if(!m[x.id]||(x.at||0)>(m[x.id].at||0)) m[x.id]=x; });
   out.adds=Object.keys(m).map(function(k){return m[k]}).sort(function(x,y){return (x.made||0)-(y.made||0)});
-  ['roster','answers'].forEach(function(f){
+  ['roster','answers','notes'].forEach(function(f){
     var A=a[f]||{}, B=b[f]||{}, o={};
     for(id in A) o[id]=A[id];
     for(id in B) if(!o[id]||(B[id].at||0)>(o[id].at||0)) o[id]=B[id];
@@ -245,11 +245,24 @@ function meetHtml(){
   });
   return h+'<div class="adder"><label for="add">Add another question</label><textarea id="add" placeholder="e.g. Can kids play the sack race?"></textarea><button id="addbtn">Add</button></div>';
 }
+/* Notes: R.notes[id]={t,at,made,gone?}, last edit per note wins */
+function notesHtml(){
+  R.notes=R.notes||{};
+  var ids=Object.keys(R.notes).filter(function(id){return !R.notes[id].gone}).sort(function(a,b){return (R.notes[a].made||0)-(R.notes[b].made||0)});
+  var h='<h2>📝 Notes</h2><p class="sub">Ideas for next time, what worked, what didn’t. Edit any note right here. Saves by itself.</p>';
+  ids.forEach(function(id){
+    var n=R.notes[id];
+    h+='<div class="qa"><textarea rows="5" aria-label="Note" data-note="'+id+'">'+esc(n.t||'')+'</textarea><p class="hint">'+new Date(n.made||n.at).toLocaleDateString()+' <button class="cbtn" data-delnote="'+id+'">Remove</button></p></div>';
+  });
+  if(!ids.length) h+='<p class="empty">No notes yet.</p>';
+  return h+'<div class="adder"><label for="addnote">Add a note</label><textarea id="addnote" placeholder="e.g. Need more chairs by the stage"></textarea><button id="addnotebtn">Add</button></div>';
+}
 function render(){
   var sec=S.filter(function(x){return x.k===tab})[0]||S[0];
   $('#tabs').innerHTML=S.map(function(x){return '<button class="tab" data-k="'+x.k+'" aria-pressed="'+(x.k===sec.k)+'">'+x.emoji+' '+x.name+'</button>'}).join('');
-  $('#filters').style.display=sec.k==='meet'?'none':'';
+  $('#filters').style.display=(sec.k==='meet'||sec.k==='notes')?'none':'';
   if(sec.k==='meet'){ $('#main').innerHTML=meetHtml(); return; }
+  if(sec.k==='notes'){ $('#main').innerHTML=notesHtml(); return; }
   var h='<h2>'+sec.emoji+' '+esc(sec.rules?sec.rules.title:sec.name)+'</h2>';
   if(sec.rules) h+='<div class="rules"><b>Official rules</b><ol>'+sec.rules.steps.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol><div class="go">'+esc(sec.rules.go)+'</div></div>';
   if(TEAM[sec.k]) h+=rosterHtml(sec.k);
@@ -271,6 +284,8 @@ document.addEventListener('click',function(e){
   if(t.dataset.f){ filt=t.dataset.f; document.querySelectorAll('.f').forEach(function(b){b.setAttribute('aria-pressed',b===t)}); render(); return; }
   if(t.dataset.addteam){ var k=t.dataset.addteam, r=ros(k), n=Math.max(parseInt(r.count,10)||0, r.teams.length, 1); while(r.teams.length<n+1) r.teams.push([]); r.at=Date.now(); R.roster[k]=r; render(); push(); return; }
   if(t.dataset.del){ R.adds.forEach(function(a){ if(a.id===t.dataset.del){ a.gone=true; a.at=Date.now(); } }); render(); push(); return; }
+  if(t.dataset.delnote){ var n=R.notes[t.dataset.delnote]; n.gone=true; n.at=Date.now(); render(); push(); return; }
+  if(t.id==='addnotebtn'){ var v2=$('#addnote').value.trim(); if(!v2) return; var now2=Date.now(); R.notes=R.notes||{}; R.notes['n'+now2.toString(36)]={t:v2,at:now2,made:now2}; render(); push(); return; }
   if(t.id==='addbtn'){ var v=$('#add').value.trim(); if(!v) return; var now=Date.now(); R.adds.push({id:'a'+now.toString(36),sec:tab,t:v,at:now,made:now}); render(); push(); return; }
   var card=t.closest('.card'); if(!card) return;
   var id=card.dataset.id, r=R.reviews[id]||{};
@@ -300,6 +315,7 @@ document.addEventListener('input',function(e){
     else { var i=+d.ti, j=+d.tj; while(r.teams.length<=i) r.teams.push([]); r.teams[i][j]=el.value; }
     r.at=Date.now(); R.roster[k]=r; later('ros-'+k); return;
   }
+  if(d.note){ var n=R.notes[d.note]; n.t=el.value; n.at=Date.now(); later('note-'+d.note); return; }
   if(d.ans){ R.answers=R.answers||{}; R.answers[d.ans]={a:el.value,at:Date.now()}; later('ans-'+d.ans); return; }
   var card=el.closest('.card'); if(!card) return;
   var id=card.dataset.id, r=R.reviews[id]||{};

@@ -3,6 +3,7 @@
    IDs are fixed so a review survives later rewrites. Never reuse an id. */
 var S=[
  {k:'meet',name:'Meeting',emoji:'📋',groups:[]},
+ {k:'notes',name:'Notes',emoji:'📝',groups:[]},
  {k:'open',name:'Opener',emoji:'🎤',groups:[
   ['Your opener (keep as is)',[
    ['o1',0,'Before we get started, I want everybody to remember that this is a church event. We’re here to have fun, show good sportsmanship, and demonstrate Christian love.','',1],
