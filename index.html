@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="x-links-version" content="v1.8">
+<meta name="x-links-version" content="v1.9">
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="My Links">
@@ -130,7 +130,7 @@
         var plain = payload.text || it.url;
         // shareFile: attach the PDF itself (fetched ahead on render, so the tap still counts as the tap)
         if (it.shareFile && fileCache[it.url]) {
-          var withFile = { text: payload.text || '', files: [fileCache[it.url]] };
+          var withFile = { text: (Array.isArray(it.share) ? '' : it.share) || '', files: [fileCache[it.url]] };  // the PDF IS the link, so no URL in the text (it showed up twice)
           if (navigator.canShare && navigator.canShare(withFile)) payload = withFile;
         }
         if (navigator.share) navigator.share(payload).catch(function(){});
