@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="x-timer-version" content="1.0">
+<title>Babel Timer</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#111;color:#fff;font-family:-apple-system,Helvetica,Arial,sans-serif;user-select:none;-webkit-user-select:none}
+body{display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top) + 10px) 14px calc(env(safe-area-inset-bottom) + 14px);transition:background .15s}
+body.flash{background:#c62828}
+body.done{background:#2e7d32}
+h1{margin:0;font-size:15px;letter-spacing:3px;color:#d4a94a;text-align:center;font-weight:800}
+.box{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:18px;margin-top:10px;background:#1d1d1d;position:relative}
+.lbl{font-size:16px;letter-spacing:2px;color:#aaa;font-weight:700}
+.big{font-variant-numeric:tabular-nums;font-weight:800;line-height:1}
+#tot{font-size:min(30vw,22vh)}
+#rot{font-size:min(26vw,18vh);color:#ffcf5c}
+.sub{font-size:18px;color:#ccc;margin-top:6px;font-weight:600;min-height:22px}
+.adj{position:absolute;right:10px;top:10px;display:flex;gap:6px}
+.adj button{width:44px;height:36px;border-radius:10px;border:0;background:#333;color:#fff;font-size:15px;font-weight:700}
+.row{display:flex;gap:10px;margin-top:12px}
+.row button{flex:1;height:74px;border:0;border-radius:16px;font-size:26px;font-weight:800;color:#fff}
+#go{background:#2e7d32} #go.pause{background:#b26a00}
+#reset{background:#444;flex:.6}
+#msg{position:fixed;inset:0;display:none;align-items:center;justify-content:center;font-size:22vw;font-weight:900;pointer-events:none;text-shadow:0 4px 20px #000}
+body.flash #msg,body.done #msg{display:flex}
+</style></head><body>
+<h1>BABEL CONSTRUCTION CO.</h1>
+<div class="box">
+  <div class="adj"><button data-k="tot" data-d="-30">−30</button><button data-k="tot" data-d="30">+30</button></div>
+  <div class="lbl">GAME</div>
+  <div class="big" id="tot">2:00</div>
+</div>
+<div class="box">
+  <div class="adj"><button data-k="rot" data-d="-5">−5</button><button data-k="rot" data-d="5">+5</button></div>
+  <div class="lbl">SWITCH IN</div>
+  <div class="big" id="rot">0:30</div>
+  <div class="sub" id="crew">Crew 1</div>
+</div>
+<div class="row"><button id="reset">Reset</button><button id="go">Start</button></div>
+<div id="msg">SWITCH!</div>
+<script>
+var TOT = Number(localStorage.getItem('bt-tot')) || 120, ROT = Number(localStorage.getItem('bt-rot')) || 30;
+var running = false, elapsed = 0, startedAt = 0, lastRot = 0, ended = false, ctx = null, wake = null, raf = 0;
+var $ = function(id){ return document.getElementById(id); };
+function fmt(s){ s = Math.max(0, Math.ceil(s)); return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+function now(){ return running ? elapsed + (performance.now() - startedAt)/1000 : elapsed; }
+function audio(){
+  // iOS: play even with the ring switch on silent (Safari 16.4+)
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch(e){}
+  if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (ctx.state === 'suspended') ctx.resume();
+}
+function buzz(sec, freq){
+  if (!ctx) return;
+  var o = ctx.createOscillator(), g = ctx.createGain();
+  o.type = 'square'; o.frequency.value = freq; g.gain.value = 0.35;
+  o.connect(g); g.connect(ctx.destination);
+  var t = ctx.currentTime; o.start(t); g.gain.setValueAtTime(0.35, t + sec - 0.05); g.gain.linearRampToValueAtTime(0, t + sec); o.stop(t + sec);
+}
+function flash(text, cls, ms){
+  $('msg').textContent = text; document.body.classList.add(cls);
+  if (cls === 'flash') setTimeout(function(){ document.body.classList.remove('flash'); }, ms);
+}
+function draw(){
+  var t = now(), left = TOT - t;
+  var crewIdx = Math.floor(t / ROT);
+  var rotLeft = ROT - (t - crewIdx * ROT);
+  if (rotLeft > left) rotLeft = left;
+  $('tot').textContent = fmt(left);
+  $('rot').textContent = fmt(rotLeft);
+  $('crew').textContent = ended ? 'Hands off!' : 'Crew ' + (crewIdx + 1) + ' of ' + Math.ceil(TOT / ROT);
+  if (running && !ended) {
+    if (left <= 0) {
+      ended = true; running = false; elapsed = TOT;
+      buzz(1.6, 220); flash('TIME!', 'done'); setBtn(); release();
+    } else if (crewIdx > lastRot) {
+      lastRot = crewIdx; buzz(0.7, 330); flash('SWITCH!', 'flash', 1200);
+    }
+  }
+  if (running) raf = requestAnimationFrame(draw);
+}
+function setBtn(){ var b = $('go'); b.textContent = ended ? 'Again' : running ? 'Pause' : (elapsed > 0 ? 'Resume' : 'Start'); b.classList.toggle('pause', running); }
+async function hold(){ try { if ('wakeLock' in navigator) wake = await navigator.wakeLock.request('screen'); } catch(e){} }
+function release(){ try { wake && wake.release(); } catch(e){} wake = null; }
+$('go').onclick = function(){
+  audio();
+  if (ended) { $('reset').onclick(); return; }
+  if (running) { elapsed = now(); running = false; release(); }
+  else { startedAt = performance.now(); running = true; hold(); if (elapsed === 0) buzz(0.25, 660); raf = requestAnimationFrame(draw); }
+  setBtn(); draw();
+};
+$('reset').onclick = function(){
+  running = false; elapsed = 0; lastRot = 0; ended = false; release();
+  document.body.classList.remove('flash', 'done'); setBtn(); draw();
+};
+document.querySelectorAll('.adj button').forEach(function(b){
+  b.onclick = function(){
+    if (running || elapsed > 0) return; // only while stopped
+    var d = Number(b.dataset.d);
+    if (b.dataset.k === 'tot') TOT = Math.min(1200, Math.max(30, TOT + d));
+    else ROT = Math.min(120, Math.max(5, ROT + d));
+    localStorage.setItem('bt-tot', TOT); localStorage.setItem('bt-rot', ROT); draw();
+  };
+});
+document.addEventListener('visibilitychange', function(){ if (!document.hidden && running) hold(); });
+setBtn(); draw();
+</script>
+</body></html>
