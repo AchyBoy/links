@@ -1,57 +1,68 @@
 <!doctype html><meta name=viewport content="width=device-width,initial-scale=1"><title>Moonberry GPT prompt</title>
 <style>body{font-family:-apple-system,sans-serif;background:#1e1830;color:#eee;padding:12px}button{font-size:20px;padding:14px 24px;border-radius:10px;border:0;background:#9b3fa0;color:#fff;width:100%}pre{white-space:pre-wrap;font-size:12px;background:#2a2340;padding:10px;border-radius:8px}</style>
-<h2>Moonberry: story continuity prompt</h2><p>Tap Copy, paste into ChatGPT.</p>
+<h2>Moonberry: story continuity prompt (ALL 313 lines)</h2><p>Tap Copy, paste into a NEW ChatGPT chat.</p>
 <button onclick="navigator.clipboard.writeText(document.getElementById('p').innerText).then(()=>this.innerText='Copied ✓')">Copy prompt</button>
-<pre id=p>You are the story editor for &quot;Moonberry Manor&quot;, a 3D story game for kids 5-12 (tone: Studio Ghibli / Final Fantasy 7 / Lufia 2 — serious and warm, normal not depressing, a little humor where it fits). Hero = a young vampire kid visiting Grandma&#x27;s manor; Grandma is missing (her fate stays a MYSTERY all season — never imply she died). Mittens = Grandma&#x27;s dry talking cat. Kit Thorn = 12-yr-old monster-hunter kid whose father Thomas vanished. Elias Vane = gentle old man who stopped the town&#x27;s clocks at 11:59 (&quot;every goodbye comes too soon&quot;); he means well, which is what makes him dangerous. Seven keys hold a promise Grandma, Elias and Thomas made.
+<pre id=p>You are the story editor for &quot;Moonberry Manor&quot;, a 3D story game for kids 5-12 (tone: Studio Ghibli / Final Fantasy 7 / Lufia 2 — serious and warm, normal not depressing, a little humor where it fits). Hero = a young vampire kid (the player names them) visiting Grandma&#x27;s manor; Grandma is missing (her fate stays a MYSTERY all season — never imply she died). Mittens = Grandma&#x27;s dry talking cat. Kit Thorn = 12-yr-old monster-hunter kid whose father Thomas vanished. Elias Vane = gentle old man who stopped the town&#x27;s clocks at 11:59 (&quot;every goodbye comes too soon&quot;); he means well, which is what makes him dangerous. Seven keys hold a promise Grandma, Elias and Thomas made. The player can lean Night Walker (bite for power) or Day Walker (help, resist); choices change some lines.
 
-Below is every voiced line in PLAY ORDER (Chapter 1, then Chapter 2 two paths), format: id | speaker | line. Then a reviewer&#x27;s list of continuity conflicts with suggested fixes.
+Below is EVERY voiced line in the game, in roughly play order, grouped by section, format: id | speaker | line. [IF ...] marks a branch (the lines under it only play in that case); [ONE OF] means only one of those lines plays. Free-play secrets, the cave and the treasure map can happen at different times. Then a reviewer&#x27;s list of known continuity conflicts with suggested fixes.
 
 TASK: Fix continuity so every line makes sense given what came before (who knows what, when; no one recognizes someone they&#x27;ve never met; nothing contradicts an earlier line). Handle every conflict in the list, and find any others. Change AS FEW lines as possible and keep each character&#x27;s voice; keep lines short and natural to say aloud. Do NOT invent new lore. You may add a new line only if truly needed (give it a new id like m_new1 and say where it goes). Don&#x27;t touch lines that are fine.
 
 Output: a table | id | speaker | old line | new line | why | for each change, then a short list of anything else that confused you.
 
-=== LINES ===
+=== ALL LINES ===
 
-=== ch1.log play order ===
+=== CHAPTER 1 — main story ===
+  [IF if (App.Save.step &lt; 20 &amp;&amp; App.Save.Has(&quot;map_quest&quot;) &amp;&amp; !App.Save.Has(&quot;treasure_map&quot;))]
 h_1 | Hero | Three weeks. No letters. Not even a birthday card. That&#x27;s not like Grandma.
+h_2 | Hero | She always said this house would be waiting for me. I just thought she&#x27;d be here too.
+m_door | Mittens | You&#x27;re late. Three weeks late, actually.
 h_3 | Hero | Mittens? You can TALK?
 m_talk | Mittens | Always could. Grandma said you&#x27;d figure it out eventually. She was very patient.
 h_3b | Hero | Where is she?
 m_door2 | Mittens | If I knew that, do you think I&#x27;d still be sitting on this doorstep?
 h_3c | Hero | You&#x27;ve been waiting for her?
 m_door3 | Mittens | Someone has to keep the place looking occupied. Come inside.
-m_letter | Mittens | She left something on the table. For you. Don&#x27;t make a fuss.
-g_letter | Grandma | My little bat. If the clocks ever stop, please remember what I taught you. And whatever happens, don&#x27;t let this house forget us.
+m_letter | Mittens | She left something on the table. It&#x27;s addressed to you.
+g_chair | Grandma (memory) | You don&#x27;t have to finish the story tonight, little bat. We&#x27;ll have another evening.
+g_teacup | Grandma (memory) | Elias says time is our enemy. I told him tea tastes better when you don&#x27;t rush it.
+g_gloves | Grandma (memory) | Remember that little tree you tried to pull straight? It grew crooked, but look how strong it is.
+g_cushion | Grandma (memory) | She waits by the door whenever you&#x27;re gone. I always leave her a place beside me.
+g_letter | Letter | My little bat. If the clocks ever stop, remember what I taught you. And whatever happens, don&#x27;t let this house forget us.
 h_4 | Hero | Grandma always wrote about the weather. Or what she&#x27;d planted. Never anything like this.
 m_letter2 | Mittens | She was worried about something. She wouldn&#x27;t tell me what.
+h_4b | Hero | Then we&#x27;ll find out. I&#x27;m not leaving without her.
 g_chair0 | Grandma | Once, when the moon was young, a little moth flew all the way up to her window. And the moon said...
-g_chair | Grandma | Sit with me a minute. The best stories never hurry.
 h_chair1 | Hero | You always said that.
 h_chair2 | Hero | We never did finish the last one.
 m_chair1 | Mittens | The moth and the moon. She always sang the ending instead of telling it.
 h_chair3 | Hero | I don&#x27;t remember how it goes.
-g_teacup | Grandma | Two sugars for you, none for me. Don&#x27;t tell the dentist.
+m_chair2 | Mittens | She wrote her songs down somewhere in this house. I never did find where.
 h_teacup1 | Hero | Who&#x27;s Elias?
 m_teacup1 | Mittens | An old friend. He used to visit every Sunday.
-g_gloves | Grandma | Plants are like people, little bat. Be gentle, and they find their way to the light.
+m_teacup2 | Mittens | Until he stopped.
+m_teacup3 | Mittens | Her moonberry leaves are still in the tin. Brew some fresh. She&#x27;d want you to.
 h_gloves1 | Hero | I thought I&#x27;d ruined it.
 g_gloves2 | Grandma | You wanted it to grow your way. Sometimes love means letting things grow their own way.
 h_gloves2 | Hero | It&#x27;s still out there. Taller than the fence now.
 h_gloves3 | Hero | Her gloves still smell like the garden.
-g_cushion | Grandma | Mittens pretends she doesn&#x27;t need anyone. Sit near her anyway.
-m_cushion | Mittens | That&#x27;s my cushion. She sat next to it every night.
+m_cushion | Mittens | That&#x27;s my cushion. She moved it beside her chair every evening.
 h_cushion1 | Hero | Even when you didn&#x27;t sit there?
+m_cushion2 | Mittens | Especially then.
 h_cushion2 | Hero | You can put it beside my bed, if you want.
 m_cushion3 | Mittens | We&#x27;ll see.
-h_songbook | Hero | Grandma&#x27;s songbook. The moth and the moon... the last page is a song.
-m_songbook | Mittens | That&#x27;s the one. She used to sing it in the greenhouse.
-k_meet1 | Kit | Stop right there. Fangs. Cloak. You&#x27;re a vampire.
+m_cushion4 | Mittens | I&#x27;ll stay close, though. My nose is better than yours for finding hidden things.
+k_meet1 | Kit | Hello? Someone saw the manor lights come on. I&#x27;m checking who&#x27;s inside.
+k_meet1b | Kit | Oh. Fangs. You&#x27;re a vampire.
 h_5 | Hero | This is my grandma&#x27;s house. Mrs. Moonberry.
-k_meet2 | Kit | Wait. You&#x27;re Mrs. Moonberry&#x27;s grandkid?
+k_meet2 | Kit | Wait. You&#x27;re her grandkid?
+k_meet2b | Kit | She used to leave food out for my father when he worked late.
 h_6 | Hero | Have you seen her? She stopped writing to me.
 k_meet2c | Kit | No. Nobody&#x27;s seen her in weeks.
+k_meet2d | Kit | I&#x27;ve been checking this place every few days. I thought someone might come back.
 h_6b | Hero | You were looking for her too?
 k_meet2e | Kit | I was looking for answers. My father disappeared near the clock tower.
+k_meet2f | Kit | Mrs. Moonberry was the last person he went to see.
 h_6c | Hero | Grandma wouldn&#x27;t hurt anyone.
 k_meet2g | Kit | I didn&#x27;t say she did.
 k_clocktower | Kit | That&#x27;s the clock tower. It hasn&#x27;t rung properly in weeks.
@@ -60,25 +71,85 @@ k_clocktower2 | Kit | A warning? What kind?
 h_6e | Hero | She said if they ever stopped, I should remember what she taught me.
 k_clocktower3 | Kit | Then we need to see what&#x27;s happening up there.
 h_6f | Hero | You&#x27;re asking me to come with you?
-k_meet3 | Kit | Fine. But I&#x27;m watching you.
+k_meet3 | Kit | I&#x27;m asking you to help. I still don&#x27;t know if I can trust you.
 h_6g | Hero | I don&#x27;t know if I trust you either.
 m_kit1 | Mittens | Wonderful. Two children who don&#x27;t trust each other. This should go well.
 k_meet3b | Kit | Fair enough. Let&#x27;s go.
 k_clock | Kit | The clock stopped. Every clock in town just stopped.
 m_clock | Mittens | Eleven fifty nine. She said this would happen.
 k_moths | Kit | Something&#x27;s coming out of her greenhouse. Moths. Big ones.
-m_bite_tut | Mittens | It&#x27;s weak. You could take its strength... or let it go. Grandma always let them go.
+k_go | Kit | I&#x27;ll hold the square. You check the greenhouse. Don&#x27;t get eaten.
 m_calm | Mittens | She&#x27;s not angry. She&#x27;s frightened. The garden is dying, and so is she.
 h_7 | Hero | Grandma&#x27;s moonberries... maybe if they grew again?
+g_page2 | Grandma | Some promises are kept by holding on. The hardest ones are kept by letting go.
+h_page2 | Hero | Another page of Grandma&#x27;s book. I&#x27;ll keep it with the first.
+
+=== CHAPTER 1 — powers ===
+g_fog | Grandma | When something holds you back, become soft as fog. Iron bars only stop what&#x27;s solid.
+g_leap | Grandma | Jump, little bat, then jump again in the air. Hold on tight, and let the wind carry you.
+h_lesson | Hero | Another one of Grandma&#x27;s lessons. She hid them where she knew I&#x27;d look.
+  [IF if (id == &quot;fog&quot; &amp;&amp; !App.Save.Has(&quot;page1&quot;))]
+m_fogback | Mittens | Fog. Remember the page behind the graveyard bars? You could slip through those now.
+m_bats1 | Mittens | Look up. Grandma&#x27;s bats still live in the clock tower. She used to whistle for them, soft and low.
+h_board1 | Hero | Like this?
+m_bats2 | Mittens | They remember her. Now they&#x27;ll remember you, too.
+
+=== CHAPTER 1 — bite tutorial ===
+m_bite_tut | Mittens | It&#x27;s weak. You could take its strength... or let it go. Grandma always let them go.
+
+=== CHAPTER 1 — ending ===
+  [IF if (calm)]
 k_after | Kit | She was frightened. You figured that out before I did.
 h_10 | Hero | Grandma always said to look before you swing.
+k_bit1 | Kit | I saw that. She was already down.
+h_bit1 | Hero | I know. I felt stronger... and I don&#x27;t like how good it felt.
+k_bit2 | Kit | Just be careful. Some things you can&#x27;t take back.
+k_fly | Kit | She got away. Are you hurt?
+h_11 | Hero | I&#x27;m okay. But I don&#x27;t think she was trying to hurt us.
+  [IF if (path == &quot;song&quot;)]
+m_sang | Mittens | That was her song. The Queen remembered it.
+m_sang2 | Mittens | Moths. Grandma always said they&#x27;d light the way home.
+  [IF else if (s.Has(&quot;songbook&quot;))]
+m_song_book | Mittens | You have her songbook. Sing her song to the Queen some night. She might remember it.
+m_song_hint | Mittens | Grandma had a song for her. I haven&#x27;t heard it in so long.
+h_song_hint | Hero | Maybe you can teach it to me.
+m_song_hint2 | Mittens | If I remember the words.
+k_green1 | Kit | That mark. I&#x27;ve seen it before.
+h_green1 | Hero | Where?
+k_green2 | Kit | On the clock tower door. Come on.
 m_tower1 | Mittens | Well, that&#x27;s convenient. Almost suspiciously so.
 h_tower1 | Hero | There&#x27;s a keyhole.
+k_tower1 | Kit | I&#x27;ve searched this wall a dozen times. That wasn&#x27;t there.
 h_tower2 | Hero | It tried to move.
+k_tower2 | Kit | Something stopped it.
 k_tower3 | Kit | Wait.
-h_tower3 | Hero | Your father knew Grandma?
+k_tower4 | Kit | That&#x27;s my dad.
+h_tower3 | Hero | Your dad was part of Grandma&#x27;s secret?
 k_tower5 | Kit | He never told me.
+k_tower6 | Kit | What promise?
+e_tower1 | Elias | I wondered who had found the first key.
+h_tower4 | Hero | Are you Elias?
+e_tower2 | Elias | I am. And you must be her little bat.
+e_tower3 | Elias | Your grandmother spoke of you often. She was very proud.
+h_tower5 | Hero | Do you know where she is?
+e_tower4 | Elias | I know she wanted to protect you.
+k_tower7 | Kit | You knew my father.
+e_tower5 | Elias | Thomas Thorn. He was a good man.
+k_tower8 | Kit | Where is he?
+e_tower6 | Elias | I wish I could give you the answer you&#x27;re hoping for.
+k_tower9 | Kit | Then tell me what happened.
+e_tower7 | Elias | He made a choice that night. A brave one.
+k_tower10 | Kit | What choice?
 e_tower8 | Elias | One I still think about.
+h_tower6 | Hero | Did you stop the clocks?
+e_tower9 | Elias | I asked them to wait.
+h_tower7 | Hero | Why?
+e_tease | Elias | Because every goodbye comes too soon. I thought perhaps we deserved a little more time.
+e_tower10 | Elias | Your grandmother disagreed. She believed even the happiest moments must end.
+h_tower8 | Hero | She said that&#x27;s how we make room for new ones.
+e_tower11 | Elias | Yes. That sounds just like her.
+e_tower12 | Elias | I hope you&#x27;ll understand me someday.
+k_tower11 | Kit | You still haven&#x27;t told me where my father is.
 e_tower13 | Elias | No. I haven&#x27;t.
 m_rec1 | Mittens | Oh, Grandma. You clever old thing.
 h_rec1 | Hero | What is it?
@@ -89,38 +160,57 @@ g_rec3 | Recording | He wants to keep the world from changing. But that&#x27;s n
 g_rec4 | Recording | There are seven keys. Each one holds a piece of the promise we made.
 g_rec5 | Recording | Find them, little bat. And please, look after each other.
 h_12 | Hero | Six more.
+k_end_bit | Kit | My father helped make that promise. I&#x27;m coming with you. Someone should keep an eye on you.
+k_end | Kit | And my father helped make that promise. I&#x27;m coming with you.
 h_tower9 | Hero | You don&#x27;t have to.
 k_tower12 | Kit | I know.
+k_tower13 | Kit | But I need to know what happened to him.
 m_end | Mittens | Well. You&#x27;d better stay, then.
 k_hook1 | Kit | Did you see that?
+h_hook1 | Hero | The bakery clock moved.
 m_hook1 | Mittens | That clock hasn&#x27;t worked in years.
 k_hook2 | Kit | My father used to go there every morning.
+h_hook2 | Hero | Then that&#x27;s where we start.
 g_page1 | Grandma | Wispwood keeps its promises. Even the ones it shouldn&#x27;t.
 h_13 | Hero | Grandma&#x27;s handwriting. I&#x27;ll keep it.
+h_final1 | Hero | You can sleep here tonight.
+m_final1 | Mittens | I know. It&#x27;s my cushion.
+m_final2 | Mittens | She would&#x27;ve liked having you home.
 h_final2 | Hero | I wish she was here.
-m_board1 | Mittens | Not with your fists. There&#x27;s a loose board at the bottom. Grandma used to nudge it with her foot.
-h_board1 | Hero | Like this?
-g_page2 | Grandma | Some promises are kept by holding on. The hardest ones are kept by letting go.
-h_page2 | Hero | Another page of Grandma&#x27;s book. I&#x27;ll keep it with the first.
-h_sing | Hero | Grandma&#x27;s song. I think I remember how it goes.
-k_tower2 | Kit | Something stopped it.
-k_tower10 | Kit | What choice?
-m_bats1 | Mittens | Look up. Grandma&#x27;s bats still live in the clock tower. She used to whistle for them, soft and low.
-k_fly | Kit | She got away. Are you hurt?
-h_11 | Hero | I&#x27;m okay. But I don&#x27;t think she was trying to hurt us.
-m_bats2 | Mittens | They remember her. Now they&#x27;ll remember you, too.
-m_sang | Mittens | That was her song. The Queen remembered it.
-k_bit1 | Kit | I saw that. She was already down.
-h_bit1 | Hero | I know. I felt stronger... and I don&#x27;t like how good it felt.
-k_bit2 | Kit | Just be careful. Some things you can&#x27;t take back.
+m_final3 | Mittens | So do I.
 
-=== ch2A.log play order ===
+=== CHAPTER 1 — free-play secrets ===
+h_songbook | Hero | Grandma&#x27;s songbook. The moth and the moon... the last page is a song.
+m_songbook | Mittens | That&#x27;s the one. She used to sing it in the greenhouse.
+m_board1 | Mittens | Not with your fists. There&#x27;s a loose board at the bottom. Grandma used to nudge it with her foot.
+h_sing | Hero | Grandma&#x27;s song. I think I remember how it goes.
+
+=== TREASURE MAP quest (unlocks Ch7) ===
+  [IF if (!s.Has(&quot;map_quest&quot;))]
+k_map1 | Kit | My dad kept a hunter&#x27;s map. Every strange thing he found in Wispwood, he marked with an X.
+k_map2 | Kit | It&#x27;s still in his old hunting blind, north of the graveyard. I haven&#x27;t gone back since he disappeared.
+h_map1 | Hero | I could go and get it. If you want.
+k_map3 | Kit | Fine. Bring it straight back. And don&#x27;t touch anything else in there.
+k_map4 | Kit | That&#x27;s his handwriting.
+k_map5 | Kit | He never said what the X&#x27;s were. Keep it. He&#x27;d want somebody to finish looking.
+h_map3 | Hero | I&#x27;ll check off every X. I promise.
+h_map2 | Hero | A tin box. There&#x27;s a map inside, folded soft, with little X&#x27;s all over town.
+
+=== WHISPER CAVE ===
+  [IF if (!s.Has(&quot;ledge_seen&quot;))]
+m_reach | Mittens | Treasure, across that gap. We&#x27;ll need something to reach that. Not today.
+g_stone | Grandma | Some stones are only waiting for a friendly knock. Strike the cracked rock, and it will let you by.
+m_stone | Mittens | Cracked rocks. There were some back at the fork, on the east path. Go on, knock.
+
+=== CHAPTER 2 — opening, town, bakery ===
+  [IF case C2Home: return s.Has(&quot;c2_tower&quot;) ? &quot;Go home to Moonberry Manor&quot; : &quot;Take the second key to the clock tower&quot;;]
 m_c2_01 | Mittens | The sun came up. Apparently it hasn&#x27;t heard about the clocks.
 h_c2_01 | Hero | Did you sleep?
 m_c2_02 | Mittens | I inspected the windows. Several times.
 k_c2_01 | Kit | Mrs. Bellweather said you might not have eaten.
 h_c2_02 | Hero | You went to the bakery?
 k_c2_02 | Kit | The clock moved last night. I wanted to see if it did it again.
+k_c2_03 | Kit | It didn&#x27;t. But Mrs. Bellweather gave me these.
 m_c2_03 | Mittens | A generous offering. I assume there is fish somewhere.
 k_c2_04 | Kit | There isn&#x27;t.
 m_c2_04 | Mittens | Then we have work to do.
@@ -129,33 +219,66 @@ h_c2_03 | Hero | We can ask at the bakery. Your dad went there every morning.
 k_c2_06 | Kit | That&#x27;s what I was hoping you&#x27;d say.
 m_c2_05 | Mittens | Before you go out there. Grandma never stepped into the sun without this.
 h_c2_04 | Hero | Grandma&#x27;s sun hat. I&#x27;ll wear it for her.
+w_c2_01 | Mrs. Wren | Kit! You&#x27;re walking your father&#x27;s old route.
 k_c2_07 | Kit | I know.
+w_c2_02 | Mrs. Wren | He always stopped to check that bakery clock. Even when it worked.
 k_c2_08 | Kit | Why would he do that?
-w_c2_03 | Wren | I never asked. I wish I had.
+w_c2_03 | Mrs. Wren | I never asked. I wish I had.
+  [IF if (s.Has(&quot;queen_bitten&quot;))]
+k_c2_09 | Kit | I meant what I said at the greenhouse. I&#x27;m still coming. Just... don&#x27;t make me regret it.
+h_c2_05 | Hero | I heard you.
+  [IF if (s.Has(&quot;moth_charm&quot;))]
+m_c2_08 | Mittens | Look at that. The little ones haven&#x27;t forgotten you.
+h_c2_06 | Hero | They&#x27;re following the charm.
+m_c2_09 | Mittens | Grandma always said a little light can make a dark place feel smaller.
+  [IF if (s.Has(&quot;path_garden&quot;))]
 m_c2_06 | Mittens | She sent an escort. Grandma would have liked that.
+m_c2_07 | Mittens | She remembers us. I hope she gets another reason to.
 k_c2_b1 | Kit | Wait. Before we go poking at broken clocks, hold your cloak up in front of you. Like a shield.
+k_c2_b2 | Kit | Dad made me practice every morning. Block first, then swing. Never the other way round.
+k_c2_b3 | Kit | I&#x27;ll toss a few practice bolts. Hold Block, and time it right before they hit.
+k_c2_b3b | Kit | Watch for the gold flash. That&#x27;s the moment. Block right when it flashes, and it bounces straight back.
 k_c2_b4 | Kit | Good. Time it just right, and it bounces straight back.
 m_c2_b1 | Mittens | That cloak was always good for more than looking dramatic.
-b_c2_01 | Bellweather | Kit Thorn. I wondered when you&#x27;d come.
+b_c2_01 | Mrs. Bellweather | Kit Thorn. I wondered when you&#x27;d come.
 k_c2_10 | Kit | You knew I would?
-b_c2_02 | Bellweather | Your father came every morning. You have his determined face.
+b_c2_02 | Mrs. Bellweather | Your father came every morning. You have his determined face.
+b_c2_g1 | Mrs. Bellweather | And I hear someone helped little Pip with his parcel this morning. Wispwood notices kindness.
 k_c2_11 | Kit | You still make them?
-b_c2_03 | Bellweather | On Thursdays. He used to buy one for you.
+b_c2_03 | Mrs. Bellweather | On Thursdays. He used to buy one for you.
 k_c2_12 | Kit | He&#x27;d tell me to save it for later. Then he&#x27;d eat half on the walk home.
-b_c2_04 | Bellweather | He always paid for two.
+b_c2_04 | Mrs. Bellweather | He always paid for two.
 h_c2_07 | Hero | Why did he check your clock?
-b_c2_05 | Bellweather | He said it sometimes lost a minute. I thought he was joking.
+b_c2_05 | Mrs. Bellweather | He said it sometimes lost a minute. I thought he was joking.
+b_c2_06 | Mrs. Bellweather | The night before he disappeared, he asked me to keep this safe.
 k_c2_13 | Kit | That was Dad&#x27;s. He let me turn it when I was little.
-b_c2_07 | Bellweather | He said, only give it to Kit when the clock forgets how to move.
+b_c2_07 | Mrs. Bellweather | He said, only give it to Kit when the clock forgets how to move.
 m_c2_10 | Mittens | That seems a remarkably specific instruction.
 k_c2_14 | Kit | He knew this would happen.
-h_c2_26 | Hero | A recipe card in Grandma&#x27;s handwriting. Moonberry star pastries. She must have shared it with Mrs. Bellweather.
+w_c2_04 | Mrs. Wren | Mrs. Bellweather? Your flour arrived. Though I seem to have lost track of the hour.
+b_c2_08 | Mrs. Bellweather | Mrs. Wren! Can you hear me?
+w_c2_05 | Mrs. Wren | Just a little dizzy. I think I&#x27;ll sit here a moment.
+h_c2_12 | Hero | Her heartbeat... I can hear it. And I&#x27;m so hungry.
+w_c2_06 | Mrs. Wren | Oh... I feel very tired.
+b_c2_09 | Mrs. Bellweather | You bit her. She was already hurt!
+k_c2_15 | Kit | She needed help. Not that.
+h_c2_08 | Hero | I was so hungry. I thought I could control it.
+k_c2_16 | Kit | That&#x27;s what frightens me. You knew she couldn&#x27;t stop you.
+m_c2_11 | Mittens | Grandma would have helped her first.
+b_c2_10 | Mrs. Bellweather | I&#x27;ll look after her. You should go.
+k_c2_17 | Kit | We need that key. But we&#x27;re talking about this later.
 h_c2_09 | Hero | Here. Sit away from the doorway.
-w_c2_07 | Wren | Thank you, dear. That&#x27;s much better.
-b_c2_11 | Bellweather | You look hungry yourself.
+w_c2_07 | Mrs. Wren | Thank you, dear. That&#x27;s much better.
+b_c2_11 | Mrs. Bellweather | You look hungry yourself.
 h_c2_10 | Hero | I&#x27;ll be okay.
+k_c2_18 | Kit | You could&#x27;ve taken what you wanted. You didn&#x27;t.
+h_c2_11 | Hero | She needed help.
+k_c2_19 | Kit | I noticed.
 m_c2_12 | Mittens | So did I.
-b_c2_12 | Bellweather | I&#x27;ll take care of her. You three find out what&#x27;s wrong with that clock.
+b_c2_12 | Mrs. Bellweather | I&#x27;ll take care of her. You three find out what&#x27;s wrong with that clock.
+
+=== CHAPTER 2 — Room Between Minutes ===
+  [IF if (s.Has(&quot;c2_dark&quot;) &amp;&amp; !s.Has(&quot;c2_evening&quot;) &amp;&amp; s.Has(&quot;moth_charm&quot;) &amp;&amp; !s.Has(&quot;c2_power&quot;))]
 h_c2_13 | Hero | A morning to begin. An afternoon to choose. An evening to remember.
 k_c2_20 | Kit | Dad taught me how to wind clocks. He never told me they could grow rooms.
 m_c2_13 | Mittens | He was selective with his lessons.
@@ -171,28 +294,49 @@ h_c2_14 | Hero | It&#x27;s a memory. It keeps starting over.
 k_c2_25 | Kit | Can we make it stay?
 m_c2_18 | Mittens | I don&#x27;t think we should.
 k_c2_26 | Kit | I can&#x27;t see the last clock.
+  [IF if (s.Has(&quot;moth_charm&quot;))]
+m_c2_19 | Mittens | There. Grandma&#x27;s little lights know the way.
+h_c2_15 | Hero | They&#x27;re showing us where to go.
 m_c2_20 | Mittens | There&#x27;s a switch behind that wall. I&#x27;ll find a way through.
 k_c2_27 | Kit | The power&#x27;s back on this lever! Help me pull. It&#x27;s heavy.
 k_c2_28 | Kit | All right. Open it.
 h_c2_27 | Hero | A pocket watch. T. T. on the back. It&#x27;s still ticking. The only thing in Wispwood that is.
-kp_c2_01 | Keeper | THE LAST GOOD MINUTE MUST BE KEPT.
+
+=== CHAPTER 2 — Keeper of Hours ===
+kp_c2_01 | The Keeper | THE LAST GOOD MINUTE MUST BE KEPT.
 k_c2_29 | Kit | What minute?
+kp_c2_02 | The Keeper | THE ONE BEFORE THE PROMISE BROKE.
 m_c2_21 | Mittens | Those brass shutters. Let some daylight in, and it might slow down.
-k_c2_32 | Kit | The big hand! Block it. Time it right and it bounces back.
-k_c2_31 | Kit | I&#x27;ll hold this lever so it can&#x27;t wind back! Stay with Mittens!
-m_c2_23 | Mittens | Its lock is showing. Break it... or wind the three clocks you fixed. Your choice.
 k_c2_30 | Kit | Watch the floor! When a slice glows blue, get out of it!
-y_c2_01 | YoungKit | Did you get my star?
+k_c2_32 | Kit | The big hand! Block it. Time it right and it bounces back.
+kp_c2_05 | The Keeper | DO NOT LET THE LIGHT IN.
+k_c2_31 | Kit | I&#x27;ll hold this lever so it can&#x27;t wind back! Stay with Mittens!
+m_c2_22 | Mittens | This one. Stand with me. The others are only echoes.
+kp_c2_06 | The Keeper | STAY. STAY IN THE MINUTE.
+m_c2_23 | Mittens | Its lock is showing. Break it... or wind the three clocks you fixed. Your choice.
+kp_c2_03 | The Keeper | IF IT ENDS, WILL IT BE GONE?
+h_c2_16 | Hero | We can remember it without keeping it trapped.
+kp_c2_04 | The Keeper | THEN LET IT GO.
+
+=== CHAPTER 2 — memory, key, ending ===
+y_c2_01 | Young Kit | Did you get my star?
 t_c2_01 | Thomas | I thought you wanted a moon today.
-y_c2_02 | YoungKit | Dad!
+y_c2_02 | Young Kit | Dad!
 t_c2_02 | Thomas | Then it&#x27;s a star. Lucky guess.
 t_c2_03 | Thomas | Your turn. Gentle now. You can&#x27;t hurry a clock into being right.
-y_c2_03 | YoungKit | Can we do it again tomorrow?
+y_c2_03 | Young Kit | Can we do it again tomorrow?
 t_c2_04 | Thomas | If I&#x27;m here, I&#x27;ll be right beside you.
 k_c2_33 | Kit | Wait. I forgot that part.
+k_c2_34 | Kit | I remember his face. But I&#x27;d forgotten his voice.
 h_c2_17 | Hero | I&#x27;m here.
+h_c2_18 | Hero | We&#x27;ll keep looking.
+k_c2_35 | Kit | I keep thinking I should&#x27;ve noticed something was wrong.
 m_c2_24 | Mittens | You were a child, Kit.
 k_c2_36 | Kit | I still am, sometimes.
+  [IF if (s.Has(&quot;wren_helped&quot;))]
+w_c2_08 | Mrs. Wren | There you are. I feel much better now, thank you.
+b_c2_13 | Mrs. Bellweather | She&#x27;s resting. Go on, then. The tower won&#x27;t wait forever.
+k_c2_37 | Kit | A second key. It goes with the first one. Come on, to the clock tower.
 k_c2_38 | Kit | The keys aren&#x27;t winding the clock. They&#x27;re holding something in place.
 m_c2_25 | Mittens | Grandma said the keys were parts of a promise. Perhaps promises can be locks.
 t_c2_05 | Thomas | Kit. If you find this, I did not leave you by choice.
@@ -203,24 +347,23 @@ m_c2_26 | Mittens | That hill has been quiet for a very long time.
 k_c2_41 | Kit | Then we&#x27;ll listen.
 k_c2_42 | Kit | What are you doing?
 h_c2_20 | Hero | Grandma wrote down things she didn&#x27;t want to forget.
+h_c2_21 | Hero | We could write something about your dad.
+  [ONE OF] k_c2_43 | Kit | He bought two star pastries.
+  [ONE OF] k_c2_44 | Kit | He let me wind the clock.
 k_c2_45 | Kit | I thought remembering would make it hurt less.
 h_c2_24 | Hero | Does it?
 k_c2_46 | Kit | Not yet. But I&#x27;m glad I heard him again.
 m_c2_27 | Mittens | Thomas was kind. And terribly stubborn.
 k_c2_47 | Kit | Will you tell me more?
 m_c2_28 | Mittens | Tomorrow. I suspect we&#x27;ll need a longer evening.
+k_c2_48 | Kit | We still need to talk about Mrs. Wren. Tomorrow.
 k_c2_49 | Kit | Thanks. For today. All of it.
 h_c2_25 | Hero | Goodnight, Grandma.
-
-=== ch2B.log play order ===
+h_c2_26 | Hero | A recipe card in Grandma&#x27;s handwriting. Moonberry star pastries. She must have shared it with Mrs. Bellweather.
 
 === REVIEWER CONFLICTS ===
-### 6. Lines that contradict earlier lines (QA 16)
-| Where | Conflict | Suggested line |
-|---|---|---|
-| Story.cs 279 vs 423 | Mittens: &quot;She was worried… She **wouldn&#x27;t tell me what**.&quot; Later: &quot;Eleven fifty nine. **She said this would happen.**&quot; | &quot;Eleven fifty-nine. Just like her letter said.&quot; |
-| StoryEnding.cs 571 vs Chapter2.cs 623 | Mittens: the bakery clock &quot;**hasn&#x27;t worked in years**.&quot; Bellweather was told to give the handle to Kit &quot;**when the clock forgets how to move**&quot;, so she should have done it years ago. The clock also reads 11:59 like the clocks that stopped *tonight*. | Mittens: &quot;That clock hasn&#x27;t moved since the night Thomas disappeared.&quot; Bellweather: &quot;…give it to Kit the night the clock moves **backward**.&quot; (That ties to the Ch1 hook you actually see.) |
-| StoryEnding.cs 183–185 vs 289 | Kit: &quot;That mark. I&#x27;ve seen it… **On the clock tower door**.&quot; At the tower: &quot;I&#x27;ve searched this wall a dozen times. **That wasn&#x27;t there**.&quot; | Kit at the tower: &quot;The mark&#x27;s always been there. The keyhole hasn&#x27;t.&quot; |
-| StoryEnding.cs 412 | Hero: &quot;**Are you Elias?**&quot; The hero has never seen him; the teacup memory only gives his name. | Mittens first (quietly): &quot;The lantern. That&#x27;s Elias.&quot; |
-| StoryEnding.cs 100 | Garden path: Kit says &quot;She was frightened. You figured that out before I did,&quot; but he was holding the square and only walks in afterwards. | &quot;Mittens told me what you did. She was frightened, wasn&#x27;t she?&quot; Or show him arriving mid-fight. |
-</pre>
+1. m_letter2 vs m_clock: Mittens says Grandma &quot;wouldn&#x27;t tell me what&quot;, later &quot;She said this would happen.&quot; Suggested: &quot;Eleven fifty-nine. Just like her letter said.&quot;
+2. m_hook1 vs b_c2_07: the bakery clock &quot;hasn&#x27;t worked in years&quot;, but Bellweather was told to give the handle to Kit &quot;when the clock forgets how to move&quot; — she&#x27;d have done it years ago. Suggested: Mittens &quot;That clock hasn&#x27;t moved since the night Thomas disappeared.&quot; Bellweather &quot;...give it to Kit the night the clock moves backward.&quot;
+3. k_green2 vs k_tower1: Kit has seen the mark &quot;on the clock tower door&quot;, then at the tower says &quot;That wasn&#x27;t there.&quot; Suggested: &quot;The mark&#x27;s always been there. The keyhole hasn&#x27;t.&quot;
+4. h_tower4 &quot;Are you Elias?&quot; — the hero has never seen him; only heard the name. Suggested: Mittens first, quietly: &quot;The lantern. That&#x27;s Elias.&quot;
+5. k_after (garden path): Kit says &quot;You figured that out before I did,&quot; but he wasn&#x27;t there for the fight (he was holding the town square). Suggested: &quot;Mittens told me what you did. She was frightened, wasn&#x27;t she?&quot;</pre>
