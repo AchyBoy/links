@@ -7,14 +7,14 @@
 </main>
 <script type="module">
 import * as T from "./three.module.min.js";
-const V="2e8dd613",L=[
+const V="c75b9e7a",L=[
 {k:"moth2",n:"Little moth",y:1.05,d:4.2,o:"Swoop",w:"The yard moth. Small and simple, so a whole flock runs smoothly, but clearly the Queen's family."},
 {k:"clock",n:"Clock moth",y:1.05,d:4.2,o:"Swoop",w:"Whisper Cave. Silver, with a stopped clock on its tummy and back."},
 {k:"thorn",n:"Thorn",y:.72,d:4.4,o:"Lash",w:"A grumpy bramble guarding its one flower."},
 {k:"thornheart",n:"Thorn Heart",y:1.5,d:9.6,o:"Heart open",w:"Mini-boss. Weak spot: the bramble doors swing open and its heart glows."},
 {k:"echo",n:"Time echo",y:.8,d:4.4,op:.82,o:"Knot shows",w:"See-through in the game. Weak spot: the glowing knot on its chest."},
 {k:"hush",n:"Hushling",y:.55,d:3.6,o:"Bump",w:"Sleepy, floppy ears, paw up for quiet. The big one is the same, larger."},
-{k:"greathush",n:"Great Hush",y:1.4,d:9,o:"Gulp",w:"Ate every sound. Ring a bell and its mouth pops open, with the stolen sounds shining inside."},
+{k:"greathush",n:"Great Hush",y:1.5,d:9.6,o:"Bell rings",w:"It swallowed all the sound in the Halls, so its mouth stays shut. Ring a bell and it burps some of the stolen sounds back out. Three rings and it has none left."},
 {k:"nibbler",n:"Nibbler",y:.4,d:2.9,o:"Nip",w:"Dust fluff, one big tooth, chews lamps and baskets."},
 {k:"drip",n:"Drip",y:.5,d:3.2,o:"Hop",w:"A water blob wearing a washer it pinched from a tap."},
 {k:"crab",n:"Rust Crab",y:.55,d:4.4,o:"Turn round",w:"An old saucepan for a shell. Weak spot: its soft back."},
@@ -46,7 +46,7 @@ thorn(N,t){const l=ot*max(0,sin(t*3)),b=sin(t*4);mv(N,"Body",0,.02*b);rot(N,"Bod
 thornheart(N,t){const b=sin(t*1.2);rot(N,"Body",0,.03*sin(t*.5),.012*b);rot(N,"Head",.03*sin(t*.8)-ot*.15,.1*sin(t*.45),.03*sin(t*.6));for(const[k,s]of LR){rot(N,"Door"+k,0,s*ot*1.75,0);rot(N,"Arm"+k,.03*b-ot*.25,0,s*(.03*sin(t*.9)+ot*.28))}const w=N.HeartWeak;if(w){const p=1+.05*max(0,sin(t*5))+ot*.12*(1+.4*sin(t*5));w.scale.setScalar(p)}},
 echo(N,t){mv(N,"Body",.02*sin(t*9)*(Math.floor(t*1.3)%4===0?1:0),.05*sin(t*1.6));rot(N,"Head",.1,.1*sin(t*.7),.06*sin(t*.9));rot(N,"Broom",.0,.35*sin(t*1.8)*(1-ot),.12*sin(t*1.8)*(1-ot)+ot*.15);mv(N,"Broom",ot*.12,0,0);for(let i=0;i<3;i++)rot(N,"Dust"+i,0,t*(.9+.3*i),0);const w=N.KnotWeak;if(w){w.scale.setScalar(1+ot*.7+.06*sin(t*4));mv(N,"KnotWeak",0,0,ot*.12)}},
 hush(N,t){const b=.5+.5*sin(t*1.7),r=ot*max(0,sin(t*3.2));mv(N,"Root",0,0,r*.45);const g=N.Body;g&&g.scale.set(1+.03*b+r*.06,1-.04*b-r*.1,1+.03*b);rot(N,"Body",r*.3,0,.04*sin(t*.8));for(const[k,s]of LR){rot(N,"Ear"+k,-r*.5,0,s*(.06*sin(t*1.7)+r*.4));rot(N,"Foot"+k,.12*s*sin(t*3)*ot,0,0)}rot(N,"Paw",0,-ot*.5,ot*.4);const m=N.Mouth;m&&m.scale.setScalar(1+ot*.5)},
-greathush(N,t){const b=.5+.5*sin(t*1.1),g=N.Body;g&&g.scale.set(1+.02*b+ot*.04,1-.02*b,1+.02*b+ot*.04);rot(N,"Body",-ot*.05,.04*sin(t*.5),.02*sin(t*.8));for(const[k,s]of LR){rot(N,"Ear"+k,0,0,s*(.04*sin(t*1.1)+ot*.22));rot(N,"Arm"+k,.04*sin(t)-ot*.35,-s*ot*.15,s*ot*.25)}const m=N.Mouth;m&&m.scale.set(1-.15*(1-ot)+ot*.7,.28+ot*(1.35+.12*sin(t*5)),1+ot*.15)},
+greathush(N,t){const b=.5+.5*sin(t*1.1),g=N.Body;g&&g.scale.set(1+.02*b+ot*.04,1-.02*b,1+.02*b+ot*.04);rot(N,"Body",-ot*.05,.04*sin(t*.5),.02*sin(t*.8));for(const[k,s]of LR){rot(N,"Ear"+k,0,0,s*(.04*sin(t*1.1)+ot*.22));rot(N,"Arm"+k,.04*sin(t)-ot*.35,-s*ot*.15,s*ot*.25)}const m=N.Mouth;m&&m.scale.set(.62+ot*(.75+.08*sin(t*9)),.1+ot*(1.15+.12*sin(t*9)),1);for(let i=0;i<5;i++){const p=(t*.42+i*.2)%1,n=N["NoteWeak"+i];if(!n)continue;n.scale.setScalar(Math.max(.001,ot*Math.min(1,p*5)*Math.min(1,(1-p)*4)));mv(N,"NoteWeak"+i,(i%2?1:-1)*p*.75+.12*sin(t*3+i),p*1.75,p*.65);n.rotation.z=.25*sin(t*3+i*2)}},
 nibbler(N,t){const h=ot*abs(sin(t*6)),c=ot>.5?abs(sin(t*9)):.5+.5*sin(t*2.2);mv(N,"Root",0,h*.22,h*.12);const g=N.Body;g&&g.scale.set(1+.03*sin(t*4),1-.04*sin(t*4),1);rot(N,"Body",h*.2,.15*sin(t*.8)*(1-ot),.05*sin(t*3));rot(N,"Tail",0,.3*sin(t*3.4),0);for(const[k,s]of LR){rot(N,"Ear"+k,.12*sin(t*2.6+s),0,s*.08*sin(t*3.1));rot(N,"Paw"+k,-.5*c*ot,0,0)}const j=N.Jaw;j&&j.scale.set(1,.7+c*1.3,1);mv(N,"Tooth",0,-.012*c,0)},
 drip(N,t){const p=(t*1.1)%1,up=ot*sin(p*3.14),sq=.06*sin(t*3)+ot*(p<.12||p>.9?.14:-.1);mv(N,"Body",0,up*.55,0);const g=N.Body;g&&g.scale.set(1+sq,1-sq,1+sq);rot(N,"Tip",.1*sin(t*3),0,.16*sin(t*2.4));const q=N.Puddle;q&&q.scale.set(1+.05*sin(t*3)-up*.3,1,1+.05*sin(t*3)-up*.3);for(const[k,s]of LR)rot(N,"Hand"+k,0,0,s*(.2*sin(t*3.5)+up*.9))},
 crab:cr,oldcrab:cr};
