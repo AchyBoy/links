@@ -3,22 +3,25 @@
 .c{background:#fff;border:2px solid #e5d9c3;border-radius:14px;padding:12px 14px;margin:14px 0}.c.on{border-color:#6b4fb3;background:#f5f0ff}
 audio{width:100%;margin:8px 0}button{font:600 18px -apple-system,sans-serif;width:100%;padding:13px;border-radius:12px;border:2px solid #6b4fb3;background:#fff;color:#6b4fb3}
 button.on{background:#6b4fb3;color:#fff}h3{margin:4px 0}.r{display:flex;gap:10px}textarea{width:100%;box-sizing:border-box;font:18px -apple-system,sans-serif;padding:10px;border-radius:12px;border:2px solid #e5d9c3;min-height:90px}#s{position:sticky;bottom:0;background:#fbf7ef;padding:10px 0;font-weight:600;text-align:center}</style>
-<h2>Moonberry voices: pick one</h2><p>The clock tower scene with Dad's message. A, B and C say the same words. D is reworded. The kid hero has a different voice in B, C and D because the old one isn't offered on those models.</p>
+<h2>Moonberry voices: pick one</h2><p>The clock tower scene with Dad's message. A, B and C say the same words. D and E are reworded. The kid hero has a different voice in B, C, D and E because the old one isn't offered on those models.</p>
 <div id="list"></div>
+<h3>Kid hero: which voice?</h3><p>"He wanted you to hear it someday." Number 1 is the one in E.</p><div id="hl"></div>
 <div class="c"><h3>Is it a big enough jump to redo everything?</h3><div class="r"><button data-j="yes">Yes</button><button data-j="no">Not yet</button></div></div>
 <div class="c"><h3>Anything else?</h3><textarea id="n" placeholder="Optional"></textarea></div>
 <div id="s"></div>
 <script>
-var O=[["A","In the game now","A-now.mp3?v=e2418e4e"],["B","Newer GPT model","B-new.mp3?v=8ef96149"],["C","Newest GPT, same words","C.mp3?v=9c3d9755"],["D","Newest GPT, words the way people talk","D.mp3?v=b5536423"]];
+var O=[["A","In the game now","A-now.mp3?v=e2418e4e"],["B","Newer GPT model","B-new.mp3?v=8ef96149"],["C","Newest GPT, same words","C.mp3?v=9c3d9755"],["E","D with the hero and Mittens pacing fixed","E.mp3?v=72ef95f3"],["D","Newest GPT, words the way people talk","D.mp3?v=b5536423"]];
+var H=[["1","hero-shimmer1.mp3?v=f0259a91"],["2","hero-alloy2.mp3?v=06c5b54a"],["3","hero-sage1.mp3?v=bb21c856"]];
 var key=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||"",url="https://api.jobhubgo.com/api/yam/"+key,LS="moonberry-voice-"+key;
-var d={pick:null,jump:null,notes:""},at=0,seq=0,t=null,st=document.getElementById("s"),n=document.getElementById("n");
+var d={pick:null,hero:null,jump:null,notes:""},at=0,seq=0,t=null,st=document.getElementById("s"),n=document.getElementById("n");
 document.getElementById("list").innerHTML=O.map(function(o){return '<div class="c" data-c="'+o[0]+'"><h3>'+o[0]+'. '+o[1]+'</h3><audio controls preload="metadata" src="'+o[2]+'"></audio><button data-p="'+o[0]+'"></button></div>'}).join("");
-function paint(){document.querySelectorAll("[data-c]").forEach(function(e){e.classList.toggle("on",e.dataset.c===d.pick)});
+document.getElementById("hl").innerHTML=H.map(function(o){return '<div class="c" data-hc="'+o[0]+'"><h3>Hero '+o[0]+'</h3><audio controls preload="metadata" src="'+o[1]+'"></audio><button data-h="'+o[0]+'"></button></div>'}).join("");
+function paint(){document.querySelectorAll("[data-hc]").forEach(function(e){e.classList.toggle("on",e.dataset.hc===d.hero)});document.querySelectorAll("[data-h]").forEach(function(b){var on=b.dataset.h===d.hero;b.classList.toggle("on",on);b.textContent=on?"✓ Picked Hero "+b.dataset.h:"Pick Hero "+b.dataset.h});document.querySelectorAll("[data-c]").forEach(function(e){e.classList.toggle("on",e.dataset.c===d.pick)});
 document.querySelectorAll("[data-p]").forEach(function(b){var on=b.dataset.p===d.pick;b.classList.toggle("on",on);b.textContent=on?"✓ Picked "+b.dataset.p:"Pick "+b.dataset.p});
 document.querySelectorAll("[data-j]").forEach(function(b){b.classList.toggle("on",b.dataset.j===d.jump)});if(document.activeElement!==n)n.value=d.notes||""}
 function save(){at=Date.now();var my=++seq;try{localStorage.setItem(LS,JSON.stringify({d:d,at:at}))}catch(e){}if(!key){st.textContent="Open this from the link in chat so picks can save.";return}
 st.textContent="Saving...";fetch(url,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({data:d,updatedAt:at})}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){if(my===seq)st.textContent=j.ok?"✓ Saved":"Not saved, reload the page"}).catch(function(){if(my===seq){st.textContent="Not saved, trying again...";clearTimeout(t);t=setTimeout(save,4000)}})}
-document.addEventListener("click",function(e){var b=e.target;if(b.dataset.p){d.pick=b.dataset.p;paint();save()}else if(b.dataset.j){d.jump=b.dataset.j;paint();save()}});
+document.addEventListener("click",function(e){var b=e.target;if(b.dataset.p){d.pick=b.dataset.p;paint();save()}else if(b.dataset.h){d.hero=b.dataset.h;paint();save()}else if(b.dataset.j){d.jump=b.dataset.j;paint();save()}});
 n.addEventListener("input",function(){d.notes=n.value;st.textContent="Saving...";clearTimeout(t);t=setTimeout(save,900)});
 document.addEventListener("play",function(e){document.querySelectorAll("audio").forEach(function(a){if(a!==e.target)a.pause()})},true);
 try{var l=JSON.parse(localStorage.getItem(LS)||"null");if(l){d=l.d;at=l.at}}catch(e){}paint();
