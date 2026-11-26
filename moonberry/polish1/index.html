@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Manor front, before and after</title><style>body{font:18px -apple-system,sans-serif;max-width:760px;margin:20px auto 60px;padding:0 12px;background:#fbf7ef;color:#33261c}
+.c{background:#fff;border:2px solid #e5d9c3;border-radius:14px;padding:12px 14px;margin:14px 0}.c.on{border-color:#6b4fb3;background:#f5f0ff}img{width:100%;border-radius:8px;display:block}
+button{font:600 18px -apple-system,sans-serif;width:100%;padding:13px;border-radius:12px;border:2px solid #6b4fb3;background:#fff;color:#6b4fb3;margin-top:10px}button.on{background:#6b4fb3;color:#fff}h3{margin:4px 0 8px}textarea{width:100%;box-sizing:border-box;font:18px -apple-system,sans-serif;padding:10px;border-radius:12px;border:2px solid #e5d9c3;min-height:90px}#s{position:sticky;bottom:0;background:#fbf7ef;padding:10px 0;font-weight:600;text-align:center}</style>
+<h2>Manor front, before and after</h2><p>Same style, just more detail. Old on the left, new on the right. Tap a picture to see it big. Nothing is in the game yet.</p>
+<p style="font-size:16px;color:#7a6a55">New: siding lines, slate roof, shutters, double doors with a lit window over them, a porch with posts, an iron fence on stone posts, stone paths, flower beds, tufts in the grass, new trees, warm light under the windows at night and a little mist. It runs at the same speed as before (tested on the Mac only).</p>
+<div id="pics"></div>
+<div class="c" id="pk"><h3>What next?</h3><button data-o="go">Looks good, do the rest of Chapter 1 like this</button><button data-o="change">Change something first (say what below)</button></div>
+<div class="c"><h3>Anything to change?</h3><textarea id="n" placeholder="Optional"></textarea></div><div id="s"></div>
+<script>var P=[["Front, day","front_day.jpg?v=568fce00"],["Yard, day","yard_day.jpg?v=48821e68"],["Up close, day","low_day.jpg?v=a3eb60dc"],["Front, night","front_night.jpg?v=291617de"],["Yard, night","yard_night.jpg?v=78dd70ec"],["Up close, night","low_night.jpg?v=abe6a4cd"]];
+document.getElementById("pics").innerHTML=P.map(function(p){return '<div class="c"><h3>'+p[0]+'</h3><a href="'+p[1]+'"><img loading="lazy" src="'+p[1]+'"></a></div>'}).join("");
+var key=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||"",url="https://api.jobhubgo.com/api/yam/"+key,LS="moonberry-polish1-"+key;
+var d={pick:"",notes:""},at=0,seq=0,t=null,st=document.getElementById("s"),n=document.getElementById("n");
+function paint(){document.querySelectorAll("[data-o]").forEach(function(b){b.classList.toggle("on",d.pick===b.dataset.o)});document.getElementById("pk").classList.toggle("on",!!d.pick);if(document.activeElement!==n)n.value=d.notes||""}
+function save(){at=Date.now();var my=++seq;try{localStorage.setItem(LS,JSON.stringify({d:d,at:at}))}catch(e){}if(!key){st.textContent="Open this from the link in chat so it can save.";return}
+st.textContent="Saving...";fetch(url,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({data:d,updatedAt:at})}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){if(my===seq)st.textContent=j.ok?"✓ Saved":"Not saved, reload the page"}).catch(function(){if(my===seq){st.textContent="Not saved, trying again...";clearTimeout(t);t=setTimeout(save,4000)}})}
+document.addEventListener("click",function(e){var b=e.target;if(b.dataset&&b.dataset.o){d.pick=b.dataset.o;paint();save()}});
+n.addEventListener("input",function(){d.notes=n.value;st.textContent="Saving...";clearTimeout(t);t=setTimeout(save,900)});
+try{var l=JSON.parse(localStorage.getItem(LS)||"null");if(l){d=l.d;at=l.at}}catch(e){}paint();
+if(key){fetch(url).then(function(r){return r.json()}).then(function(j){if(j.data&&j.updatedAt>=at&&seq===0){d=j.data;at=j.updatedAt;paint();if(d.pick)st.textContent="✓ Saved"}else if(at&&seq===0)save()}).catch(function(){})}else st.textContent="Open this from the link in chat so it can save.";
+</script></html>
