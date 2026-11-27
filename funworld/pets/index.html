@@ -7,8 +7,29 @@
 </main>
 <script type="module">
 import * as T from "./three.module.min.js";
-const V="083545e2",L=[{k:"crab",n:"Crab",y:.6,d:3.4,w:"From your crab picture. Waves his claws, eyes on stalks."},
-{k:"bunny3",n:"Hopping bunny",y:.55,d:4.0,w:"From your newest bunny picture. On all fours, hops."},
+const V="b81acb45",L=[{k:"bunny3",n:"Hopping bunny",y:.55,d:4.0,w:"From your newest bunny picture. On all fours, hops."},
+{k:"crab",n:"Crab",y:.6,d:3.4,w:"From your crab picture. Waves his claws, eyes on stalks."},
+{k:"kitten",n:"Kitten",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"puppy",n:"Puppy",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"chick",n:"Chick",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"piglet",n:"Piglet",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"beaver",n:"Beaver",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"fawn",n:"Fawn",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"calf",n:"Calf",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"hog",n:"Hog",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"fox",n:"Fox",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"panda",n:"Panda",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"penguin",n:"Penguin",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"koala",n:"Koala",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"polar",n:"Polar Bear",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"bee",n:"Bee",y:.6,d:3.4,w:"New, made in the same style as your crab and bunny."},
+{k:"caterpillar",n:"Caterpillar",y:.35,d:3.4,w:"New, made in the same style as your crab and bunny."},
+{k:"lion",n:"Lion Cub",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"tiger",n:"Tiger Cub",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"monkey",n:"Monkey",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
+{k:"elephant",n:"Elephant",y:.6,d:4.2,w:"New, made in the same style as your crab and bunny."},
+{k:"giraffe",n:"Giraffe",y:.85,d:4.6,w:"New, made in the same style as your crab and bunny."},
+{k:"parrot",n:"Parrot",y:.55,d:3.9,w:"New, made in the same style as your crab and bunny."},
 {k:"bunny2",n:"Standing bunny",y:.75,d:4.3,w:"From your new standing bunny picture. Walks on its back legs."},
 {k:"bunny",n:"Sitting bunny",y:.7,d:4.3,w:"From your bunny picture. One floppy ear, pink paws."}];
 const el=document.getElementById("v"),R=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=T.PCFSoftShadowMap;el.appendChild(R.domElement);
@@ -30,18 +51,25 @@ const up=e=>{P.delete(e.pointerId);pd=0};el.addEventListener("pointerup",up);el.
 window.__cam=(y,p,z,yy)=>{spin=false;yaw=y;pitch=p;zoom=z;window.__yy=yy};window.__show=async k=>show(L.find(m=>m.k===k));
 const sin=Math.sin;function rot(N,k,x,y,z){const g=N[k];if(g)g.rotation.set(x||0,y||0,z||0)}function mv(N,k,x,y,z){const g=N[k];if(g){const h=g.userData.h;g.position.set(h[0]+(x||0),h[1]+(y||0),h[2]+(z||0))}}
 const LR=[["R",1],["L",-1]],max=Math.max,abs=Math.abs,WT=[0,0,0,0],clk={};
-function dr(N,t){const ca=WT[0],wk=WT[1],hp=WT[3],w=t*8,hop=hp*abs(sin(t*5))*.25;
-const bn=!N.StalkR,hp_=(t*1.6)%1,air=hp_<.55?Math.sin(hp_/.55*Math.PI):0,ga=Math.floor(t*1.6)+Math.min(1,hp_/.55),ang=N.Toe2?t*.9:ga*.55;
-if(bn){mv(N,"Root",wk*Math.sin(ang)*.5,hop+wk*(N.Toe2?abs(sin(t*9))*.05:air*.3),wk*Math.cos(ang)*.5);const yw=Math.atan2(Math.sin(ang+Math.PI/2),Math.cos(ang+Math.PI/2));rot(N,"Root",0,wk*yw,0)}else{mv(N,"Root",wk*.25*sin(t*1.6),hop,0);rot(N,"Root",0,0,0)}
-const h6=bn?air:0;
-rot(N,"Body",N.Quad?-wk*(hp_<.55?.22*Math.sin(Math.min(1,hp_/.55)*Math.PI*2):0):bn&&!N.Toe2?-wk*.15*h6:0,0,wk*.04*sin(w)+hp*.06*sin(t*5)+ca*.02*sin(t*1.5));
-for(const[k,s]of LR){rot(N,"Arm"+k,0,0,s*(ca*.12*sin(t*2+(s>0?0:1))+hp*(.5+.4*sin(t*10))+wk*.15*sin(w)));rot(N,"Claw"+k,0,0,s*(.18*max(0,sin(t*(3+hp*6)+s))));
-rot(N,"Stalk"+k,.06*sin(t*1.3+s),0,s*.08*sin(t*1.1)+hp*.1*sin(t*8));
-for(let i=0;i<3;i++)rot(N,"Leg"+k+i,0,0,s*wk*.35*sin(w+i*2.1+(s>0?0:1)));
-if(N.Quad){const q=Math.min(1,hp_/.55),air2=wk*air;rot(N,"Leg"+k,wk*(hp_<.55?.75*Math.sin(q*Math.PI*.9):0),0,0);rot(N,"Arm"+k,-wk*(hp_<.55?.6*Math.sin(q*Math.PI):0),0,0)}else if(N.Toe2){const st=sin(t*9+(s>0?0:3.14));rot(N,"Leg"+k,wk*.55*st,0,0);rot(N,"Arm"+k,-wk*.25*st,0,0)}else if(!N.StalkR){const h=h6;rot(N,"Leg"+k,-wk*.7*h,0,0);rot(N,"Arm"+k,-wk*.6*h,0,0)}rot(N,"Ear"+k,-.08*sin(t*1.7+s)-hp*.15*sin(t*10),0,s*(.05*sin(t*1.2)));
+function dr(N,t){const ca=WT[0],wk=WT[1],hp=WT[3],S=Math.sin,A=Math.abs,hop=hp*A(S(t*5))*.25,crab=!!N.StalkR,quad=!!N.Quad,fly=!!N.Fly,w4=!!N.Walk4,bip=!!N.Biped||!!N.Toe2,cat=!!N.Cat,
+hp_=(t*1.6)%1,air=hp_<.55?S(hp_/.55*Math.PI):0,q=Math.min(1,hp_/.55),ang=quad||(!crab&&!w4&&!bip&&!fly&&!cat)?(Math.floor(t*1.6)+q)*.55:t*.8,st=S(t*8);
+if(crab){mv(N,"Root",wk*.25*S(t*1.6),hop,0);rot(N,"Root",0,0,0)}else{const yw=Math.atan2(S(ang+Math.PI/2),Math.cos(ang+Math.PI/2));
+const up=fly?.25+.06*S(t*3):(quad||!(w4||bip||cat))?wk*air*.3:wk*A(st)*.03;mv(N,"Root",wk*S(ang)*.5,hop+up,wk*Math.cos(ang)*.5);rot(N,"Root",0,wk*yw,bip?wk*.08*st:0)}
+rot(N,"Body",quad?-wk*(hp_<.55?.22*S(q*Math.PI*2):0):(!crab&&!w4&&!bip&&!fly&&!cat)?-wk*.15*air:fly?.1*S(t*2):0,0,crab?wk*.04*S(t*8)+hp*.06*S(t*5)+ca*.02*S(t*1.5):hp*.06*S(t*5));
+for(const[k,s]of LR){
+if(crab){rot(N,"Arm"+k,0,0,s*(ca*.12*S(t*2+(s>0?0:1))+hp*(.5+.4*S(t*10))+wk*.15*S(t*8)));rot(N,"Claw"+k,0,0,s*(.18*Math.max(0,S(t*(3+hp*6)+s))));rot(N,"Stalk"+k,.06*S(t*1.3+s),0,s*.08*S(t*1.1)+hp*.1*S(t*8));for(let i=0;i<3;i++)rot(N,"Leg"+k+i,0,0,s*wk*.35*S(t*8+i*2.1+(s>0?0:1)))}
+else if(quad){rot(N,"Leg"+k,wk*(hp_<.55?.75*S(q*Math.PI*.9):0),0,0);rot(N,"Arm"+k,-wk*(hp_<.55?.6*S(q*Math.PI):0),0,0)}
+else if(w4){const g=S(t*8+(s>0?0:Math.PI));rot(N,"LegF"+k,wk*.5*g,0,0);rot(N,"LegB"+k,-wk*.5*g,0,0)}
+else if(bip){const g=S(t*8+(s>0?0:Math.PI));rot(N,"Leg"+k,wk*.55*g,0,0);rot(N,"Arm"+k,-wk*.25*g,0,0)}
+else if(fly){for(let i=0;i<3;i++)rot(N,"Leg"+k+i,.2*S(t*3+i),0,0)}
+else if(!cat){rot(N,"Leg"+k,-wk*.7*air,0,0);rot(N,"Arm"+k,-wk*.6*air,0,0)}
+const Wg=N["Wing"+k];if(Wg)rot(N,"Wing"+k,0,0,fly?s*.55*S(t*38):s*(hp*(.3+.5*S(t*14))+wk*.15*S(t*8)+ca*.04*S(t*2)));
+rot(N,"Ear"+k,-.08*S(t*1.7+s)-hp*.15*S(t*10),0,s*(.05*S(t*1.2)));rot(N,"Ant"+k,.15*S(t*3+s),0,0);
 const E=N["Eye"+k],bl=(t%3.7)<.13?.12:1;E&&E.scale.set(1,bl,1)}
-rot(N,"Head",.04*sin(t*1.6)-hp*.1,.18*sin(t*.8)*ca,hp*.12*sin(t*5));rot(N,"Tail",0,.3*sin(t*4),0);
-const m=N.Mouth;m&&m.scale.set(1,.8+.15*sin(t*1.4)+hp*.3,1)}
+for(let i=0;i<5;i++){const g=N["Seg"+i];if(g)mv(N,"Seg"+i,.05*S(t*2-i*.7),(wk*.07+.01)*Math.max(0,S(t*6-i*.9)),0)}
+for(let i=0;i<4;i++){rot(N,"Trunk"+i,.18*S(t*2-i*.6)-hp*.3,0,0);rot(N,"Tail"+i,(i?.12:.05)+.08*S(t*2),.25*S(t*3-i*.6),0)}
+rot(N,"Head",.04*S(t*1.6)-hp*.1,.18*S(t*.8)*ca,hp*.12*S(t*5));rot(N,"Neck",.05*S(t*1.2),0,0);rot(N,"Tail",0,(.3+hp*.4)*S(t*(4+hp*8)),0);
+const m=N.Mouth;m&&m.scale.set(1,.8+.15*S(t*1.4)+hp*.3,1)}
 const PT=[];let pn=0;{const sh=new T.Shape();for(let i=0;i<8;i++){const a=i*Math.PI/4,r=i%2?.28:1;sh[i?"lineTo":"moveTo"](sin(a)*r,Math.cos(a)*r)}const sg=new T.ShapeGeometry(sh);for(let i=0;i<260;i++){const m=new T.Mesh(sg,new T.MeshBasicMaterial({transparent:true,side:T.DoubleSide,depthWrite:false}));m.visible=false;m.userData={a:9,v:new T.Vector3()};S.add(m);PT.push(m)}}
 let pl=0;const tv=new T.Vector3();function trail(t){const dt=Math.min(.05,t-pl);pl=t;if(cur.sp&&M&&WT[2]>.35){for(const[k,ox]of[["WingR2",.4],["WingL2",-.4],["Tail4",0],["TailTip",0]]){const g=M.N[k];if(!g||Math.random()>dt*38)continue;g.updateWorldMatrix(true,false);tv.set(ox,-.12,0).applyMatrix4(g.matrixWorld);const m=PT[pn=(pn+1)%260],u=m.userData;m.position.copy(tv);u.a=0;u.l=1+Math.random()*1;u.s=.045+Math.random()*.11;u.v.set((Math.random()-.5)*.5,-.15-Math.random()*.35,-1.1-Math.random()*.8);m.material.color.set(cur.sp[Math.floor(Math.random()*cur.sp.length)]);m.visible=true}}
 for(const m of PT){const u=m.userData;if(!m.visible)continue;u.a+=dt;if(u.a>u.l){m.visible=false;continue}const q=u.a/u.l;m.position.addScaledVector(u.v,dt);m.quaternion.copy(cam.quaternion);m.rotateZ(t*2+u.l*9);m.scale.setScalar(u.s*(1-q)*(.75+.5*abs(sin(t*11+u.l*20))));m.material.opacity=1-q*q}}
