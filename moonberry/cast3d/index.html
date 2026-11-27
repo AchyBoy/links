@@ -13,10 +13,30 @@
 <script type="module">
 import * as T from "./three.module.min.js";
 const V="1";
+function TF(n,sc,sk,hr,top,bot,acc,sh,show){const c=x=>new T.Color(x).multiplyScalar(.84).getHex();return{n,scale:sc,show,col:{0xfe0201:sk,0xfe0202:c(sk),0xfe0203:hr,0xfe0204:top,0xfe0205:bot,0xfe0206:acc,0xfe0207:sh}}}
 const CH=[
 {id:"kit",n:"Kit",f:"kit",h:1.45,fy:1.0,kind:"kid",mv:[["sling","Sling throw"]],about:"Your best friend. Wide hat with goggles, green scarf, crossbow and quiver on the back, a trap pouch on the belt, and the new sling in his right hand for Chapter 5."},
 {id:"crumb",n:"Crumb",f:"crumb",h:.95,fy:.7,kind:"rat",mv:[["raise","Raise the lamp"]],about:"Rat folk kid. Mustard scarf with a patch, the checked tea-towel vest, wooden spoon and tin cup on the belt, and the jar lamp held up to light the way."},
 {id:"elias",n:"Elias",f:"elias",h:1.62,fy:1.33,kind:"adult",stoop:.07,mv:[["raise","Lift the lantern"]],about:"Elias Vane. Gentle and tired: wild grey hair, white beard, octagon glasses, long dark coat with the collar turned up, and the silver lantern."},
+
+{id:"grandma",n:"Grandma",f:"grandma",h:1.45,fy:1.17,kind:"lady",looks:[{n:"Ghost (as in the game)",ghost:true},{n:"Plain"}],about:"Grandma. Gold octagon glasses, happy closed eyes, grey curls with a bun, berries and a ribbon, the checked shawl, white collar and the purple brooch. In the game she is a warm gold ghost; Plain shows the colours under the glow."},
+{id:"thomas",n:"Thomas",f:"thomas",h:1.75,fy:1.39,kind:"adult",looks:[{n:"Plain"},{n:"Golden memory (as in the game)",ghost:true}],about:"Thomas, Kit's dad. Wide hunter's hat like Kit's, long brown coat, cream shirt, the strap with its brass buckle and the crossbow on his back."},
+{id:"youngkit",n:"Young Kit",f:"youngkit",h:1.05,fy:.77,kind:"kid",hold:[-1.0,.32],looks:[{n:"Plain"},{n:"Golden memory (as in the game)",ghost:true}],about:"Kit at about five. Blue cap, curly hair, freckles, a big green scarf, and the jam star cookie held in both hands."},
+{id:"wren",n:"Mrs. Wren",f:"wren",h:1.4,fy:1.09,kind:"lady",hold:[-1.25,.42],about:"Mrs. Wren. Little green felt hat with a pink flower, grey curls and side buns, the lilac shawl with tassels, the gold brooch, hands clasped."},
+{id:"bellweather",n:"Mrs. Bellweather",f:"bellweather",h:1.5,fy:1.18,kind:"lady",hold:[-.95,.3],about:"Mrs. Bellweather, the baker. Puffy white cap with a red band, rosy cheeks with flour on one, red dress with puffed sleeves, white apron with a red bow, holding a fresh loaf."},
+{id:"ratwick",n:"Old Ratwick",f:"ratwick",h:1.25,fy:.88,kind:"rat",stoop:.06,about:"Old Ratwick, the rat folk shopkeeper. Round gold glasses, bushy white brows and cheek tufts, a pencil behind his ear, green waistcoat with brass buttons, notepad, scroll, a magnifier on a chain and a red cravat."},
+{id:"crowdrat",n:"Rat folk crowd",f:"crowdrat",img:"crumb",h:1.1,fy:.78,kind:"rat",about:"One rat folk body for filling Undertown. Fur, belly, clothes and accent colours swap, and so do the hats and extras (cap, headscarf, top hat, bow, glasses, scarf, apron, bag) and the size. Six examples below.",
+ roles:{0xfe0101:0x8c6440,0xfe0102:0xd8b48c,0xfe0103:0x9e4a4a,0xfe0104:0x3a5a8a},allNodes:["AccTuft","AccCap","AccScarfHead","AccTopHat","AccBow","AccSpecs","AccScarf","AccApron","AccBag"],
+ looks:[{n:"Market",scale:.85,col:{0xfe0101:0x8c6440,0xfe0102:0xd8b48c,0xfe0103:0x9e4a4a,0xfe0104:0x3a5a8a},show:["AccCap","AccBag"]},
+ {n:"Granny",scale:.8,col:{0xfe0101:0xb0a8a0,0xfe0102:0xe8e0d8,0xfe0103:0x6a4a7a,0xfe0104:0xc85a5a},show:["AccScarfHead","AccSpecs","AccApron"]},
+ {n:"Gentleman",scale:1,col:{0xfe0101:0x5c4c44,0xfe0102:0xb8a898,0xfe0103:0x3a5a4a,0xfe0104:0x2e2a32},show:["AccTopHat","AccSpecs"]},
+ {n:"Little one",scale:.6,col:{0xfe0101:0xa87a50,0xfe0102:0xe8c8a0,0xfe0103:0x4a7a9a,0xfe0104:0xe05a8a},show:["AccBow","AccTuft"]},
+ {n:"Cook",scale:.9,col:{0xfe0101:0x7a5a44,0xfe0102:0xd0b090,0xfe0103:0xd8a040,0xfe0104:0xc8443a},show:["AccApron","AccScarf","AccTuft"]},
+ {n:"Porter",scale:1.15,col:{0xfe0101:0x4e4440,0xfe0102:0xa89890,0xfe0103:0x6a6a3a,0xfe0104:0x8a5a34},show:["AccCap","AccBag"]}]},
+{id:"crowdhuman",n:"Town crowd",f:"crowdhuman",img:"bellweather",h:1.6,fy:1.27,kind:"adult",about:"One townsfolk body for filling the town. Skin, hair, top, trousers or skirt and accent colours swap, and so do the hair styles, beard, glasses, hats (cap, straw hat, top hat, bonnet), apron, scarf and bag. Six examples below.",
+ allNodes:["HairShort","HairBun","HairLong","Beard","Glasses","HatCap","HatStraw","HatTop","Bonnet","Apron","Scarf","Satchel","SkirtHem"],roles:{},
+ looks:[TF("Baker",.98,0xe8b48c,0x5a3826,0xe6dcc6,0x4a4a5a,0xc8943a,0x4a2e1e,["HairShort","Apron","Beard"]),TF("Bonnet",.95,0xd39a6c,0x3e2418,0x3f6b48,0x6a2f5e,0xe8dcc8,0x3a2420,["HairBun","Bonnet","SkirtHem","Scarf"]),TF("Farmer",1.02,0xa66a42,0x221a26,0x8e2f3a,0x5a4a32,0x8a3a2a,0x4a2e1e,["HairShort","HatStraw","Satchel"]),TF("Gentleman",1.05,0xf6d3b8,0x9a9aa2,0x2c3560,0x2e2a32,0x9a2a3a,0x1e1a20,["HairShort","HatTop","Beard","Glasses"]),TF("Long hair",.96,0x7e4b2d,0x221a26,0xc8943a,0x2f6f78,0xe0d0b0,0x3a2420,["HairLong","SkirtHem","Satchel"]),TF("Worker",.92,0xe8b48c,0xc0602c,0x2f6f78,0x4a3a2a,0x625b84,0x4a2e1e,["HairShort","HatCap","Scarf"])]},
+{id:"boo",n:"Boo",f:"boo",h:1.1,fy:.6,kind:"ghost",allNodes:["BooNew","BooNow"],looks:[{n:"New, after the painting",show:["BooNew"]},{n:"In the game now",show:["BooNow"]}],about:"Boo. The game's Boo already has the painting's parts (faceted pale ghost, curl on top, flower, curling tail, big dark eyes with a square shine), but it is built from round blocks stacked like a snowman. The new one is one teardrop shape like the painting, with the curl, the waving arm and the curling tail. Both are here to compare."},
 ];
 const el=document.getElementById("v"),R=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=T.PCFSoftShadowMap;el.appendChild(R.domElement);
 const S=new T.Scene(),cam=new T.PerspectiveCamera(30,1,.1,50);
@@ -32,7 +52,7 @@ for(const k in N){const p=N[k].userData.p;(p?N[p]:root).add(N[k])}
 const lights=[];for(const k of["Lamp"])if(N[k]){const l=new T.PointLight(k==="Lamp"&&c.id==="elias"?0xcfe0ff:0xffc070,0,2.6,1.5);l.position.set(0,-.16,0);N[k].add(l);lights.push(l)}
 root.visible=false;S.add(root);return MD[c.f]={root,N,lights,c}}
 // ghost / memory look: gold, see-through, glowing
-const ghostM=new Map();function ghost(m,on){m.root.traverse(x=>{if(!x.isMesh)return;if(!x.userData.m0)x.userData.m0=x.material;if(on){const c=new T.Color(x.userData.c),l=(c.r*.3+c.g*.59+c.b*.11);if(!x.userData.gm)x.userData.gm=new T.MeshStandardMaterial({color:new T.Color(1,.82,.5).multiplyScalar(.55+.6*l),emissive:new T.Color(1,.72,.35),emissiveIntensity:.55+.5*l,roughness:.5,flatShading:true,transparent:true,opacity:.62,depthWrite:true});x.material=x.userData.gm;x.castShadow=false}else{x.material=x.userData.m0;x.castShadow=!(x.userData.e>.5)}})}
+const DM=new T.MeshBasicMaterial({colorWrite:false});function ghost(m,on){const ms=[];m.root.traverse(x=>{if(x.isMesh&&!x.userData.dm)ms.push(x)});for(const x of ms){if(!x.userData.m0)x.userData.m0=x.material;if(on){const c=new T.Color(x.userData.c),l=(c.r*.3+c.g*.59+c.b*.11);if(!x.userData.gm)x.userData.gm=new T.MeshStandardMaterial({color:new T.Color(1,.74,.3).multiplyScalar(.12+.6*l),emissive:new T.Color(1,.6,.16),emissiveIntensity:.25+.6*l,roughness:.5,flatShading:true,transparent:true,opacity:.7,depthWrite:false});if(!x.userData.dmesh){const d=new T.Mesh(x.geometry,DM);d.userData.dm=true;d.renderOrder=-1;x.add(d);x.userData.dmesh=d}x.userData.dmesh.visible=true;x.material=x.userData.gm;x.renderOrder=1;x.castShadow=false}else{x.material=x.userData.m0;x.renderOrder=0;if(x.userData.dmesh)x.userData.dmesh.visible=false;x.castShadow=!(x.userData.e>.5)}}}
 function applyLook(){if(!M)return;const L=(cur.looks||[])[look];document.querySelectorAll("#looks button").forEach((b,i)=>b.classList.toggle("on",i===look));
 const N=M.N;if(cur.allNodes)for(const k of cur.allNodes)if(N[k])N[k].visible=!!(L&&L.show&&L.show.includes(k));
 if(L&&L.hide)for(const k of L.hide)if(N[k])N[k].visible=false;
@@ -56,6 +76,7 @@ const XA=new T.Vector3(1,0,0),sin=Math.sin,cos=Math.cos,PI=Math.PI,ease=x=>x<0?0
 function R3(N,k,x,y,z){const g=N[k];if(g)g.rotation.set(x||0,y||0,z||0)}function mv(N,k,x,y,z){const g=N[k];if(g){const h=g.userData.h;g.position.set(h[0]+(x||0),h[1]+(y||0),h[2]+(z||0))}}
 // one pose for everyone; kind and the character's own move tune it
 function pose(m,t){const N=m.N,c=m.c,k=c.kind,ad=k==="adult"||k==="lady",rat=k==="rat",st=c.stoop||0;
+if(k==="ghost"){const w=anim==="walk",b=.05*sin(t*2)+(w?.03:0);for(const r of["BooNew","BooNow"])mv(N,r,0,b,0);R3(N,"Body",w?.25:.04*sin(t*1.3),.15*sin(t*.6),.05*sin(t*1.7));R3(N,"NowHead",w?.2:0,.15*sin(t*.6),.05*sin(t*1.7));R3(N,"ArmR",0,0,.35*sin(t*(w?4:5))-.1);R3(N,"ArmL",.2*sin(t*2.4),0,.15*sin(t*2.4));R3(N,"Tail",w?.5:.1,.4*sin(t*(w?4:2)),0);R3(N,"NowTail",w?.4:.1,.4*sin(t*(w?4:2)),0);R3(N,"Curl",0,0,.15*sin(t*2.6));return}
 let by=0,body=[st,0,0],head=[-st*.8,0,0],aL=[0,0,-.08],aR=[0,0,.08],lL=0,lR=0,hem=[0,0,0],fl=1,tail=0,hy=0,lampUp=0,root=[0,0,0];
 const hold=c.hold||0;
 if(anim==="idle"){by=.006*sin(t*2.2);head=[head[0]+.03*sin(t*1.3)-.02,.14*sin(t*.5),.03*sin(t*.9)];aL=[.05*sin(t*1.1),0,-.08-.03*sin(t*2.2)];aR=[-.05*sin(t*1.1),0,.08+.03*sin(t*2.2)];hem=[0,0,.02*sin(t*1.6)];tail=.25*sin(t*1.2)}
@@ -67,6 +88,7 @@ else if(u<.72){const v=(u-.12)/.6;phi=6.6*PI*Math.pow(v,1.3);aR=[-.4-.12*sin(phi
 else if(u<.85){const v=(u-.72)/.13,e=ease(v/.75);phi=6.6*PI+1.4*PI*v;aR=[-.4-1.1*e,0,.85-.55*e];tw=-.2+.55*e}
 else{const e=ease((u-.85)/.15);phi=8*PI;aR=[-1.5*(1-e),0,.3*(1-e)+.08*e];tw=.35*(1-e)}
 aL=[.3*(u>.7&&u<.9?1:.3),0,-.2];body=[.06*(u>.72&&u<.9?1:0),tw,0];head=[0,-tw*.7,0];lL=u>.7&&u<.9?.25:0;lR=u>.7&&u<.9?-.2:0;m.phi=phi;m.su=u}
+if(c.hold&&(anim==="idle"||anim==="walk")){const hx=c.hold[0],hz=c.hold[1],w=anim==="walk"?.08*sin(t*6):0;aL=[hx+w+.02*sin(t*1.1),0,hz];aR=[hx-w-.02*sin(t*1.1),0,-hz]}
 mv(N,"Body",0,by,0);R3(N,"Body",...body);R3(N,"Head",...head);R3(N,"ArmL",...aL);R3(N,"ArmR",...aR);R3(N,"LegL",lL);R3(N,"LegR",lR);
 for(const h of["CoatHem","SkirtHem","DressHem","Hem"]){const g=N[h];if(g){g.rotation.set(-body[0]*.6+hem[0],hem[1],hem[2]);g.scale.set(fl,1-(fl-1)*.45,fl)}}
 R3(N,"Tail",0,tail*.6,0);R3(N,"Tail2",.1*sin(t*2),tail*.9,0);
