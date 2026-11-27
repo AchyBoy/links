@@ -7,8 +7,9 @@
 </main>
 <script type="module">
 import * as T from "./three.module.min.js";
-const V="d292e47f",L=[{k:"crab",n:"Crab",y:.6,d:3.4,w:"From your crab picture. Waves his claws, eyes on stalks."},
-{k:"bunny",n:"Bunny",y:.7,d:4.3,w:"From your bunny picture. One floppy ear, pink paws."}];
+const V="981ecd35",L=[{k:"crab",n:"Crab",y:.6,d:3.4,w:"From your crab picture. Waves his claws, eyes on stalks."},
+{k:"bunny2",n:"Standing bunny",y:.75,d:4.3,w:"From your new standing bunny picture. Walks on its back legs."},
+{k:"bunny",n:"Sitting bunny",y:.7,d:4.3,w:"From your bunny picture. One floppy ear, pink paws."}];
 const el=document.getElementById("v"),R=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=T.PCFSoftShadowMap;el.appendChild(R.domElement);
 const S=new T.Scene(),cam=new T.PerspectiveCamera(30,1,.1,80);
 const hemi=new T.HemisphereLight(0xb9a4ff,0x3a2458,1.5),key=new T.DirectionalLight(0xfff0e0,2.2),rim=new T.DirectionalLight(0xffa940,3.2),fill=new T.DirectionalLight(0x9a7bff,.9);
@@ -29,14 +30,14 @@ window.__cam=(y,p,z,yy)=>{spin=false;yaw=y;pitch=p;zoom=z;window.__yy=yy};window
 const sin=Math.sin;function rot(N,k,x,y,z){const g=N[k];if(g)g.rotation.set(x||0,y||0,z||0)}function mv(N,k,x,y,z){const g=N[k];if(g){const h=g.userData.h;g.position.set(h[0]+(x||0),h[1]+(y||0),h[2]+(z||0))}}
 const LR=[["R",1],["L",-1]],max=Math.max,abs=Math.abs,WT=[0,0,0,0],clk={};
 function dr(N,t){const ca=WT[0],wk=WT[1],hp=WT[3],w=t*8,hop=hp*abs(sin(t*5))*.25;
-const bn=!N.StalkR,hp_=(t*1.6)%1,air=hp_<.55?Math.sin(hp_/.55*Math.PI):0,ga=Math.floor(t*1.6)+Math.min(1,hp_/.55),ang=ga*.55;
-if(bn){mv(N,"Root",wk*Math.sin(ang)*.5,hop+wk*air*.3,wk*Math.cos(ang)*.5);const yw=Math.atan2(Math.sin(ang+Math.PI/2),Math.cos(ang+Math.PI/2));rot(N,"Root",0,wk*yw,0)}else{mv(N,"Root",wk*.25*sin(t*1.6),hop,0);rot(N,"Root",0,0,0)}
+const bn=!N.StalkR,hp_=(t*1.6)%1,air=hp_<.55?Math.sin(hp_/.55*Math.PI):0,ga=Math.floor(t*1.6)+Math.min(1,hp_/.55),ang=N.Toe2?t*.9:ga*.55;
+if(bn){mv(N,"Root",wk*Math.sin(ang)*.5,hop+wk*(N.Toe2?abs(sin(t*9))*.05:air*.3),wk*Math.cos(ang)*.5);const yw=Math.atan2(Math.sin(ang+Math.PI/2),Math.cos(ang+Math.PI/2));rot(N,"Root",0,wk*yw,0)}else{mv(N,"Root",wk*.25*sin(t*1.6),hop,0);rot(N,"Root",0,0,0)}
 const h6=bn?air:0;
-rot(N,"Body",bn?-wk*.15*h6:0,0,wk*.04*sin(w)+hp*.06*sin(t*5)+ca*.02*sin(t*1.5));
+rot(N,"Body",bn&&!N.Toe2?-wk*.15*h6:0,0,wk*.04*sin(w)+hp*.06*sin(t*5)+ca*.02*sin(t*1.5));
 for(const[k,s]of LR){rot(N,"Arm"+k,0,0,s*(ca*.12*sin(t*2+(s>0?0:1))+hp*(.5+.4*sin(t*10))+wk*.15*sin(w)));rot(N,"Claw"+k,0,0,s*(.18*max(0,sin(t*(3+hp*6)+s))));
 rot(N,"Stalk"+k,.06*sin(t*1.3+s),0,s*.08*sin(t*1.1)+hp*.1*sin(t*8));
 for(let i=0;i<3;i++)rot(N,"Leg"+k+i,0,0,s*wk*.35*sin(w+i*2.1+(s>0?0:1)));
-if(!N.StalkR){const h=h6;rot(N,"Leg"+k,-wk*.7*h,0,0);rot(N,"Arm"+k,-wk*.6*h,0,0)}rot(N,"Ear"+k,-.08*sin(t*1.7+s)-hp*.15*sin(t*10),0,s*(.05*sin(t*1.2)));
+if(N.Toe2){const st=sin(t*9+(s>0?0:3.14));rot(N,"Leg"+k,wk*.55*st,0,0);rot(N,"Arm"+k,-wk*.25*st,0,0)}else if(!N.StalkR){const h=h6;rot(N,"Leg"+k,-wk*.7*h,0,0);rot(N,"Arm"+k,-wk*.6*h,0,0)}rot(N,"Ear"+k,-.08*sin(t*1.7+s)-hp*.15*sin(t*10),0,s*(.05*sin(t*1.2)));
 const E=N["Eye"+k],bl=(t%3.7)<.13?.12:1;E&&E.scale.set(1,bl,1)}
 rot(N,"Head",.04*sin(t*1.6)-hp*.1,.18*sin(t*.8)*ca,hp*.12*sin(t*5));rot(N,"Tail",0,.3*sin(t*4),0);
 const m=N.Mouth;m&&m.scale.set(1,.8+.15*sin(t*1.4)+hp*.3,1)}
