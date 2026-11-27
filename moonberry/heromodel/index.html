@@ -17,7 +17,7 @@
 <h3>The outfit icons it follows</h3><div class="p"><div><img src="outfits.jpg?v=1"></div></div></main>
 <script type="module">
 import * as T from "./three.module.min.js";
-const V="8dfd979c",L=[{k:"classic",n:"Classic"},{k:"braids",n:"Braids"},{k:"messy",n:"Messy"},{k:"curls",n:"Curls"},{k:"neat",n:"Neat"},{k:"bob",n:"Bob"}];
+const V="a82db0e4",L=[{k:"classic",n:"Classic"},{k:"braids",n:"Braids"},{k:"messy",n:"Messy"},{k:"curls",n:"Curls"},{k:"neat",n:"Neat"},{k:"bob",n:"Bob"}];
 const SK=[["Light",0xf6d3b8],["Light-medium",0xe8b48c],["Medium",0xd39a6c],["Tan-brown",0xa66a42],["Brown",0x7e4b2d],["Deep brown",0x5c3420]],HC=[["Black",0x221a26,0x3a3044],["Dark brown",0x3e2418,0x5a3826],["Brown",0x6e4426,0x8c5a34],["Ginger",0xc0602c,0xe08442],["Honey blonde",0xe2b05c,0xc8913f],["Moon purple",0x6a3fa8,0x8f66d0]],EY=[["Ruby",0x6a2a3c,0x2a1420,0xb2525a],["Amber",0x8a5418,0x3a2008,0xe0a040],["Violet",0x5a3a8a,0x22163a,0x9a78d8],["Blue-grey",0x4a5a72,0x1e2634,0x8aa0bc]],TC=[["Dusk navy",0x3a3560],["Moss green",0x3f6b48],["Berry red",0x8e2f3a],["Mustard",0xc8943a],["Teal",0x2f6f78],["Cream",0xe6dcc6]],TG=[["Dark purple",0x3e3256],["Black",0x26222c],["Navy",0x2c3560],["Plum",0x6a2f5e],["Cream",0xe8dcc8],["Red and white stripes",0xc23a3a,0xf1e8e0]],PG=["sk","hc","ey","tc","tg"];
 let F={sk:2,hc:0,ey:0,tc:0,tg:0};const mixc=(a,b,t)=>new T.Color(a).lerp(new T.Color(b),t),shd=(a,f)=>new T.Color(a).multiplyScalar(f);
 function roles(){const k=SK[F.sk][1],h=HC[F.hc],e=EY[F.ey];return{0xfe0101:new T.Color(k),0xfe0102:shd(k,.84),0xfe0103:mixc(k,0xff6f86,.32),0xfe0104:shd(k,.9),0xfe0105:shd(k,.8),0xfe0201:new T.Color(h[1]),0xfe0202:new T.Color(h[2]),0xfe0203:shd(h[1],.55),0xfe0301:new T.Color(e[1]),0xfe0302:new T.Color(e[2]),0xfe0303:new T.Color(e[3]),...tops()}}
