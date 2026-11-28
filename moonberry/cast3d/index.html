@@ -3,7 +3,7 @@
 <main><h2>Cast 3D models</h2><p style="margin:4px 0 10px">Custom models for the rest of the cast, in the same style as the new hero and Mittens. Pick a character, drag to spin, pinch or scroll to zoom. Tap the painting in the corner to make it bigger. Each one has its own Use this / Close / No and notes.</p>
 <div class="r" id="tabs"></div>
 <div id="vw"><div id="v"></div><img id="pi" alt="The painting"><div id="ld"></div></div>
-<p id="about"></p><img id="cmp" src="kit-now-vs-richer.jpg?v=2" alt="Kit faces, now and richer" style="display:none;width:100%;border-radius:12px;margin:0 0 8px">
+<p id="about"></p><img id="cmp" src="kit-now-vs-richer.jpg?v=3" alt="Kit faces, now and richer" style="display:none;width:100%;border-radius:12px;margin:0 0 8px">
 <div class="r" id="looks"></div>
 <div class="r" id="an"></div>
 <div class="r"><button data-c="game">Game camera</button><button data-c="front">Front</button><button data-c="back">Back</button><button data-c="face">Face</button></div>
@@ -12,11 +12,11 @@
 <p><small>One material, colours painted on the model, like the new Mittens and the bosses. Body parts move on their own pivots, so the game can play idle, walk and each special move.</small></p></main>
 <script type="module">
 import * as T from "./three.module.min.js";
-const V="3";
+const V="4";
 function TF(n,sc,sk,hr,top,bot,acc,sh,show){const c=x=>new T.Color(x).multiplyScalar(.84).getHex();return{n,scale:sc,show,col:{0xfe0201:sk,0xfe0202:c(sk),0xfe0203:hr,0xfe0204:top,0xfe0205:bot,0xfe0206:acc,0xfe0207:sh}}}
 const KR={id:"kitrich",n:"Kit (richer)",f:"kitrich",h:1.45,fy:1.0,kind:"kid",shade:1};
 const CH=[
-{id:"kitpair",n:"Kit: now vs richer",f:"kit",img:"kit",pair:1,h:1.45,fy:1.0,kind:"kid",about:"Colour test on one character before the rest. Left is Kit now. Right is the same model with richer colours: deeper, more saturated coat, scarf, hat and gold, livelier skin with soft face shading (lighter forehead and cheek tops, darker under the brim and at the jaw), a soft rosy blush and rosy ears, smoothed facet edges on the skin, and soft shading baked into the clothes (lighter on top, darker underneath). Shapes are identical. Pick Use this if you want the richer look rolled out to everyone."},
+{id:"kitpair",n:"Kit: now vs richer",f:"kit",img:"kit",pair:1,h:1.45,fy:1.0,kind:"kid",about:"Colour test on one character before the rest. Left is Kit now. Right is the same model with richer colours: deeper, more saturated coat, scarf, hat and gold, skin matched to the painting (light, mid and shadow tones sampled from it, soft shading from a lit centre of the face to warm shadow under the brim and at the jaw, smoothed facet edges), and soft shading baked into the clothes (lighter on top, darker underneath). Shapes are identical. Pick Use this if you want the richer look rolled out to everyone."},
 {id:"kit",n:"Kit",f:"kit",h:1.45,fy:1.0,kind:"kid",mv:[["sling","Sling throw"]],about:"Your best friend. Wide hat with goggles, green scarf, crossbow and quiver on the back, a trap pouch on the belt, and the new sling in his right hand for Chapter 5."},
 {id:"crumb",n:"Crumb",f:"crumb",h:.95,fy:.7,kind:"rat",mv:[["raise","Raise the lamp"]],about:"Rat folk kid. Mustard scarf with a patch, the checked tea-towel vest, wooden spoon and tin cup on the belt, and the jar lamp held up to light the way."},
 {id:"elias",n:"Elias",f:"elias",h:1.62,fy:1.33,kind:"adult",stoop:.07,mv:[["raise","Lift the lantern"]],about:"Elias Vane. Gentle and tired: wild grey hair, white beard, octagon glasses, long dark coat with the collar turned up, and the silver lantern."},
