@@ -3,7 +3,7 @@
 <main><h2>Cast 3D models</h2><p style="margin:4px 0 10px">Custom models for the rest of the cast, in the same style as the new hero and Mittens. Pick a character, drag to spin, pinch or scroll to zoom. Tap the painting in the corner to make it bigger. Each one has its own Use this / Close / No and notes.</p>
 <div class="r" id="tabs"></div>
 <div id="vw"><div id="v"></div><img id="pi" alt="The painting"><div id="ld"></div></div>
-<p id="about"></p>
+<p id="about"></p><img id="cmp" src="kit-now-vs-richer.jpg?v=1" alt="Kit faces, now and richer" style="display:none;width:100%;border-radius:12px;margin:0 0 8px">
 <div class="r" id="looks"></div>
 <div class="r" id="an"></div>
 <div class="r"><button data-c="game">Game camera</button><button data-c="front">Front</button><button data-c="back">Back</button><button data-c="face">Face</button></div>
@@ -12,9 +12,11 @@
 <p><small>One material, colours painted on the model, like the new Mittens and the bosses. Body parts move on their own pivots, so the game can play idle, walk and each special move.</small></p></main>
 <script type="module">
 import * as T from "./three.module.min.js";
-const V="1";
+const V="2";
 function TF(n,sc,sk,hr,top,bot,acc,sh,show){const c=x=>new T.Color(x).multiplyScalar(.84).getHex();return{n,scale:sc,show,col:{0xfe0201:sk,0xfe0202:c(sk),0xfe0203:hr,0xfe0204:top,0xfe0205:bot,0xfe0206:acc,0xfe0207:sh}}}
+const KR={id:"kitrich",n:"Kit (richer)",f:"kitrich",h:1.45,fy:1.0,kind:"kid",shade:1};
 const CH=[
+{id:"kitpair",n:"Kit: now vs richer",f:"kit",img:"kit",pair:1,h:1.45,fy:1.0,kind:"kid",about:"Colour test on one character before the rest. Left is Kit now. Right is the same model with richer colours: deeper, more saturated coat, scarf, hat and gold, warmer skin, and soft shading baked in (lighter on top, darker underneath). Shapes are identical. Pick Use this if you want the richer look rolled out to everyone."},
 {id:"kit",n:"Kit",f:"kit",h:1.45,fy:1.0,kind:"kid",mv:[["sling","Sling throw"]],about:"Your best friend. Wide hat with goggles, green scarf, crossbow and quiver on the back, a trap pouch on the belt, and the new sling in his right hand for Chapter 5."},
 {id:"crumb",n:"Crumb",f:"crumb",h:.95,fy:.7,kind:"rat",mv:[["raise","Raise the lamp"]],about:"Rat folk kid. Mustard scarf with a patch, the checked tea-towel vest, wooden spoon and tin cup on the belt, and the jar lamp held up to light the way."},
 {id:"elias",n:"Elias",f:"elias",h:1.62,fy:1.33,kind:"adult",stoop:.07,mv:[["raise","Lift the lantern"]],about:"Elias Vane. Gentle and tired: wild grey hair, white beard, octagon glasses, long dark coat with the collar turned up, and the silver lantern."},
@@ -46,14 +48,14 @@ key.position.set(1.6,3.2,3);key.castShadow=true;key.shadow.mapSize.set(1024,1024
 const lamp=new T.PointLight(0xffb45a,0,3,1.6);lamp.position.set(.7,1,.9);S.add(lamp);
 const fl=new T.Mesh(new T.CircleGeometry(2.6,64),new T.MeshStandardMaterial({color:0x5a3290,roughness:1}));fl.rotation.x=-Math.PI/2;fl.receiveShadow=true;S.add(fl);
 let night=false;function light(k){const d=k==="day";night=!d;S.background=new T.Color(d?0x3a1a6e:0x0f0c22);hemi.intensity=d?1.5:.9;key.intensity=d?2.3:1.1;key.color.set(d?0xfff0e0:0x8fa4ff);rim.intensity=d?3.2:2.4;rim.color.set(d?0xffa940:0x7f9bff);fill.intensity=d?.9:.5;fl.material.color.set(d?0x5a3290:0x2a2148);lamp.intensity=d?0:2.2;document.querySelectorAll("[data-l]").forEach(x=>x.classList.toggle("on",x.dataset.l===k))}light("day");
-const MD={};let cur=CH[0],M=null,anim="idle",look=0;
+const MD={};let cur=CH[0],M=null,M2=null,anim="idle",look=0;
 const rock=new T.Mesh(new T.DodecahedronGeometry(.032,0),new T.MeshStandardMaterial({color:0x9a96a0,roughness:.8,flatShading:true}));rock.castShadow=true;rock.visible=false;S.add(rock);
 // soft shading baked per vertex: lighter on top, darker underneath; wings darker at the body, lighter at the tips
 function shadeV(b,nm){const P=b.attributes.position.array,n=P.length/3,C=new Float32Array(n*3),wing=nm.startsWith("Wing");let lo=1e9,hi=-1e9;for(let i=0;i<n;i++){const v=wing?Math.abs(P[i*3]):P[i*3+1];lo=Math.min(lo,v);hi=Math.max(hi,v)}const r=Math.max(hi-lo,1e-4);for(let i=0;i<n;i++){const u=wing?Math.min(1,Math.abs(P[i*3])/.55):((P[i*3+1]-lo)/r),f=wing?.62+.5*u:.74+.36*u;C[i*3]=f;C[i*3+1]=f*(wing?.97:.98);C[i*3+2]=f*(wing?.95:.96)}b.setAttribute("color",new T.BufferAttribute(C,3))}
-async function load(c){if(MD[c.f])return MD[c.f];const data=await(await fetch(c.f+".json?v="+V)).json(),N={},root=new T.Group();for(const n of data){const g=new T.Group();g.position.set(...n.pos);N[n.name]=g;g.userData.p=n.parent;g.userData.h=n.pos;for(const q of n.meshes){const b=new T.BufferGeometry();b.setAttribute("position",new T.Float32BufferAttribute(q.v,3));b.computeVertexNormals();if(c.shade)shadeV(b,n.name);const x=new T.Mesh(b,new T.MeshStandardMaterial({color:q.c,roughness:.72,flatShading:true,emissive:q.c,emissiveIntensity:q.e||0,vertexColors:!!c.shade}));x.userData.c=q.c;x.userData.e=q.e||0;x.castShadow=!(q.e>.5);x.receiveShadow=true;g.add(x)}}
+async function load(c){if(MD[c.id])return MD[c.id];const data=await(await fetch(c.f+".json?v="+V)).json(),N={},root=new T.Group();for(const n of data){const g=new T.Group();g.position.set(...n.pos);N[n.name]=g;g.userData.p=n.parent;g.userData.h=n.pos;for(const q of n.meshes){const b=new T.BufferGeometry();b.setAttribute("position",new T.Float32BufferAttribute(q.v,3));b.computeVertexNormals();if(c.shade)shadeV(b,n.name);const x=new T.Mesh(b,new T.MeshStandardMaterial({color:q.c,roughness:.72,flatShading:true,emissive:q.c,emissiveIntensity:q.e||0,vertexColors:!!c.shade}));x.userData.c=q.c;x.userData.e=q.e||0;x.castShadow=!(q.e>.5);x.receiveShadow=true;g.add(x)}}
 for(const k in N){const p=N[k].userData.p;(p?N[p]:root).add(N[k])}
 const lights=[];for(const k of["Lamp"])if(N[k]){const l=new T.PointLight(k==="Lamp"&&c.id==="elias"?0xcfe0ff:0xffc070,0,2.6,1.5);l.position.set(0,-.16,0);N[k].add(l);lights.push(l)}
-root.visible=false;S.add(root);return MD[c.f]={root,N,lights,c}}
+root.visible=false;S.add(root);return MD[c.id]={root,N,lights,c}}
 // ghost / memory look: gold, see-through, glowing
 const DM=new T.MeshBasicMaterial({colorWrite:false});function ghost(m,on){const ms=[];m.root.traverse(x=>{if(x.isMesh&&!x.userData.dm)ms.push(x)});for(const x of ms){if(!x.userData.m0)x.userData.m0=x.material;if(on){const c=new T.Color(x.userData.c),l=(c.r*.3+c.g*.59+c.b*.11);if(!x.userData.gm)x.userData.gm=new T.MeshStandardMaterial({color:new T.Color(1,.74,.3).multiplyScalar(.12+.6*l),emissive:new T.Color(1,.6,.16),emissiveIntensity:.25+.6*l,roughness:.5,flatShading:true,transparent:true,opacity:.7,depthWrite:false});if(!x.userData.dmesh){const d=new T.Mesh(x.geometry,DM);d.userData.dm=true;d.renderOrder=-1;x.add(d);x.userData.dmesh=d}x.userData.dmesh.visible=true;x.material=x.userData.gm;x.renderOrder=1;x.castShadow=false}else{x.material=x.userData.m0;x.renderOrder=0;if(x.userData.dmesh)x.userData.dmesh.visible=false;x.castShadow=!(x.userData.e>.5)}}}
 function applyLook(){if(!M)return;const L=(cur.looks||[])[look];document.querySelectorAll("#looks button").forEach((b,i)=>b.classList.toggle("on",i===look));
@@ -65,15 +67,15 @@ async function show(c){cur=c;anim="idle";look=0;document.querySelectorAll("#tabs
 const pi=document.getElementById("pi");pi.src="p/"+(c.img||c.id)+".jpg?v="+V;document.getElementById("about").textContent=c.about;document.getElementById("q").textContent="What do you think of "+c.n+"?";
 const lk=document.getElementById("looks");lk.innerHTML="";(c.looks||[]).forEach((L,i)=>{const b=document.createElement("button");b.dataset.look=i;b.textContent=L.n;lk.appendChild(b)});lk.style.display=c.looks?"":"none";
 const an=document.getElementById("an");an.innerHTML="";for(const[k,n]of[["idle","Idle"],["walk","Walk"],...(c.mv||[])]){const b=document.createElement("button");b.dataset.a=k;b.textContent=n;an.appendChild(b)}setAnim("idle");paint();
-document.getElementById("ld").textContent=MD[c.f]?"":"Loading...";const x=await load(c);if(cur!==c)return;document.getElementById("ld").textContent="";for(const k in MD)MD[k].root.visible=false;x.root.visible=true;M=x;applyLook();camTo(camK)}
+document.getElementById("ld").textContent=MD[c.id]?"":"Loading...";const x=await load(c);if(cur!==c)return;document.getElementById("ld").textContent="";for(const k in MD)MD[k].root.visible=false;x.root.visible=true;x.root.position.x=0;M=x;M2=null;if(c.pair){const y=await load(KR);if(cur!==c)return;M2=y;y.root.visible=true;x.root.position.x=-.42;y.root.position.x=.42;y.root.updateMatrixWorld(true)}document.getElementById("cmp").style.display=c.pair?"":"none";key.position.x=c.pair?0:1.6;lamp.position.x=c.pair?0:.7;applyLook();camTo(camK)}
 function size(){const w=el.clientWidth,h=el.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}size();addEventListener("resize",size);
 let yaw=.5,pitch=.12,zoom=1,spin=true,ty=.68,camK="three";const P=new Map();let pd=0;el.addEventListener("pointerdown",e=>{spin=false;try{el.setPointerCapture(e.pointerId)}catch(_){}P.set(e.pointerId,[e.clientX,e.clientY])});
 const zc=z=>Math.max(.3,Math.min(1.8,z));
 el.addEventListener("pointermove",e=>{const o=P.get(e.pointerId);if(!o)return;if(P.size===1){yaw-=(e.clientX-o[0])*.009;pitch=Math.max(-.1,Math.min(1.3,pitch+(e.clientY-o[1])*.006))}P.set(e.pointerId,[e.clientX,e.clientY]);if(P.size===2){const a=[...P.values()],d=Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1]);if(pd)zoom=zc(zoom*pd/d);pd=d}});
 const up=e=>{P.delete(e.pointerId);pd=0};el.addEventListener("pointerup",up);el.addEventListener("pointercancel",up);el.addEventListener("wheel",e=>{e.preventDefault();zoom=zc(zoom*(1+e.deltaY*.001))},{passive:false});
-function camTo(k){camK=k;const h=cur.h||1.3,s=Math.max(.75,h/1.3),C={game:[2.55,.88,1.15*s,.46*h],front:[0,.08,s,.5*h],back:[Math.PI,.1,s,.5*h],face:[.25,.05,.42*Math.max(.8,s*.8),cur.fy||.75*h],three:[.5,.12,s,.52*h]}[k];spin=k==="three";[yaw,pitch,zoom,ty]=C;document.querySelectorAll("[data-c]").forEach(b=>b.classList.toggle("on",b.dataset.c===k))}
+function camTo(k){camK=k;const h=cur.h||1.3,s=Math.max(.75,h/1.3)*(cur.pair?1.25:1),C={game:[2.55,.88,1.15*s,.46*h],front:[0,.08,s,.5*h],back:[Math.PI,.1,s,.5*h],face:[.25,.05,.42*Math.max(.8,s*.8),cur.fy||.75*h],three:[.5,.12,s,.52*h]}[k];spin=k==="three";[yaw,pitch,zoom,ty]=C;document.querySelectorAll("[data-c]").forEach(b=>b.classList.toggle("on",b.dataset.c===k))}
 window.__cam=(y,p,z,t)=>{spin=false;yaw=y;pitch=p;zoom=z;ty=t};window.__camK=k=>camTo(k);
-window.__set=async o=>{if(o.id&&o.id!==cur.id)await show(CH.find(c=>c.id===o.id));if(o.look!=null){look=o.look;applyLook()}if(o.anim)setAnim(o.anim);if(o.light)light(o.light);if(o.t!=null)window.__t=o.t};
+window.__set=async o=>{if(o.id&&o.id!==cur.id)await show(CH.find(c=>c.id===o.id)||KR);if(o.look!=null){look=o.look;applyLook()}if(o.anim)setAnim(o.anim);if(o.light)light(o.light);if(o.t!=null)window.__t=o.t};
 function setAnim(a){anim=a;document.querySelectorAll("[data-a]").forEach(b=>b.classList.toggle("on",b.dataset.a===a))}
 const XA=new T.Vector3(1,0,0),sin=Math.sin,cos=Math.cos,PI=Math.PI,ease=x=>x<0?0:x>1?1:x*x*(3-2*x),cl=x=>x<0?0:x>1?1:x;
 function R3(N,k,x,y,z){const g=N[k];if(g)g.rotation.set(x||0,y||0,z||0)}function mv(N,k,x,y,z){const g=N[k];if(g){const h=g.userData.h;g.position.set(h[0]+(x||0),h[1]+(y||0),h[2]+(z||0))}}
@@ -104,7 +106,7 @@ for(const kk of["Lamp","Sling"]){const g=N[kk];if(!g)continue;m.root.updateMatri
 for(const l of m.lights)l.intensity=(night?1.4:.25)+(night?1.6:.5)*lampUp;
 // the flying sling stone: let go at the top of the whirl, mid-throw
 if(anim==="sling"&&N.SlingStone){if(!m.inRel){const u=m.su,rel=.771,fly=u>=rel&&u<.98;if(fly){const t0=t-(u-rel)*2.6;m.inRel=1;pose(m,t0);m.root.updateMatrixWorld(true);const p0=N.SlingStone.getWorldPosition(new T.Vector3());pose(m,t);m.inRel=0;const d=(u-rel)*2.6;rock.position.set(p0.x-.15*d,p0.y+1.6*d-4.9*d*d,p0.z+5*d);rock.rotation.set(d*9,d*7,0)}N.SlingStone.visible=!fly;rock.visible=fly}}else{rock.visible=false;if(N.SlingStone)N.SlingStone.visible=true}}
-R.setAnimationLoop(()=>{const t=window.__t??performance.now()/1000;if(spin)yaw=.4+sin(t*.4)*.55;if(M&&M.root.visible)pose(M,t);const a=cam.aspect,h=cur.h||1.3,d=3.5*zoom*Math.max(1,(.8/a));cam.position.set(sin(yaw)*cos(pitch)*d,ty+sin(pitch)*d,cos(yaw)*cos(pitch)*d);cam.lookAt(0,ty,0);R.render(S,cam);if(M)window.__on=M.c.id});
+R.setAnimationLoop(()=>{const t=window.__t??performance.now()/1000;if(M2&&M2.root.visible)pose(M2,t);if(spin)yaw=.4+sin(t*.4)*.55;if(M&&M.root.visible)pose(M,t);const a=cam.aspect,h=cur.h||1.3,d=3.5*zoom*Math.max(1,(.8/a));cam.position.set(sin(yaw)*cos(pitch)*d,ty+sin(pitch)*d,cos(yaw)*cos(pitch)*d);cam.lookAt(0,ty,0);R.render(S,cam);if(M)window.__on=M.c.id});
 // picks, saved under each character's id
 const pk=(location.hash.match(/k=([a-z0-9-]+)/)||[])[1]||"",url="https://api.jobhubgo.com/api/yam/"+pk,n2=document.getElementById("n2"),st=document.getElementById("s2");let d={},q=0,tm,ok=!pk;
 function paint(){const y=d[cur.id]||{};document.querySelectorAll("[data-p]").forEach(b=>b.classList.toggle("on",b.dataset.p===y.pick));if(document.activeElement!==n2)n2.value=y.notes||"";st.textContent="";document.querySelectorAll("#tabs button").forEach(b=>{const p=(d[b.dataset.t]||{}).pick;b.querySelector("i").textContent=p==="yes"?"✓ use":p==="close"?"close":p==="no"?"no":""})}
