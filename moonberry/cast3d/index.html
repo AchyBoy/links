@@ -10,11 +10,11 @@
 <div class="r"><button data-c="game">Game camera</button><button data-c="front">Front</button><button data-c="back">Back</button><button data-c="face">Face</button></div>
 <div class="r"><button data-l="day" class="on">Evening</button><button data-l="night">Night</button></div>
 <h3 id="q">What do you think?</h3><div class="r"><button data-p="yes">Use this</button><button data-p="close">Close</button><button data-p="no">No</button></div><textarea id="n2" placeholder="What should change? (optional)"></textarea><div class="s" id="s2"></div>
-<p>All faces on one sheet: <a href="faces-all.jpg?v=7" style="color:#d9c4ff">painting, now and richer for everyone</a>.</p>
+<p>All faces on one sheet: <a href="faces-all.jpg?v=8" style="color:#d9c4ff">painting, now and richer for everyone</a>.</p>
 <p><small>One material, colours painted on the model, like the new Mittens and the bosses. Body parts move on their own pivots, so the game can play idle, walk and each special move.</small></p></main>
 <script type="module">
 import * as T from "./three.module.min.js";
-const V="7";
+const V="8";
 function TF(n,sc,sk,hr,top,bot,acc,sh,show){const c=x=>new T.Color(x).multiplyScalar(.84).getHex();return{n,scale:sc,show,col:{0xfe0201:sk,0xfe0202:c(sk),0xfe0203:hr,0xfe0204:top,0xfe0205:bot,0xfe0206:acc,0xfe0207:sh}}}
 // the hero (copies of the hero page's model): skin presets from the hero page, default hair, eyes, top and tights
 const HSK=[["Light",0xf6d3b8],["Light-medium",0xe8b48c],["Medium",0xd39a6c],["Tan-brown",0xa66a42],["Brown",0x7e4b2d],["Deep brown",0x5c3420]];
@@ -55,8 +55,8 @@ function rich(x){if(x===0xffffff||x===0x22161e)return x;const c=new T.Color(x),h
 function hsv(h,s,v){const i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s),[r,g,b]=[[v,t,p],[q,v,p],[p,v,t],[p,q,v],[t,p,v],[v,p,q]][((i%6)+6)%6];return(Math.round(r*255)<<16)|(Math.round(g*255)<<8)|Math.round(b*255)}
 function skinR(x){let r=(x>>16&255)/255,g=(x>>8&255)/255,b=(x&255)/255,v=Math.max(r,g,b),mn=Math.min(r,g,b),s=v?(v-mn)/v:0,h=v===mn?0:v===r?((g-b)/(v-mn)+6)%6:v===g?(b-r)/(v-mn)+2:(r-g)/(v-mn)+4;h=h*60;return hsv(((h/360)%1+1)%1,s*.95,Math.min(1,v*1.12+.02))}
 function richCol(col){const o={};for(const k in col)o[k]=+k===0xfe0201?skinR(col[k]):+k===0xfe0202?new T.Color(skinR(col[0xfe0201])).multiplyScalar(.84).getHex():rich(col[k]);return o}
-// hero skin: a step brighter in its own tone, but the step shrinks near white so the Light preset is not washed out
-function heroSkin(x){let r=(x>>16&255)/255,g=(x>>8&255)/255,b=(x&255)/255,v=Math.max(r,g,b),mn=Math.min(r,g,b),s=v?(v-mn)/v:0,h=v===mn?0:v===r?((g-b)/(v-mn)+6)%6:v===g?(b-r)/(v-mn)+2:(r-g)/(v-mn)+4;return hsv(h/6,s*.97,v+Math.min(.12*v+.02,(1-v)*.6))}
+// hero skin: each preset's own tone family, warmed toward the painting's coral-tan (hue 14), a little more colour, a modest brightness step
+function heroSkin(x){let r=(x>>16&255)/255,g=(x>>8&255)/255,b=(x&255)/255,v=Math.max(r,g,b),mn=Math.min(r,g,b),s=v?(v-mn)/v:0,h=v===mn?0:v===r?((g-b)/(v-mn)+6)%6:v===g?(b-r)/(v-mn)+2:(r-g)/(v-mn)+4;h*=60;h-=Math.max(0,Math.min(8,.55*(h-14)));return hsv(h/360,Math.min(1,s*1.1),v+Math.min(.07*v+.01,(1-v)*.4))}
 function richHero(col){const k=heroSkin(col[0xfe0101]),sh=(a,f)=>new T.Color(a).multiplyScalar(f).getHex(),mx=(a,b,t)=>new T.Color(a).lerp(new T.Color(b),t).getHex(),o={};for(const x in col)o[x]=rich(col[x]);Object.assign(o,{0xfe0101:k,0xfe0102:sh(k,.84),0xfe0103:mx(k,0xff6f86,.32),0xfe0104:sh(k,.86),0xfe0105:sh(k,.8),0xfe0203:sh(o[0xfe0201],.55),0xfe0402:sh(o[0xfe0401],.72),0xfe0303:col[0xfe0303],0xfe0404:col[0xfe0404]});return o}
 for(const c of CH){const r={...c,id:c.id+"rich",f:c.rf||c.f+"rich",shade:1,softSkin:1};if(c.roles)r.roles=richCol(c.roles);if(c.looks)r.looks=c.looks.map(L=>L.col?{...L,col:L.hero?richHero(L.col):richCol(L.col)}:L);c.R=r}
 const el=document.getElementById("v"),R=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=T.PCFSoftShadowMap;el.appendChild(R.domElement);
