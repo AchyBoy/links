@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leo the gecko: care plan + tracker</title>
+<style>
+body{font:17px/1.45 -apple-system,system-ui,sans-serif;margin:0;padding:18px;max-width:720px;color:#222;background:#fffaf2}
+h1{font-size:24px;margin:0 0 4px}h2{font-size:19px;margin:22px 0 6px;color:#a0521a}
+.sub{color:#777;font-size:14px}ul{padding-left:20px;margin:6px 0}li{margin:3px 0}
+.box{background:#fff;border:1px solid #eadfcf;border-radius:10px;padding:10px 14px;margin:10px 0}
+.red{border-color:#e7a3a3;background:#fff4f4}
+table{width:100%;border-collapse:collapse;font-size:15px}th,td{border:1px solid #e3d8c8;padding:6px;text-align:left;vertical-align:top}
+th{background:#f6ecdd}input,textarea{width:100%;box-sizing:border-box;font:inherit;padding:6px;border:1px solid #ccc;border-radius:6px}
+button{font:inherit;padding:8px 14px;border:0;border-radius:8px;background:#a0521a;color:#fff;margin-top:6px}
+.del{background:#bbb;padding:2px 8px;margin:0}
+</style></head><body>
+<h1>🦎 Leo, care plan + tracker</h1>
+<div class="sub">Started 27 Nov 2026. Leopard gecko, young.</div>
+
+<div class="box red"><b>Where it started (27 Nov):</b> barely eating about a month (some random bites, last ~2 weeks), tail getting skinnier, gums bled once, legs maybe a little wobbly. Mouth looked healthy pink in the photo, no white gunk, jaw not soft.<br>
+<b>Main cause found:</b> tank is too COLD. Floor right under the 75W lamp read <b>74.8°F</b> (needs 88 to 92). Air midway up read 81. Cool side 73.9.</div>
+
+<h2>Shopping list</h2>
+<ul>
+<li>☐ Heat mat about 11" x 17" (iPower / Fluker's / Zoo Med), ~$20 to 30</li>
+<li>☐ Thermostat, Inkbird ITC-306A or similar, ~$35 (never run the mat without it)</li>
+<li>☐ Slate tile about 12x12, flat and smooth (Home Depot / Lowe's / pet store)</li>
+<li>☐ Two outlet timers (or one double), heat lamp + UVB</li>
+<li>☐ Maybe: spare 75W basking bulb</li>
+<li>☐ Maybe: fresh Repashy Calcium Plus if the jar is over ~6 months open</li>
+<li>☐ Maybe later: plexiglass or plastic cutting board to cover part of the mesh top</li>
+</ul>
+
+<h2>Tonight (until the mat is in)</h2>
+<ul>
+<li>Make sure the 75W bulb is in the heat lamp</li>
+<li>Slate on top of the grass mat, right under the lamp</li>
+<li>Heat lamp stays ON overnight for now (it is his only heat)</li>
+<li>UVB OFF at night</li>
+<li>Keep his room as warm as you can</li>
+</ul>
+
+<h2>Setup day</h2>
+<ol>
+<li>Stick the heat mat under the glass on the lamp side, about a third of the floor</li>
+<li>Cut the grass mat out over that spot, lay the slate right on the glass</li>
+<li>Put a hide on or next to the slate</li>
+<li>Mat into thermostat, probe flat on the slate, set 90°F</li>
+<li>Heat lamp + UVB on timers, about 8am on, 8pm off</li>
+<li>Mat stays on 24/7, the thermostat controls it</li>
+<li>If still low: cover part of the mesh top, away from the lamps, leave some open for air. Never cover over or around the lamps.</li>
+</ol>
+
+<h2>Target temps (probe flat on the floor)</h2>
+<ul>
+<li>Warm spot, day: <b>88 to 92°F</b></li>
+<li>Cool side: 72 to 78°F</li>
+<li>Night: warm spot stays warm from the mat, air can drop to ~70</li>
+</ul>
+
+<h2>Calcium + vitamins</h2>
+<ul>
+<li>Dish: plain <b>Repti Calcium (no D3)</b> only, always out. Stop mixing Repashy into it.</li>
+<li>Most feedings: dust bugs with Repti Calcium</li>
+<li>Once a week: dust with <b>Repashy Calcium Plus</b> instead</li>
+<li>Reptivite: not needed (same job as Repashy, use one)</li>
+<li>UVB on in the day helps him make his own D3</li>
+</ul>
+
+<h2>Feeding</h2>
+<ul>
+<li>Give him one day at proper heat first</li>
+<li>Then 2 or 3 small dusted bugs every other day</li>
+<li>Waxworm treat to tempt him, 1 or 2 only</li>
+<li>Take out uneaten bugs by morning</li>
+</ul>
+
+<div class="box red"><b>Take him to a reptile vet if:</b>
+<ul><li>still not eating after a week at proper heat</li>
+<li>tail keeps getting thinner, or weaker / more wobbly</li>
+<li>gums bleed again, or white cheesy stuff in the mouth</li></ul></div>
+
+<h2>Daily log</h2>
+<div class="sub">Saved on this phone only.</div>
+<div class="box">
+<input id="d" type="date">
+<input id="t" placeholder="Warm floor temp °F" inputmode="decimal" style="margin-top:6px">
+<input id="a" placeholder="Ate? (how many bugs)" style="margin-top:6px">
+<textarea id="n" rows="2" placeholder="Notes (poop, shed, energy, tail, gums...)" style="margin-top:6px"></textarea>
+<button onclick="add()">Add entry</button>
+</div>
+<table><thead><tr><th>Date</th><th>Temp</th><th>Ate</th><th>Notes</th><th></th></tr></thead><tbody id="log"></tbody></table>
+
+<script>
+var K='leo-log-v1';
+function get(){try{return JSON.parse(localStorage.getItem(K))||[]}catch(e){return []}}
+function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function draw(){var r=get(),h='';r.forEach(function(e,i){h='<tr><td>'+esc(e.d)+'</td><td>'+esc(e.t)+'</td><td>'+esc(e.a)+'</td><td>'+esc(e.n)+'</td><td><button class="del" onclick="del('+i+')">x</button></td></tr>'+h});document.getElementById('log').innerHTML=h||'<tr><td colspan="5" class="sub">No entries yet</td></tr>'}
+function add(){var r=get();r.push({d:document.getElementById('d').value,t:document.getElementById('t').value,a:document.getElementById('a').value,n:document.getElementById('n').value});localStorage.setItem(K,JSON.stringify(r));['t','a','n'].forEach(function(i){document.getElementById(i).value=''});draw()}
+function del(i){var r=get();r.splice(i,1);localStorage.setItem(K,JSON.stringify(r));draw()}
+document.getElementById('d').valueAsDate=new Date();draw();
+</script>
+</body></html>
